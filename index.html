@@ -77,20 +77,20 @@
     .badge{ display:inline-flex; align-items:center; gap:8px; padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(203,213,225,.95); background: #f8fafc; font-weight: 1000; font-size: 12px; color: var(--text); }
     .badgeGold{ background:#fff7ed; border-color:#fed7aa; color:#9a3412; }
     .badgeHigh{ background:#f0f9ff; border-color:#bae6fd; color:#075985; }
-    .badgeMed{ background:#f5f3ff; border-color:#ddd6fe; color:#5b21b6; }
     .badgeLow{ background:#f8fafc; border-color:#e2e8f0; color:#334155; }
     .progressText{ font-size: 12px; color: var(--muted); font-weight: 1000; }
     .bar{ height: 10px; background: rgba(226,232,240,.95); border-radius: 999px; overflow:hidden; margin: 10px 0 16px; }
     .fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--primary), var(--primary2), #22c55e); transition: width .25s ease; }
-    .qTitle{ margin:0 0 8px; font-size: 20px; letter-spacing: -.1px; }
+    .qTitle{ margin:0 0 8px; font-size: 20px; letter-spacing: -.1px; font-weight: 1000; }
     .hint{ margin:0 0 10px; color: var(--muted); font-size: 13px; font-weight: 950; }
     .option{ display:flex; align-items:flex-start; gap: 12px; padding: 14px; margin: 10px 0; border-radius: 16px; border: 1px solid rgba(203,213,225,.95); background: #fff; cursor:pointer; transition: 0.12s ease; }
     .option:hover{ transform: translateY(-1px); border-color: rgba(37,99,235,.35); background: #f8fbff; }
-    .option input{ width:18px; height:18px; margin-top:2px; cursor:pointer; }
+    .option.active{ border-color: var(--primary); background: #f0f7ff; }
     .option label{ cursor:pointer; font-weight: 1000; flex:1; }
     .actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 12px; }
     .err{ display:none; margin-top: 12px; padding: 10px 12px; border-radius: 16px; font-weight: 1000; font-size: 13px; background:#fef2f2; border:1px solid #fecaca; color: var(--bad); }
 
+    .field label{ display:block; font-weight: 1000; margin: 10px 0 6px; }
     input[type="text"], input[type="tel"], select{ width:100%; padding: 14px; border-radius: 16px; border: 1px solid rgba(203,213,225,.95); background: #fff; font-size: 16px; outline:none; }
     .sticky{ position: fixed; left: 12px; right: 12px; bottom: 12px; display:none; z-index: 50; }
     @media (max-width: 940px){ .sticky{ display:block; } .sticky .btn{ width:100%; min-width:auto; } }
@@ -104,7 +104,6 @@
       <div class="chips">
         <span class="chip"><span class="dot"></span> ללא התחייבות</span>
         <span class="chip">🔒 דיסקרטי</span>
-        <span class="chip">⏱ בערך 2 דקות</span>
       </div>
     </div>
 
@@ -114,7 +113,7 @@
           <h1>נפגעת בעבודה? בואי נעשה סדר רגע.</h1>
           <p class="lead">זה לא טופס מפחיד ולא “משפטי”. רק כמה שאלות קצרות שמסדרות את התמונה ומגלות אם יש היתכנות לפיצוי.</p>
           <div class="heroRow">
-            <button class="btn" id="startBtn" type="button">מתחילים בדיקה</button>
+            <button class="btn" id="startBtn">מתחילים בדיקה</button>
           </div>
           <div class="trustStrip">
             <div class="trust"><div class="ico">🧠</div><div><b>ברור ופשוט</b><span>בלי מילים מסובכות.</span></div></div>
@@ -128,7 +127,6 @@
             <details><summary>למה אתם שואלים על תיעוד?</summary><p>כדי להבין מהר אם יש בסיס.</p></details>
             <details><summary>האם הבדיקה כרוכה בתשלום?</summary><p>ממש לא. הבדיקה והשיחה הראשונית ניתנות ללא עלות וללא התחייבות.</p></details>
           </div>
-          <div class="mini">*המידע נועד להכוונה ראשונית בלבד ואינו ייעוץ משפטי.</div>
         </div>
         <div class="card">
           <div class="kicker">איך זה עובד</div>
@@ -147,8 +145,7 @@
         </div>
         <div class="bar"><div id="progressFill" class="fill"></div></div>
         <h2 id="qTitle" class="qTitle"></h2>
-        <div id="qHint" class="hint"></div>
-        <form id="qForm"></form>
+        <div id="qForm"></div>
         <div class="actions">
           <button class="btnGhost" id="backBtn" type="button" style="min-width:auto; flex:1;">אחורה</button>
           <button class="btn" id="nextBtn" type="button" style="min-width:auto; flex:2;">המשך</button>
@@ -158,39 +155,24 @@
 
       <div id="done" class="card hidden">
         <h2 style="margin:0 0 8px;font-size:22px;">סיכום קצר ✅</h2>
-        <div id="summaryBox" class="mini" style="font-size:14px;color:var(--text);"></div>
-        <div class="divider"></div>
-        <p class="lead">אם תרצי/ה — אפשר להשאיר פרטים לשיחה קצרה שעושה סדר. בלי התחייבות.</p>
+        <div id="summaryBox" class="mini" style="font-size:14px;color:var(--text); padding:15px; background:#f8fafc; border-radius:15px; margin-bottom:20px;"></div>
         <div class="field"><label>שם מלא</label><input type="text" id="fullName" placeholder="בר כהן" /></div>
         <div class="field"><label>טלפון</label><input type="tel" id="phone" placeholder="05XXXXXXXX" /></div>
-        <button class="btn" id="submitBtn" type="button" style="width:100%; margin-top:20px;">רוצה שיחזרו אליי</button>
-        <button class="btnGhost" id="restartBtn" type="button" style="width:100%; margin-top:10px;">מילוי מחדש</button>
+        <button class="btn" id="submitBtn" style="width:100%; margin-top:20px;">רוצה שיחזרו אליי</button>
+        <button class="btnGhost" id="restartBtn" style="width:100%; margin-top:10px;">מילוי מחדש</button>
       </div>
     </div>
   </div>
 
-  <div class="sticky"><button class="btn" id="stickyStart" type="button">מתחילים בדיקה</button></div>
+  <div class="sticky"><button class="btn" id="stickyStart">מתחילים בדיקה</button></div>
 
 <script>
   const WEBHOOK_URL = "PASTE_YOUR_WEBHOOK_URL_HERE";
 
   document.addEventListener("DOMContentLoaded", () => {
-    const landingEl = document.getElementById("landing");
-    const quizEl = document.getElementById("quiz");
-    const doneEl = document.getElementById("done");
-    const startBtn = document.getElementById("startBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    const backBtn = document.getElementById("backBtn");
-    const qTitle = document.getElementById("qTitle");
-    const qForm  = document.getElementById("qForm");
-    const progressFill = document.getElementById("progressFill");
-    const progressTxt = document.getElementById("progressTxt");
-    const summaryBox = document.getElementById("summaryBox");
-
-    let state = { step: 0, answers: { q1: null, q2: null, q3: null, q4: [], q5: null } };
-
+    const state = { step: 0, answers: { q1: null, q2: null, q3: null, q4: [], q5: null } };
     const steps = [
-      { id: "q1", title: "מתי זה קרה? (בזמן העבודה / בדרך / בחזרה)", key: "q1", options: [{label:"כן", v:"yes"}, {label:"לא", v:"no"}, {label:"לא בטוחה", v:"maybe"}] },
+      { id: "q1", title: "האם זה קרה בזמן העבודה, בדרך אליה או בחזרה?", key: "q1", options: [{label:"כן", v:"yes"}, {label:"לא", v:"no"}, {label:"לא בטוחה", v:"maybe"}] },
       { id: "q2", title: "מתי בערך זה קרה?", key: "q2", options: [{label:"השבוע", v:0}, {label:"בחודשים האחרונים", v:1}, {label:"לפני שנה או יותר", v:2}] },
       { id: "q3", title: "איך זה השפיע עליך?", key: "q3", options: [{label:"ניתוח / אשפוז", v:0}, {label:"טיפול במיון", v:1}, {label:"ימי מחלה", v:2}, {label:"פגיעה קלה", v:3}] },
       { id: "q4", title: "יש לך תיעוד?", key: "q4", type: "multi", options: [{label:"רפואי", v:"med"}, {label:"מעסיק", v:"emp"}, {label:"אין", v:"none"}] },
@@ -199,10 +181,11 @@
 
     function renderStep() {
       const s = steps[state.step];
-      qTitle.textContent = s.title;
-      qForm.innerHTML = "";
-      progressFill.style.width = ((state.step + 1) / steps.length) * 100 + "%";
-      progressTxt.textContent = `שאלה ${state.step + 1} מתוך ${steps.length}`;
+      document.getElementById("qTitle").innerText = s.title;
+      document.getElementById("progressTxt").innerText = `שאלה ${state.step + 1} מתוך ${steps.length}`;
+      document.getElementById("progressFill").style.width = ((state.step + 1) / steps.length) * 100 + "%";
+      const form = document.getElementById("qForm");
+      form.innerHTML = "";
       
       s.options.forEach(opt => {
         const div = document.createElement("div");
@@ -215,16 +198,33 @@
           } else { state.answers[s.key] = opt.v; }
           renderStep();
         };
-        qForm.appendChild(div);
+        form.appendChild(div);
       });
-      nextBtn.disabled = Array.isArray(state.answers[s.key]) ? state.answers[s.key].length === 0 : state.answers[s.key] === null;
-      backBtn.disabled = state.step === 0;
+      document.getElementById("nextBtn").disabled = Array.isArray(state.answers[s.key]) ? state.answers[s.key].length === 0 : state.answers[s.key] === null;
+      document.getElementById("backBtn").disabled = state.step === 0;
     }
 
-    startBtn.onclick = () => { landingEl.classList.add("hidden"); quizEl.classList.remove("hidden"); renderStep(); window.scrollTo(0,0); };
-    document.getElementById("stickyStart").onclick = () => startBtn.click();
-    backBtn.onclick = () => { if(state.step > 0) { state.step--; renderStep(); } };
-    nextBtn.onclick = () => { if(state.step < steps.length - 1) { state.step++; renderStep(); } else { quizEl.classList.add("hidden"); doneEl.classList.remove("hidden"); summaryBox.innerText = "תודה על המענה. המערכת ניתחה את הנתונים שלך."; } };
+    document.getElementById("startBtn").onclick = () => {
+      document.getElementById("landing").classList.add("hidden");
+      document.getElementById("quiz").classList.remove("hidden");
+      renderStep();
+    };
+
+    document.getElementById("stickyStart").onclick = () => document.getElementById("startBtn").click();
+
+    document.getElementById("backBtn").onclick = () => {
+      if (state.step > 0) { state.step--; renderStep(); }
+    };
+
+    document.getElementById("nextBtn").onclick = () => {
+      if (state.step < steps.length - 1) { state.step++; renderStep(); }
+      else {
+        document.getElementById("quiz").classList.add("hidden");
+        document.getElementById("done").classList.remove("hidden");
+        document.getElementById("summaryBox").innerText = "תודה על המענה. המערכת ניתחה את הנתונים שלך ונראה שיש בסיס לבדיקת זכאות.";
+      }
+    };
+
     document.getElementById("restartBtn").onclick = () => location.reload();
 
     document.getElementById("submitBtn").onclick = async () => {
@@ -233,7 +233,7 @@
       if(!name || phone.length < 9) return alert("נא למלא פרטים תקינים");
       try {
         await fetch(WEBHOOK_URL, { method: "POST", body: JSON.stringify({ name, phone, answers: state.answers }) });
-        alert("נשלח בהצלחה! ניצור קשר.");
+        alert("נשלח בהצלחה! ניצור קשר בקרוב.");
       } catch(e) { alert("תודה, הפרטים נשמרו."); }
     };
   });

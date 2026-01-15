@@ -6,7 +6,7 @@
   <title>בדיקה קצרה לזכויות אחרי פגיעה בעבודה</title>
   <meta name="description" content="בדיקה קצרה ולא מחייבת שמסדרת את התמונה אחרי פגיעה בעבודה. דיסקרטי, אנושי, בערך 2 דקות." />
 
-  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -30,7 +30,6 @@
     
     body{
       margin:0;
-      /* עדכון הפונט ל-Assistant המודרני */
       font-family: 'Assistant', system-ui, -apple-system, sans-serif;
       color: var(--text);
       background:
@@ -106,7 +105,7 @@
       border:0; cursor:pointer;
       border-radius: 16px;
       padding: 14px 18px;
-      font-weight: 1000;
+      font-weight: 800;
       font-size: 16px;
       color:#fff;
       background: linear-gradient(135deg, var(--primary), var(--primary2));
@@ -117,10 +116,11 @@
     }
     .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
     .btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+    
     .btnGhost{
       border-radius: 16px;
       padding: 14px 18px;
-      font-weight: 1000;
+      font-weight: 800;
       font-size: 16px;
       background: #fff;
       color: var(--text);
@@ -136,6 +136,7 @@
       gap: 10px;
       margin-top: 14px;
     }
+    @media (max-width: 940px){ .trustStrip{ grid-template-columns: 1fr; } }
     .trust{
       border-radius: 16px;
       padding: 12px;
@@ -148,10 +149,10 @@
       background: #f1f5ff;
       display:grid; place-items:center;
       color: #1d4ed8;
-      font-weight: 1000;
+      font-weight: 800;
       flex: 0 0 auto;
     }
-    .trust b{ display:block; margin-bottom: 2px; }
+    .trust b{ display:block; margin-bottom: 2px; font-weight: 700; }
     .trust span{ color: var(--muted); font-size: 13px; }
 
     .divider{ height:1px; background: rgba(226,232,240,.95); margin: 16px 0; }
@@ -162,7 +163,7 @@
       letter-spacing: .18em;
       text-transform: uppercase;
       color: #64748b;
-      font-weight: 1000;
+      font-weight: 800;
     }
     .steps{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
     .step{
@@ -177,7 +178,7 @@
       display:flex;align-items:center;justify-content:center;
       background: rgba(14,165,233,.10);
       color: #0369a1;
-      font-weight: 1000;
+      font-weight: 800;
       flex: 0 0 auto;
     }
     .step p{ margin:0; color: var(--muted); font-size: 13px; }
@@ -189,4 +190,202 @@
       padding: 12px 14px;
       margin: 10px 0;
     }
-    summary{ cursor:
+    summary{ cursor:pointer; font-weight: 700; color: var(--text); list-style:none; }
+    details p{ margin: 8px 0 0; color: var(--muted); font-size: 13px; }
+
+    .mini{ margin-top: 12px; color: #64748b; font-size: 12px; }
+    .hidden{ display:none !important; }
+
+    /* QUIZ */
+    .quizTop{
+      display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(203,213,225,.95);
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--text);
+    }
+    .badgeGold{ background:#fff7ed; border-color:#fed7aa; color:#9a3412; }
+    .badgeHigh{ background:#f0f9ff; border-color:#bae6fd; color:#075985; }
+    .badgeMed{ background:#f5f3ff; border-color:#ddd6fe; color:#5b21b6; }
+    .badgeLow{ background:#f8fafc; border-color:#e2e8f0; color:#334155; }
+
+    .progressText{ font-size: 12px; color: var(--muted); font-weight: 700; }
+    .bar{ height: 10px; background: rgba(226,232,240,.95); border-radius: 999px; overflow:hidden; margin: 10px 0 16px; }
+    .fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--primary), var(--primary2), #22c55e); transition: width .25s ease; }
+
+    .qTitle{ margin:0 0 8px; font-size: 20px; font-weight: 800; letter-spacing: -.1px; }
+    .hint{ margin:0 0 10px; color: var(--muted); font-size: 13px; font-weight: 600; }
+
+    .option{
+      display:flex; align-items:flex-start; gap: 12px;
+      padding: 14px; margin: 10px 0;
+      border-radius: 16px;
+      border: 1px solid rgba(203,213,225,.95);
+      background: #fff;
+      cursor:pointer;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .option:hover{ transform: translateY(-1px); border-color: rgba(37,99,235,.35); background: #f8fbff; }
+    .option input{ width:18px; height:18px; margin-top:2px; cursor:pointer; }
+    .option label{ cursor:pointer; font-weight: 700; flex:1; }
+
+    .actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 12px; }
+    .actions button{ flex: 1 1 200px; }
+
+    .err,.ok,.info{
+      display:none;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 13px;
+      border: 1px solid;
+    }
+    .err{ background:#fef2f2; border-color:#fecaca; color: var(--bad); }
+    .ok{ background:#f0fdf4; border-color:#bbf7d0; color: var(--ok); }
+    .info{ background:#fffbeb; border-color:#fde68a; color:#92400e; display:none; }
+
+    input[type="text"], input[type="tel"], select{
+      width:100%;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(203,213,225,.95);
+      background: #fff;
+      font-size: 16px;
+      outline:none;
+      font-family: inherit;
+    }
+    
+    .sticky{
+      position: fixed;
+      left: 12px; right: 12px; bottom: 12px;
+      display:none;
+      z-index: 50;
+    }
+    @media (max-width: 940px){
+      .sticky{ display:block; }
+      .sticky .btn{ width:100%; min-width:auto; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div class="brand">
+        <div class="logo">✓</div>
+        <div>בדיקה קצרה אחרי פגיעה בעבודה</div>
+      </div>
+      <div class="chips">
+        <span class="chip"><span class="dot"></span> ללא התחייבות</span>
+        <span class="chip">🔒 דיסקרטי</span>
+        <span class="chip">⏱ בערך 2 דקות</span>
+      </div>
+    </div>
+
+    <div class="shell">
+      <div id="landing" class="grid">
+        <div class="card">
+          <h1>נפגעת בעבודה? בואי נעשה סדר רגע.</h1>
+          <p class="lead">
+            זה לא טופס מפחיד ולא “משפטי”. רק כמה שאלות קצרות שמסדרות את התמונה:
+            <b>טריות</b>, <b>השפעה</b>, ו־<b>תיעוד</b> — כדי להבין אם יש היתכנות לפיצוי ומה כדאי לעשות עכשיו.
+          </p>
+
+          <div class="heroRow">
+            <button class="btn" id="startBtn" type="button">מתחילים בדיקה</button>
+            <button class="btnGhost" id="toFaqBtn" type="button">רוצה להבין לפני</button>
+          </div>
+
+          <div class="trustStrip">
+            <div class="trust">
+              <div class="ico">🧠</div>
+              <div><b>ברור ופשוט</b><span>בלי מילים מסובכות.</span></div>
+            </div>
+            <div class="trust">
+              <div class="ico">🤝</div>
+              <div><b>אנושי</b><span>גם אם את לא בטוחה שזה “נחשב”.</span></div>
+            </div>
+            <div class="trust">
+              <div class="ico">🛡️</div>
+              <div><b>דיסקרטי</b><span>את בוחרת אם להשאיר פרטים בסוף.</span></div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div id="faq">
+            <div class="kicker">שאלות נפוצות</div>
+            <details>
+              <summary>זה מחייב אותי לפנות לעו״ד?</summary>
+              <p>לא. זו בדיקה ראשונית בלבד. מי שרוצה — משאירה פרטים בסוף לשיחה קצרה שעושה סדר.</p>
+            </details>
+            <details>
+              <summary>למה אתם שואלים על תיעוד?</summary>
+              <p>כי תיעוד רפואי/דיווח למעסיק עוזרים להבין מהר אם יש בסיס, וחוסכים לך זמן.</p>
+            </details>
+          </div>
+          <div class="mini">*המידע נועד להכוונה ראשונית בלבד ואינו ייעוץ משפטי.</div>
+        </div>
+
+        <div class="card">
+          <div class="kicker">איך זה עובד</div>
+          <ul class="steps">
+            <li class="step"><div class="num">1</div><p>ממלאים 5 שאלות קצרות.</p></li>
+            <li class="step"><div class="num">2</div><p>אנחנו בונים “תמונה” ראשונית של המקרה.</p></li>
+            <li class="step"><div class="num">3</div><p>בסוף — מי שרוצה, משאירה פרטים לשיחה שמסדרת הכל.</p></li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="quiz" class="card hidden">
+        <div class="quizTop">
+          <span id="leadBadge" class="badge badgeLow">איכות פנייה: —</span>
+          <span id="progressTxt" class="progressText">שאלה 1 מתוך 5</span>
+        </div>
+        <div class="bar"><div id="progressFill" class="fill"></div></div>
+        <h2 id="qTitle" class="qTitle"></h2>
+        <div id="qHint" class="hint"></div>
+        <form id="qForm"></form>
+        <div class="actions">
+          <button class="btnGhost" id="backBtn" type="button">אחורה</button>
+          <button class="btn" id="nextBtn" type="button">המשך</button>
+        </div>
+        <div id="errBox" class="err"></div>
+        <div id="infoBox" class="info"></div>
+      </div>
+
+      <div id="done" class="card hidden">
+        <h2 style="margin:0 0 8px;font-size:22px;">סיכום קצר לפי מה שמילאת ✅</h2>
+        <div id="summaryBox" class="mini" style="font-size:14px;color:var(--text);"></div>
+        <div class="divider"></div>
+        <p class="lead" style="margin:0 0 10px;">אם תרצי/ה — אפשר להשאיר פרטים לשיחה קצרה שעושה סדר. בלי התחייבות.</p>
+        <div class="field"><label for="fullName">שם מלא</label><input type="text" id="fullName" placeholder="בר כהן" /></div>
+        <div class="field"><label for="phone">טלפון</label><input type="tel" id="phone" placeholder="05XXXXXXXX" /></div>
+        <button class="btn" id="submitBtn" type="button">רוצה שיחזרו אליי</button>
+        <div id="submitErr" class="err"></div>
+        <div id="submitOk" class="ok"></div>
+        <div class="divider"></div>
+        <button class="btnGhost" id="restartBtn" type="button">מילוי מחדש</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sticky"><button class="btn" id="stickyStart" type="button">מתחילים בדיקה</button></div>
+
+<script>
+  const WEBHOOK_URL = "PASTE_YOUR_WEBHOOK_URL_HERE";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const landingEl = document.getElementById("landing");
+    const quizEl = document.getElementById("quiz");
+    const doneEl = document.getElementById("done");
+    const startBtn = document.getElementById("startBtn");
+    const stickyStart = document.getElementById("

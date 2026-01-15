@@ -143,10 +143,24 @@
   </div>
 
 <script>
-  const WEBHOOK_URL = "PASTE_YOUR_WEBHOOK_URL_HERE";
+  // ה-Webhook המעודכן מהמסך שלך במייק:
+  const WEBHOOK_URL = "https://hook.eu1.make.com/zodd6hyaiagfivgofyy1h6jjamuymmqh";
 
   document.addEventListener("DOMContentLoaded", () => {
-    const state = { step: 0, answers: { q1: null, q2: null, q3: null, q4: [], q5: null } };
+    const landingEl = document.getElementById("landing");
+    const quizEl = document.getElementById("quiz");
+    const doneEl = document.getElementById("done");
+    const startBtn = document.getElementById("startBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const backBtn = document.getElementById("backBtn");
+    const qTitle = document.getElementById("qTitle");
+    const qForm  = document.getElementById("qForm");
+    const progressFill = document.getElementById("progressFill");
+    const progressTxt = document.getElementById("progressTxt");
+    const summaryBox = document.getElementById("summaryBox");
+
+    let state = { step: 0, answers: { q1: null, q2: null, q3: null, q4: [], q5: null } };
+
     const steps = [
       { id: "q1", title: "האם זה קרה בזמן העבודה, בדרך אליה או בחזרה?", key: "q1", options: [{label:"כן", v:"yes"}, {label:"לא", v:"no"}, {label:"לא בטוחה", v:"maybe"}] },
       { id: "q2", title: "מתי זה קרה?", key: "q2", options: [{label:"השבוע", v:0}, {label:"בחודשים האחרונים", v:1}, {label:"לפני שנה או יותר", v:2}] },
@@ -179,14 +193,9 @@
       document.getElementById("backBtn").disabled = state.step === 0;
     }
 
-    document.getElementById("startBtn").onclick = () => {
-      document.getElementById("landing").classList.add("hidden");
-      document.getElementById("quiz").classList.remove("hidden");
-      renderStep();
-    };
-
-    document.getElementById("backBtn").onclick = () => { if (state.step > 0) { state.step--; renderStep(); } };
-    document.getElementById("nextBtn").onclick = () => {
+    startBtn.onclick = () => { landingEl.classList.add("hidden"); quizEl.classList.remove("hidden"); renderStep(); };
+    backBtn.onclick = () => { if (state.step > 0) { state.step--; renderStep(); } };
+    nextBtn.onclick = () => {
       if (state.step < steps.length - 1) { state.step++; renderStep(); }
       else {
         document.getElementById("quiz").classList.add("hidden");
@@ -201,7 +210,7 @@
       if(!name || phone.length < 9) return alert("נא למלא פרטים תקינים");
       try {
         await fetch(WEBHOOK_URL, { method: "POST", body: JSON.stringify({ name, phone, answers: state.answers }) });
-        alert("נשלח בהצלחה!");
+        alert("נשלח בהצלחה! ניצור קשר בקרוב.");
       } catch(e) { alert("תודה, הפרטים נשמרו."); }
     };
   });

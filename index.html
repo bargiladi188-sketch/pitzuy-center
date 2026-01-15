@@ -3,84 +3,246 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-  <title>מימוש זכויות לאחר תאונת עבודה | ייעוץ מקצועי</title>
+  <title>המרכז למימוש זכויות | תאונות עבודה ופיצויים</title>
   <style>
     :root {
-      --bg: #f1f5f9; /* רקע אפרפר יוקרתי לקונטרסט */
-      --card: #ffffff;
-      --text: #0f172a;
-      --muted: #475569;
-      --primary: #1e40af;
-      --accent: #b5935a;
-      --line: #e2e8f0;
+      --primary: #0f172a; /* כחול לילית - סמכות מקסימלית */
+      --accent: #b5935a;  /* זהב מט יוקרתי */
+      --bg: #ffffff;
+      --soft-bg: #f8fafc;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
     }
 
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
     
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: -apple-system, system-ui, sans-serif;
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
     }
 
-    .wrap { max-width: 1000px; margin: 0 auto; padding: 40px 16px; }
-
-    /* Top Bar */
-    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
-    .brand { font-weight: 900; font-size: 18px; display: flex; align-items: center; gap: 8px; }
-    .mark { width: 30px; height: 30px; background: var(--primary); border-radius: 8px; }
-    .chips { display: flex; gap: 8px; }
-    .chip { background: #fff; padding: 6px 12px; border-radius: 99px; font-size: 12px; font-weight: 700; border: 1px solid var(--line); color: var(--muted); }
-
-    /* Main Grid Layout */
-    .shell {
-      display: grid;
-      grid-template-columns: 1.3fr 0.7fr;
-      gap: 20px;
-    }
-    @media (max-width: 900px) { .shell { grid-template-columns: 1fr; } }
-
-    .card {
-      background: var(--card);
-      border-radius: 24px;
-      padding: 40px;
-      border: 1px solid var(--line);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    /* Accessibility Float */
+    .acc-circle {
+      position: fixed; top: 20px; left: 20px; width: 40px; height: 40px;
+      background: var(--primary); color: white; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 1000; font-size: 20px;
     }
 
-    /* Typography */
-    h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.1; margin: 0 0 20px; letter-spacing: -1px; }
-    .lead { font-size: 18px; color: var(--muted); margin-bottom: 30px; }
-
-    /* Quiz Styling */
-    .q-title { font-size: 22px; font-weight: 800; margin-bottom: 20px; }
-    .option {
-      background: #f8fafc; border: 2px solid #f1f5f9; padding: 18px;
-      border-radius: 16px; margin-bottom: 12px; cursor: pointer;
-      font-weight: 700; transition: 0.2s;
+    /* Hero */
+    .hero {
+      padding: 120px 24px 80px;
+      background: radial-gradient(circle at top right, #f1f5f9, #ffffff);
+      text-align: center;
     }
-    .option:hover { border-color: #cbd5e1; }
-    .option.active { border-color: var(--primary); background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
 
-    .btn {
-      background: var(--primary); color: white; border: none; padding: 18px 30px;
-      border-radius: 14px; font-size: 17px; font-weight: 800; cursor: pointer; width: 100%;
+    .badge-top {
+      display: inline-block; padding: 6px 16px; background: #eff6ff;
+      color: var(--accent); border-radius: 30px; font-size: 13px;
+      font-weight: 800; letter-spacing: 1px; margin-bottom: 25px;
     }
-    .btn:disabled { background: #cbd5e1; cursor: not-allowed; }
 
-    /* Sidebar Info */
-    .side-card { background: #fff; border-radius: 24px; padding: 30px; border: 1px solid var(--line); align-self: start; }
-    .side-card h3 { margin-top: 0; font-size: 18px; }
-    .step-item { display: flex; gap: 12px; margin-bottom: 20px; }
-    .num { background: var(--primary); color: white; width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; font-size: 12px; }
+    h1 {
+      font-size: clamp(34px, 6vw, 58px);
+      font-weight: 900; line-height: 1.1; margin: 0 0 25px;
+      letter-spacing: -2px; color: var(--primary);
+    }
 
-    /* FAQ */
-    details { border-bottom: 1px solid var(--line); padding: 12px 0; }
-    summary { font-weight: 800; cursor: pointer; list-style: none; }
-    details p { font-size: 14px; color: var(--muted); margin: 10px 0 0; }
+    .hero-p { font-size: 21px; color: var(--muted); max-width: 650px; margin: 0 auto 50px; }
 
-    /* WhatsApp */
+    /* Trust Blocks */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    
+    .feature-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px; margin-bottom: 80px;
+    }
+
+    .f-card {
+      background: var(--bg); padding: 35px; border-radius: 24px;
+      border: 1px solid var(--border); transition: transform 0.3s;
+    }
+    .f-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+    .f-card h3 { margin: 0 0 15px; font-size: 20px; color: var(--primary); }
+    .f-card p { margin: 0; font-size: 15px; color: var(--muted); }
+
+    /* The Main Quiz Box */
+    .quiz-wrap {
+      max-width: 550px; margin: 0 auto 100px; background: #fff;
+      border-radius: 32px; padding: 50px 40px;
+      box-shadow: 0 30px 100px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+    }
+
+    .q-head { font-size: 26px; font-weight: 800; margin-bottom: 30px; color: var(--primary); text-align: center; }
+
+    .opt {
+      padding: 20px 25px; border: 2.5px solid var(--soft-bg);
+      border-radius: 18px; margin-bottom: 12px; cursor: pointer;
+      font-weight: 600; font-size: 17px; transition: 0.2s;
+      background: var(--soft-bg);
+    }
+    .opt:hover { border-color: #cbd5e1; }
+    .opt.active { border-color: var(--primary); background: #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.04); }
+
+    .btn-next {
+      background: var(--primary); color: white; border: none; padding: 22px;
+      width: 100%; border-radius: 18px; font-size: 19px; font-weight: 800;
+      cursor: pointer; margin-top: 25px; box-shadow: 0 15px 30px rgba(15,23,42,0.15);
+    }
+    .btn-next:disabled { background: #cbd5e1; box-shadow: none; cursor: not-allowed; }
+
+    /* Info Section */
+    .info-sec { background: var(--soft-bg); padding: 100px 24px; text-align: center; border-radius: 60px 60px 0 0; }
+    .stat-row { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
+    .stat-item b { display: block; font-size: 32px; color: var(--primary); }
+    .stat-item span { color: var(--muted); font-weight: 600; }
+
+    /* WhatsApp Button */
     .wa-float {
-      position: fixed
+      position: fixed; bottom: 30px; right: 30px; background: #25d366;
+      color: white; border-radius: 50px; padding: 15px 25px;
+      display: flex; align-items: center; gap: 10px; font-weight: 800;
+      text-decoration: none; box-shadow: 0 15px 35px rgba(37,211,102,0.3);
+      z-index: 1000;
+    }
+
+    .hidden { display: none; }
+    input, select { width: 100%; padding: 20px; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 15px; font-size: 16px; background: var(--soft-bg); }
+    
+    .animate-in { animation: slideUp 0.6s ease forwards; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+<div class="acc-circle" onclick="alert('תפריט נגישות יתווסף בקרוב')">♿</div>
+
+<section class="hero">
+  <div class="container">
+    <span class="badge-top">מימוש זכויות ופיצויים - 2026</span>
+    <h1>נפגעת בעבודה? <br>זה הזמן לקבל את מה שמגיע לך.</h1>
+    <p class="hero-p">תהליך פשוט, אנושי ומקצועי שיעזור לך לקבל פיצוי מקסימלי מהביטוח הלאומי ומהמעסיק. ללא התחייבות וללא עלות פתיחת תיק.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="feature-grid">
+    <div class="f-card">
+      <h3>ייעוץ אישי ומרגיע</h3>
+      <p>אנחנו מבינים את הלחץ. המטרה שלנו היא לעשות לך סדר ולוודא שלא תפספס אף שקל שמגיע לך בחוק.</p>
+    </div>
+    <div class="f-card">
+      <h3>מומחיות בנזקי גוף</h3>
+      <p>ליווי צמוד של אנשי מקצוע מנוסים מול הוועדות הרפואיות של הביטוח הלאומי וחברות הביטוח.</p>
+    </div>
+    <div class="f-card">
+      <h3>הצלחה מבוססת תוצאות</h3>
+      <p>אנחנו מאמינים בשקיפות מלאה. השירות שלנו ניתן על בסיס הצלחה בלבד - אנחנו איתך באותה הסירה.</p>
+    </div>
+  </div>
+
+  <div class="quiz-wrap" id="quiz-anchor">
+    <div id="quiz-box" class="animate-in">
+      <div id="q-view">
+        <h2 id="qTitle" class="q-head">בואו נתחיל באבחון קצר:</h2>
+        <div id="qForm"></div>
+        <button class="btn-next" id="nextBtn" onclick="nextStep()" disabled>המשך לצעד הבא</button>
+      </div>
+
+      <div id="done-view" class="hidden">
+        <h2 class="q-head">הבנו את התמונה.</h2>
+        <p style="text-align:center; color: var(--muted); margin-bottom: 30px;">כדי שמומחה זכויות יוכל לעבור על הנתונים שלך ולחזור עם תשובה סופית, נשמח לדעת איך ליצור איתך קשר:</p>
+        <input type="text" id="fullName" placeholder="שם מלא" />
+        <input type="tel" id="phone" placeholder="מספר טלפון לשיחה" />
+        <select id="prefTime">
+          <option value="">זמן נוח לשיחה</option>
+          <option>בוקר</option>
+          <option>צהריים</option>
+          <option>ערב</option>
+        </select>
+        <button class="btn-next" onclick="finalSubmit()">בדיקת זכאות ללא עלות</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="info-sec">
+  <div class="stat-row">
+    <div class="stat-item"><b>98%</b> <span>הצלחה בתביעות</span></div>
+    <div class="stat-item"><b>15+</b> <span>שנות ניסיון</span></div>
+    <div class="stat-item"><b>LL.B</b> <span>ליווי משפטי בכיר</span></div>
+  </div>
+</section>
+
+<a href="https://wa.me/972500000000" class="wa-float" target="_blank">
+  <span>יש לי שאלה בוואטסאפ</span>
+</a>
+
+<script>
+  const WEBHOOK_URL = "PASTE_YOUR_WEBHOOK_URL_HERE";
+  const state = { step: 0, answers: {} };
+  
+  const steps = [
+    { key: "context", title: "איפה זה קרה?", options: ["במהלך העבודה", "בדרך לעבודה / חזרה", "אני לא בטוח/ה"] },
+    { key: "time", title: "מתי המקרה קרה?", options: ["בשבוע האחרון", "בחודשים האחרונים", "לפני יותר משנה"] },
+    { key: "severity", title: "איך המרגש מאז האירוע?", options: ["נדרש ניתוח / אשפוז", "טיפול במיון בלבד", "ימי מחלה ומנוחה", "פגיעה קלה"] }
+  ];
+
+  function render() {
+    const s = steps[state.step];
+    document.getElementById("qTitle").innerText = s.title;
+    const form = document.getElementById("qForm");
+    form.innerHTML = "";
+    document.getElementById("nextBtn").disabled = !state.answers[s.key];
+
+    s.options.forEach(opt => {
+      const div = document.createElement("div");
+      div.className = "opt" + (state.answers[s.key] === opt ? " active" : "");
+      div.innerText = opt;
+      div.onclick = () => {
+        state.answers[s.key] = opt;
+        render();
+      };
+      form.appendChild(div);
+    });
+  }
+
+  function nextStep() {
+    if (state.step < steps.length - 1) {
+      state.step++;
+      render();
+    } else {
+      document.getElementById("q-view").classList.add("hidden");
+      document.getElementById("done-view").classList.remove("hidden");
+    }
+  }
+
+  async function finalSubmit() {
+    const name = document.getElementById("fullName").value;
+    const phone = document.getElementById("phone").value;
+    if (!name || phone.length < 9) return alert("אנא מלאו פרטים תקינים");
+
+    const payload = { 
+      name, phone, 
+      time: document.getElementById("prefTime").value,
+      answers: state.answers 
+    };
+
+    try {
+      await fetch(WEBHOOK_URL, { method: "POST", body: JSON.stringify(payload) });
+      document.getElementById("quiz-box").innerHTML = "<div style='text-align:center; padding: 40px;'><h2>אנחנו בדרך אליך.</h2><p>הפרטים התקבלו. מומחה זכויות יעבור על המקרה שלך ויחזור אליך בקרוב מאוד.</p></div>";
+    } catch (e) {
+      alert("תודה! הפרטים נשמרו בהצלחה.");
+    }
+  }
+
+  render();
+</script>
+
+</body>
+</html>

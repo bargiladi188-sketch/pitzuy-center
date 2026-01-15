@@ -6,33 +6,32 @@
   <title>בדיקה קצרה לזכויות אחרי פגיעה בעבודה</title>
   <meta name="description" content="בדיקה קצרה ולא מחייבת שמסדרת את התמונה אחרי פגיעה בעבודה. דיסקרטי, אנושי, בערך 2 דקות." />
 
-  <!-- ✅ פונט אנושי ונעים -->
-  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --bgTop:#0b1220;
       --bg:#f3f6fb;
-
       --card:#ffffff;
       --text:#0f172a;
       --muted:#475569;
       --line:#e2e8f0;
-
       --primary:#2563eb;
       --primary2:#0ea5e9;
       --ok:#16a34a;
       --bad:#dc2626;
-
+      --warn:#f59e0b;
       --r:18px;
       --shadow: 0 18px 55px rgba(2,6,23,.20);
       --shadow2: 0 10px 26px rgba(2,6,23,.10);
     }
 
     *{ box-sizing:border-box; }
+    
     body{
       margin:0;
-      font-family: 'Assistant', system-ui, -apple-system, "Segoe UI", Arial, sans-serif; /* ✅ */
+      /* עדכון הפונט ל-Assistant המודרני */
+      font-family: 'Assistant', system-ui, -apple-system, sans-serif;
       color: var(--text);
       background:
         radial-gradient(1100px 680px at 80% -10%, rgba(14,165,233,.28), transparent 55%),
@@ -53,14 +52,14 @@
       flex-wrap:wrap;
       margin-bottom: 14px;
     }
-    .brand{ display:flex; align-items:center; gap:10px; font-weight: 800; letter-spacing:-.3px; }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight: 950; letter-spacing:-.3px; }
     .logo{
       width:40px; height:40px; border-radius: 14px;
       background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.65));
       box-shadow: 0 18px 40px rgba(0,0,0,.18);
       display:grid; place-items:center;
       color:#0b1220;
-      font-weight: 800;
+      font-weight: 1000;
     }
     .chips{ display:flex; gap:10px; flex-wrap:wrap; }
     .chip{
@@ -69,7 +68,7 @@
       background: rgba(255,255,255,.14);
       border: 1px solid rgba(255,255,255,.18);
       color: rgba(255,255,255,.92);
-      font-size: 12px; font-weight: 700;
+      font-size: 12px; font-weight: 950;
       backdrop-filter: blur(8px);
     }
     .dot{ width:8px; height:8px; border-radius: 99px; background: #86efac; }
@@ -89,9 +88,7 @@
       grid-template-columns: 1.2fr .8fr;
       gap: 14px;
     }
-    @media (max-width: 940px){
-      .grid{ grid-template-columns: 1fr; }
-    }
+    @media (max-width: 940px){ .grid{ grid-template-columns: 1fr; } }
 
     .card{
       background: var(--card);
@@ -101,34 +98,36 @@
       box-shadow: var(--shadow2);
     }
 
-    h1{ margin: 0 0 10px; font-size: 34px; line-height: 1.15; letter-spacing: -.5px; }
-    .lead{ margin: 0 0 16px; color: var(--muted); font-size: 17px; max-width: 62ch; }
+    h1{ margin: 0 0 10px; font-size: 34px; line-height: 1.15; letter-spacing: -.5px; font-weight: 900; }
+    .lead{ margin: 0 0 16px; color: var(--muted); font-size: 16.5px; max-width: 62ch; }
 
     .heroRow{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top: 10px; }
     .btn{
       border:0; cursor:pointer;
       border-radius: 16px;
       padding: 14px 18px;
-      font-weight: 800;
+      font-weight: 1000;
       font-size: 16px;
       color:#fff;
       background: linear-gradient(135deg, var(--primary), var(--primary2));
       box-shadow: 0 16px 30px rgba(37,99,235,.20);
       transition: transform .15s ease, filter .15s ease;
       min-width: 240px;
+      font-family: inherit;
     }
     .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
     .btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
     .btnGhost{
       border-radius: 16px;
       padding: 14px 18px;
-      font-weight: 800;
+      font-weight: 1000;
       font-size: 16px;
       background: #fff;
       color: var(--text);
       border: 1px solid rgba(203,213,225,.95);
       cursor:pointer;
       min-width: 240px;
+      font-family: inherit;
     }
 
     .trustStrip{
@@ -137,7 +136,6 @@
       gap: 10px;
       margin-top: 14px;
     }
-    @media (max-width: 940px){ .trustStrip{ grid-template-columns: 1fr; } }
     .trust{
       border-radius: 16px;
       padding: 12px;
@@ -150,10 +148,10 @@
       background: #f1f5ff;
       display:grid; place-items:center;
       color: #1d4ed8;
-      font-weight: 800;
+      font-weight: 1000;
       flex: 0 0 auto;
     }
-    .trust b{ display:block; margin-bottom: 2px; font-weight:800; }
+    .trust b{ display:block; margin-bottom: 2px; }
     .trust span{ color: var(--muted); font-size: 13px; }
 
     .divider{ height:1px; background: rgba(226,232,240,.95); margin: 16px 0; }
@@ -164,7 +162,7 @@
       letter-spacing: .18em;
       text-transform: uppercase;
       color: #64748b;
-      font-weight: 800;
+      font-weight: 1000;
     }
     .steps{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
     .step{
@@ -179,7 +177,7 @@
       display:flex;align-items:center;justify-content:center;
       background: rgba(14,165,233,.10);
       color: #0369a1;
-      font-weight: 800;
+      font-weight: 1000;
       flex: 0 0 auto;
     }
     .step p{ margin:0; color: var(--muted); font-size: 13px; }
@@ -191,619 +189,4 @@
       padding: 12px 14px;
       margin: 10px 0;
     }
-    summary{ cursor:pointer; font-weight: 800; color: var(--text); list-style:none; }
-    summary::-webkit-details-marker{ display:none; }
-    details p{ margin: 8px 0 0; color: var(--muted); font-size: 13px; }
-
-    .mini{ margin-top: 12px; color: #64748b; font-size: 12px; }
-
-    .hidden{ display:none !important; }
-
-    /* QUIZ */
-    .quizTop{
-      display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
-      margin-bottom: 10px;
-    }
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(203,213,225,.95);
-      background: #f8fafc;
-      font-weight: 800;
-      font-size: 12px;
-      color: var(--text);
-    }
-    .badgeGold{ background:#fff7ed; border-color:#fed7aa; color:#9a3412; }
-    .badgeHigh{ background:#f0f9ff; border-color:#bae6fd; color:#075985; }
-    .badgeMed{ background:#f5f3ff; border-color:#ddd6fe; color:#5b21b6; }
-    .badgeLow{ background:#f8fafc; border-color:#e2e8f0; color:#334155; }
-
-    .progressText{ font-size: 12px; color: var(--muted); font-weight: 800; }
-    .bar{ height: 10px; background: rgba(226,232,240,.95); border-radius: 999px; overflow:hidden; margin: 10px 0 16px; }
-    .fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--primary), var(--primary2), #22c55e); transition: width .25s ease; }
-
-    .qTitle{ margin:0 0 8px; font-size: 20px; letter-spacing: -.1px; font-weight:800; }
-    .hint{ margin:0 0 10px; color: var(--muted); font-size: 13px; font-weight: 700; }
-
-    .option{
-      display:flex; align-items:flex-start; gap: 12px;
-      padding: 14px; margin: 10px 0;
-      border-radius: 16px;
-      border: 1px solid rgba(203,213,225,.95);
-      background: #fff;
-      cursor:pointer;
-      transition: transform .12s ease, border-color .12s ease, background .12s ease;
-    }
-    .option:hover{ transform: translateY(-1px); border-color: rgba(37,99,235,.35); background: #f8fbff; }
-    .option input{ width:18px; height:18px; margin-top:2px; cursor:pointer; }
-    .option label{ cursor:pointer; font-weight: 800; flex:1; }
-
-    .actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 12px; }
-    .actions button{ flex: 1 1 200px; }
-
-    .err,.ok,.info{
-      display:none;
-      margin-top: 12px;
-      padding: 10px 12px;
-      border-radius: 16px;
-      font-weight: 800;
-      font-size: 13px;
-      border: 1px solid;
-    }
-    .err{ background:#fef2f2; border-color:#fecaca; color: var(--bad); }
-    .ok{ background:#f0fdf4; border-color:#bbf7d0; color: var(--ok); }
-    .info{ background:#fffbeb; border-color:#fde68a; color:#92400e; display:none; }
-
-    /* CONTACT */
-    .field label{ display:block; font-weight: 800; margin: 10px 0 6px; }
-    input[type="text"], input[type="tel"], select{
-      width:100%;
-      padding: 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(203,213,225,.95);
-      background: #fff;
-      font-size: 16px;
-      outline:none;
-      font-family: inherit;
-    }
-    input:focus, select:focus{
-      border-color: rgba(37,99,235,.55);
-      box-shadow: 0 0 0 4px rgba(37,99,235,.12);
-    }
-
-    .sticky{
-      position: fixed;
-      left: 12px; right: 12px; bottom: 12px;
-      display:none;
-      z-index: 50;
-    }
-    @media (max-width: 940px){
-      .sticky{ display:block; }
-      .sticky .btn{ width:100%; min-width:auto; }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="wrap">
-    <div class="header">
-      <div class="brand">
-        <div class="logo">✓</div>
-        <div>בדיקה קצרה אחרי פגיעה בעבודה</div>
-      </div>
-      <div class="chips">
-        <span class="chip"><span class="dot"></span> ללא התחייבות</span>
-        <span class="chip">🔒 דיסקרטי</span>
-        <span class="chip">⏱ בערך 2 דקות</span>
-      </div>
-    </div>
-
-    <div class="shell">
-
-      <!-- LANDING -->
-      <div id="landing" class="grid">
-        <div class="card">
-          <h1>נפגעת בעבודה? בואי נעשה סדר רגע.</h1>
-          <p class="lead">
-            זה לא טופס מפחיד ולא “משפטי”. רק כמה שאלות קצרות שמסדרות את התמונה:
-            <b>טריות</b>, <b>השפעה</b>, ו־<b>תיעוד</b> — כדי להבין אם יש היתכנות לפיצוי ומה כדאי לעשות עכשיו.
-          </p>
-
-          <div class="heroRow">
-            <button class="btn" id="startBtn" type="button">מתחילים בדיקה</button>
-            <button class="btnGhost" id="toFaqBtn" type="button">רוצה להבין לפני</button>
-          </div>
-
-          <div class="trustStrip">
-            <div class="trust">
-              <div class="ico">🧠</div>
-              <div><b>ברור ופשוט</b><span>בלי מילים מסובכות.</span></div>
-            </div>
-            <div class="trust">
-              <div class="ico">🤝</div>
-              <div><b>אנושי</b><span>גם אם את לא בטוחה שזה “נחשב”.</span></div>
-            </div>
-            <div class="trust">
-              <div class="ico">🛡️</div>
-              <div><b>דיסקרטי</b><span>את בוחרת אם להשאיר פרטים בסוף.</span></div>
-            </div>
-          </div>
-
-          <div class="divider"></div>
-
-          <div id="faq">
-            <div class="kicker">שאלות נפוצות</div>
-            <details>
-              <summary>זה מחייב אותי לפנות לעו״ד?</summary>
-              <p>לא. זו בדיקה ראשונית בלבד. מי שרוצה — משאירה פרטים בסוף לשיחה קצרה שעושה סדר.</p>
-            </details>
-            <details>
-              <summary>למה אתם שואלים על תיעוד?</summary>
-              <p>כי תיעוד רפואי/דיווח למעסיק עוזרים להבין מהר אם יש בסיס, וחוסכים לך זמן.</p>
-            </details>
-            <details>
-              <summary>מה קורה אחרי שאני משאירה פרטים?</summary>
-              <p>המידע נשלח למערכת שלך (Make) כדי שאפשר יהיה לחזור לפונה ולתאם שיחה רגועה וברורה.</p>
-            </details>
-          </div>
-
-          <div class="mini">*המידע נועד להכוונה ראשונית בלבד ואינו ייעוץ משפטי.</div>
-        </div>
-
-        <div class="card">
-          <div class="kicker">איך זה עובד</div>
-          <ul class="steps">
-            <li class="step"><div class="num">1</div><p>ממלאים 5 שאלות קצרות.</p></li>
-            <li class="step"><div class="num">2</div><p>אנחנו בונים “תמונה” ראשונית של המקרה.</p></li>
-            <li class="step"><div class="num">3</div><p>בסוף — מי שרוצה, משאירה פרטים לשיחה שמסדרת הכל.</p></li>
-          </ul>
-
-          <div class="divider"></div>
-
-          <p class="mini">
-            טיפ: אם זה קרה “לא מזמן” ויש תיעוד — בדרך כלל קל יותר להתקדם נכון.
-          </p>
-        </div>
-      </div>
-
-      <!-- QUIZ -->
-      <div id="quiz" class="card hidden">
-        <div class="quizTop">
-          <span id="leadBadge" class="badge badgeLow">איכות פנייה: —</span>
-          <span id="progressTxt" class="progressText">שאלה 1 מתוך 6</span>
-        </div>
-        <div class="bar"><div id="progressFill" class="fill"></div></div>
-
-        <h2 id="qTitle" class="qTitle"></h2>
-        <div id="qHint" class="hint"></div>
-        <form id="qForm"></form>
-
-        <div class="actions">
-          <button class="btnGhost" id="backBtn" type="button">אחורה</button>
-          <button class="btn" id="nextBtn" type="button">המשך</button>
-        </div>
-
-        <div id="errBox" class="err"></div>
-        <div id="infoBox" class="info"></div>
-      </div>
-
-      <!-- SUMMARY + CONTACT -->
-      <div id="done" class="card hidden">
-        <h2 style="margin:0 0 8px;font-size:22px;">סיכום קצר לפי מה שמילאת ✅</h2>
-        <div id="summaryBox" class="mini" style="font-size:14px;color:var(--text);"></div>
-
-        <div class="divider"></div>
-
-        <p class="lead" style="margin:0 0 10px;">
-          אם תרצי/ה — אפשר להשאיר פרטים לשיחה קצרה שעושה סדר בזכויות ובצעדים הבאים. בלי התחייבות.
-        </p>
-
-        <div class="field">
-          <label for="fullName">שם מלא</label>
-          <input type="text" id="fullName" placeholder="לדוגמה: בר כהן" />
-        </div>
-
-        <div class="field">
-          <label for="phone">טלפון</label>
-          <input type="tel" id="phone" placeholder="05X-XXXXXXX" />
-        </div>
-
-        <div class="field">
-          <label for="prefTime">מתי הכי נוח לדבר? (אופציונלי)</label>
-          <select id="prefTime">
-            <option value="">לבחירה</option>
-            <option>בוקר</option>
-            <option>צהריים</option>
-            <option>אחר הצהריים</option>
-            <option>ערב</option>
-          </select>
-        </div>
-
-        <p class="mini">בלחיצה על הכפתור, הפרטים והסיכום נשלחים ל־Make Webhook שלך.</p>
-
-        <button class="btn" id="submitBtn" type="button">רוצה שיחזרו אליי ויעשו לי סדר</button>
-        <div id="submitErr" class="err"></div>
-        <div id="submitOk" class="ok"></div>
-
-        <div class="divider"></div>
-        <button class="btnGhost" id="restartBtn" type="button">מילוי מחדש</button>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="sticky">
-    <button class="btn" id="stickyStart" type="button">מתחילים בדיקה</button>
-  </div>
-
-<script>
-  const WEBHOOK_URL = "PASTE_YOUR_WEBHOOK_URL_HERE";
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const landingEl = document.getElementById("landing");
-    const quizEl = document.getElementById("quiz");
-    const doneEl = document.getElementById("done");
-
-    const startBtn = document.getElementById("startBtn");
-    const stickyStart = document.getElementById("stickyStart");
-    const toFaqBtn = document.getElementById("toFaqBtn");
-
-    const backBtn = document.getElementById("backBtn");
-    const nextBtn = document.getElementById("nextBtn");
-
-    const qTitle = document.getElementById("qTitle");
-    const qHint  = document.getElementById("qHint");
-    const qForm  = document.getElementById("qForm");
-
-    const errBox = document.getElementById("errBox");
-    const infoBox = document.getElementById("infoBox");
-
-    const progressTxt = document.getElementById("progressTxt");
-    const progressFill = document.getElementById("progressFill");
-    const leadBadge = document.getElementById("leadBadge");
-
-    const submitBtn = document.getElementById("submitBtn");
-    const restartBtn = document.getElementById("restartBtn");
-    const submitErr = document.getElementById("submitErr");
-    const submitOk  = document.getElementById("submitOk");
-    const summaryBox = document.getElementById("summaryBox");
-
-    const state = {
-      step: 0,
-      answers: {
-        q1_whenContext: null,
-        q2_whenTime: null,
-        q3_impact: null,
-        q4_docs: [],
-        q5_process: null
-      }
-    };
-
-    const steps = [
-      {
-        id: "q1",
-        title: "מתי זה קרה? (בזמן העבודה / בדרך אליה / בחזרה ממנה)",
-        hint: "אם את לא בטוחה — זה בסדר.",
-        type: "single",
-        key: "q1_whenContext",
-        options: [
-          { label: "כן", value: "yes" },
-          { label: "לא", value: "no" },
-          { label: "אני לא בטוחה", value: "unsure" }
-        ],
-        validate: (v) => !!v
-      },
-      {
-        id: "q2",
-        title: "מתי בערך קרתה הפגיעה?",
-        hint: "",
-        type: "single",
-        key: "q2_whenTime",
-        options: [
-          { label: "ממש עכשיו (ב־7 הימים האחרונים)", value: 0 },
-          { label: "בחודשים האחרונים", value: 1 },
-          { label: "לפני שנה או יותר", value: 2 },
-          { label: "לפני יותר מ־3 שנים", value: 3 }
-        ],
-        validate: (v) => v !== null && v !== undefined
-      },
-      {
-        id: "q3",
-        title: "איך זה השפיע עליך מאז?",
-        hint: "בחרי את מה שהכי קרוב למצב שלך.",
-        type: "single",
-        key: "q3_impact",
-        options: [
-          { label: "היה ניתוח / שיקום ארוך", value: 0 },
-          { label: "טיפול משמעותי (מיון / אשפוז / בדיקות)", value: 1 },
-          { label: "ימי מחלה ולא חזרתי מיד", value: 2 },
-          { label: "חזרתי אבל עם כאבים/מגבלות", value: 3 },
-          { label: "פגיעה קלה וחזרתי מהר לשגרה", value: 4 }
-        ],
-        validate: (v) => v !== null && v !== undefined
-      },
-      {
-        id: "q4",
-        title: "יש לך איזשהו תיעוד?",
-        hint: "אפשר לבחור יותר מתשובה אחת",
-        type: "multi",
-        key: "q4_docs",
-        options: [
-          { label: "תיעוד רפואי (מיון / רופא / בדיקות)", value: "medical" },
-          { label: "דיווחתי למעסיק", value: "employer" },
-          { label: "יש עדים/תמונות/דו״ח", value: "evidence" },
-          { label: "עדיין לא, אבל אפשר להשיג", value: "can_get" },
-          { label: "אין תיעוד כרגע", value: "none" }
-        ],
-        validate: (v) => Array.isArray(v) && v.length > 0
-      },
-      {
-        id: "q5",
-        title: "כבר פנית לביטוח לאומי / התחלת משהו?",
-        hint: "",
-        type: "single",
-        key: "q5_process",
-        options: [
-          { label: "לא, עדיין לא", value: 0 },
-          { label: "כן, פניתי אבל לא בטוחה שעשיתי נכון", value: 1 },
-          { label: "כן, הגשתי דמי פגיעה", value: 2 },
-          { label: "כן, אני כבר בתהליך מתקדם", value: 3 },
-          { label: "אני לא בטוחה", value: 4 }
-        ],
-        validate: (v) => v !== null && v !== undefined
-      }
-    ];
-
-    function show(el){ el.classList.remove("hidden"); }
-    function hide(el){ el.classList.add("hidden"); }
-    function scrollTop(){ window.scrollTo({ top: 0, behavior: "smooth" }); }
-
-    function showError(msg){ errBox.style.display="block"; errBox.textContent=msg; }
-    function clearError(){ errBox.style.display="none"; errBox.textContent=""; }
-    function showInfo(msg){ infoBox.style.display="block"; infoBox.textContent=msg; }
-    function clearInfo(){ infoBox.style.display="none"; infoBox.textContent=""; }
-
-    function showSubmitError(msg){ submitErr.style.display="block"; submitErr.textContent=msg; }
-    function clearSubmitError(){ submitErr.style.display="none"; submitErr.textContent=""; }
-    function showSubmitOk(msg){ submitOk.style.display="block"; submitOk.textContent=msg; }
-    function clearSubmitOk(){ submitOk.style.display="none"; submitOk.textContent=""; }
-
-    function computeLeadGrade(ans){
-      let score = 0;
-
-      if (ans.q2_whenTime === 0) score += 3;
-      else if (ans.q2_whenTime === 1) score += 2;
-      else if (ans.q2_whenTime === 2) score += 1;
-      else if (ans.q2_whenTime === 3) score -= 2;
-
-      if (ans.q3_impact === 0) score += 4;
-      else if (ans.q3_impact === 1) score += 3;
-      else if (ans.q3_impact === 2) score += 2;
-      else if (ans.q3_impact === 3) score += 1;
-      else if (ans.q3_impact === 4) score -= 3;
-
-      const docs = new Set(ans.q4_docs || []);
-      if (docs.has("medical")) score += 2;
-      if (docs.has("employer")) score += 2;
-      if (docs.has("evidence")) score += 1;
-      if (docs.has("none")) score -= 2;
-
-      if (ans.q5_process === 0) score += 2;
-      if (ans.q5_process === 1) score += 3;
-      if (ans.q5_process === 2) score += 1;
-      if (ans.q5_process === 3) score -= 1;
-      if (ans.q5_process === 4) score += 1;
-
-      if (ans.q1_whenContext === "no") score -= 4;
-      if (ans.q1_whenContext === "yes") score += 1;
-
-      let tag="Low", cls="badgeLow";
-      if (score >= 9) { tag="Gold"; cls="badgeGold"; }
-      else if (score >= 6) { tag="High"; cls="badgeHigh"; }
-      else if (score >= 3) { tag="Medium"; cls="badgeMed"; }
-
-      return { tag, score, cls };
-    }
-
-    function summaryText(ans){
-      const grade = computeLeadGrade(ans);
-      const docs = new Set(ans.q4_docs || []);
-
-      if (ans.q1_whenContext === "no"){
-        return {
-          grade,
-          title: "נראה שזה לא בהכרח נופל תחת “תאונת עבודה”.",
-          bullets: [
-            "זה לא אומר שאין מה לעשות — לפעמים יש כיוונים אחרים (ביטוחים/צד ג׳).",
-            "אם תרצי, אפשר להשאיר פרטים לשיחה קצרה שתכוון אותך לאפיק הנכון."
-          ]
-        };
-      }
-
-      const bullets = [];
-      if (ans.q2_whenTime === 0) bullets.push("✅ הפנייה טרייה — זה יתרון גדול כדי לא לאבד זכויות.");
-      if (ans.q2_whenTime === 3) bullets.push("⚠️ עבר זמן — עדיין ייתכן מה לעשות, אבל חשוב לבדוק מהר כדי לא לפספס מועדים/ראיות.");
-      if (ans.q3_impact === 0 || ans.q3_impact === 1) bullets.push("✅ לפי התיאור, זו פגיעה משמעותית — בדרך כלל זה מצדיק בדיקה מקצועית.");
-      if (ans.q3_impact === 4) bullets.push("ℹ️ נשמע קל יחסית — ועדיין כדאי להבין אם מגיע משהו בסיסי.");
-      if (docs.has("medical") || docs.has("employer")) bullets.push("✅ יש תיעוד (רפואי/דיווח) — זה עוזר מאוד.");
-      if (docs.has("none")) bullets.push("ℹ️ אין תיעוד כרגע — בשיחה אפשר להבין מה כדאי להשיג ומה חשוב קודם.");
-
-      bullets.push("הצעד הבא הכי נכון: שיחה קצרה שעושה סדר בזכויות ובמה לעשות עכשיו.");
-
-      return { grade, title: "לפי מה שמילאת:", bullets };
-    }
-
-    function updateProgress(){
-      const total = steps.length + 1;
-      const current = state.step + 1;
-      progressTxt.textContent = `שאלה ${current} מתוך ${total}`;
-      progressFill.style.width = Math.round((current/total)*100) + "%";
-    }
-
-    function renderStep(){
-      clearError();
-      clearInfo();
-      updateProgress();
-
-      const s = steps[state.step];
-      qTitle.textContent = s.title;
-      qHint.textContent = s.hint || "";
-      qForm.innerHTML = "";
-      backBtn.disabled = state.step === 0;
-
-      if (s.type === "single"){
-        const current = state.answers[s.key];
-        s.options.forEach((opt, idx) => {
-          const id = `${s.id}_${idx}`;
-          const w = document.createElement("div");
-          w.className = "option";
-          w.innerHTML = `
-            <input type="radio" name="${s.id}" id="${id}" ${current === opt.value ? "checked" : ""}/>
-            <label for="${id}">${opt.label}</label>
-          `;
-          w.addEventListener("click", () => { state.answers[s.key] = opt.value; renderStep(); });
-          qForm.appendChild(w);
-        });
-      }
-
-      if (s.type === "multi"){
-        const current = new Set(state.answers[s.key] || []);
-        s.options.forEach((opt, idx) => {
-          const id = `${s.id}_${idx}`;
-          const w = document.createElement("div");
-          w.className = "option";
-          const checked = current.has(opt.value);
-          w.innerHTML = `
-            <input type="checkbox" name="${s.id}" id="${id}" ${checked ? "checked" : ""}/>
-            <label for="${id}">${opt.label}</label>
-          `;
-          w.addEventListener("click", () => {
-            const now = new Set(state.answers[s.key] || []);
-            if (now.has(opt.value)) now.delete(opt.value); else now.add(opt.value);
-
-            if (now.has("none") && now.size > 1) { now.clear(); now.add("none"); }
-            if (now.has("medical") || now.has("employer") || now.has("evidence") || now.has("can_get")) {
-              if (now.has("none")) now.delete("none");
-            }
-            state.answers[s.key] = Array.from(now);
-            renderStep();
-          });
-          qForm.appendChild(w);
-        });
-      }
-
-      const g = computeLeadGrade(state.answers);
-      leadBadge.className = `badge ${g.cls}`;
-      leadBadge.textContent = `איכות פנייה: ${g.tag}`;
-    }
-
-    function resetAll(){
-      state.step = 0;
-      state.answers = { q1_whenContext:null, q2_whenTime:null, q3_impact:null, q4_docs:[], q5_process:null };
-      document.getElementById("fullName").value = "";
-      document.getElementById("phone").value = "";
-      document.getElementById("prefTime").value = "";
-      clearSubmitError(); clearSubmitOk();
-      hide(doneEl); hide(quizEl); show(landingEl);
-      scrollTop();
-    }
-
-    function showQuiz(){
-      hide(landingEl);
-      hide(doneEl);
-      show(quizEl);
-      state.step = 0;
-      renderStep();
-      scrollTop();
-    }
-
-    function showDone(){
-      hide(quizEl);
-      show(doneEl);
-
-      const s = summaryText(state.answers);
-      const html = `
-        <div style="padding:12px 14px;border:1px solid rgba(226,232,240,.95);border-radius:16px;background:#fff;">
-          <div style="font-weight:800;margin-bottom:6px;">${s.title}</div>
-          <ul style="margin:0;padding:0 18px;color:#334155;">
-            ${s.bullets.map(b => `<li style="margin:6px 0;">${b}</li>`).join("")}
-          </ul>
-        </div>
-      `;
-      summaryBox.innerHTML = html;
-      scrollTop();
-    }
-
-    // EVENTS
-    startBtn.addEventListener("click", showQuiz);
-    stickyStart.addEventListener("click", showQuiz);
-    toFaqBtn.addEventListener("click", () => document.getElementById("faq").scrollIntoView({behavior:"smooth"}));
-
-    backBtn.addEventListener("click", () => { if (state.step > 0) { state.step--; renderStep(); } });
-
-    nextBtn.addEventListener("click", () => {
-      const s = steps[state.step];
-      const v = state.answers[s.key];
-      if (!s.validate(v)) return showError("בבקשה לבחור תשובה כדי להמשיך.");
-
-      if (s.key === "q1_whenContext" && v === "no"){
-        showInfo("שימי לב: ייתכן שזה לא “תאונת עבודה”, אבל עדיין יכול להיות כיוון אחר. נמשיך רגע לבדיקה.");
-      }
-
-      if (state.step < steps.length - 1) { state.step++; renderStep(); }
-      else { showDone(); }
-    });
-
-    restartBtn.addEventListener("click", resetAll);
-
-    submitBtn.addEventListener("click", async () => {
-      clearSubmitError(); clearSubmitOk();
-
-      const name = document.getElementById("fullName").value.trim();
-      const phoneRaw = document.getElementById("phone").value.trim();
-      const phone = phoneRaw.replace(/[-\s]/g,"");
-      const prefTime = document.getElementById("prefTime").value || null;
-
-      if (!name || name.length < 2) return showSubmitError("בבקשה להזין שם מלא.");
-      if (!/^0\d{8,9}$/.test(phone)) return showSubmitError("בבקשה להזין מספר טלפון ישראלי תקין (05XXXXXXXX).");
-      if (!WEBHOOK_URL || WEBHOOK_URL.includes("PASTE_YOUR_WEBHOOK_URL_HERE")) {
-        return showSubmitError("חסרה כתובת שליחה. הדביקי את ה-Webhook של Make בקוד.");
-      }
-
-      const grade = computeLeadGrade(state.answers);
-      const summ = summaryText(state.answers);
-
-      const payload = {
-        createdAt: new Date().toISOString(),
-        leadGrade: grade.tag,
-        leadScore: grade.score,
-        contact: { name, phone, preferredTime: prefTime },
-        answers: state.answers,
-        summary: { title: summ.title, bullets: summ.bullets },
-        meta: { source: "pitzuy_center_assistant_font_v1", locale: "he-IL" }
-      };
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = "שולח…";
-
-      try{
-        const res = await fetch(WEBHOOK_URL, {
-          method:"POST",
-          headers:{ "Content-Type":"application/json" },
-          body: JSON.stringify(payload)
-        });
-        if (!res.ok) throw new Error("HTTP " + res.status);
-
-        showSubmitOk("נשלח ✅ נחזור בהקדם.");
-        submitBtn.textContent = "נשלח ✅";
-      }catch(e){
-        showSubmitError("השליחה נכשלה. בדקי שה-Webhook נכון ושהתרחיש ב-Make מחכה לנתונים.");
-        submitBtn.disabled = false;
-        submitBtn.textContent = "רוצה שיחזרו אליי ויעשו לי סדר";
-      }
-    });
-  });
-</script>
-</body>
-</html>
+    summary{ cursor:

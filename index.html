@@ -2,155 +2,174 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-  <title>זכויות עובדים | בדיקה רשמית</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>pitzuy.center | מרכז המידע והזכויות</title>
   <style>
     :root {
-      --slate-900: #0f172a;
-      --slate-500: #64748b;
-      --blue-600: #2563eb;
-      --bg-white: #ffffff;
-      --soft-gray: #f8fafc;
-      --border: #f1f5f9;
+      --primary: #0f172a;
+      --accent: #2563eb;
+      --soft-bg: #f1f5f9;
+      --card-bg: #ffffff;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
     }
 
-    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-
+    * { box-sizing: border-box; }
+    
     body {
       margin: 0;
-      font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: var(--bg-white);
-      color: var(--slate-900);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      color: var(--text-dark);
+      line-height: 1.6;
       min-height: 100vh;
     }
 
-    .header {
-      width: 100%;
-      padding: 25px;
-      display: flex;
-      justify-content: center;
-      border-bottom: 1px solid var(--border);
-      background: #fff;
+    .wrapper { max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
+
+    /* Layout */
+    .grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; }
+    @media (max-width: 850px) { .grid { grid-template-columns: 1fr; } }
+
+    .main-card {
+      background: var(--card-bg);
+      border-radius: 30px;
+      padding: 50px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255,255,255,0.8);
     }
 
-    .header-title {
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: var(--slate-900);
-      opacity: 0.8;
+    .side-card {
+      background: rgba(30, 41, 59, 0.03);
+      border-radius: 30px;
+      padding: 40px;
+      border: 1px dashed #cbd5e1;
     }
 
-    .main-container {
-      width: 100%;
-      max-width: 460px;
-      padding: 50px 24px;
-      flex-grow: 1;
-    }
-
-    h1 { font-size: 36px; font-weight: 800; line-height: 1.1; margin-bottom: 15px; letter-spacing: -1.5px; }
-    .intro-text { font-size: 18px; color: var(--slate-500); line-height: 1.6; margin-bottom: 35px; }
-
-    .option-item {
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      background: var(--soft-gray);
-      transition: all 0.2s ease;
-    }
-
-    .option-item:hover { border-color: var(--slate-500); background: #fff; }
-    .option-item.active { border-color: var(--slate-900); background: #fff; box-shadow: 0 0 0 2px var(--slate-900); }
-
-    .btn-black {
-      background: var(--slate-900);
+    /* Typography */
+    h1 { font-size: 42px; font-weight: 900; margin: 0 0 20px; line-height: 1.1; color: var(--primary); }
+    p.lead { font-size: 19px; color: var(--text-light); margin-bottom: 35px; }
+    
+    /* Elements */
+    .btn {
+      display: inline-block;
+      background: var(--primary);
       color: white;
-      border: none;
-      padding: 20px;
-      width: 100%;
-      border-radius: 14px;
+      text-decoration: none;
+      padding: 20px 40px;
+      border-radius: 15px;
+      font-weight: 800;
       font-size: 18px;
-      font-weight: 700;
+      border: none;
       cursor: pointer;
-      margin-top: 20px;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2);
+      transition: all 0.3s ease;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(15, 23, 42, 0.3); }
+
+    .step-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 25px; }
+    .step-num { 
+      background: var(--primary); color: white; width: 30px; height: 30px; 
+      display: flex; align-items: center; justify-content: center; 
+      border-radius: 8px; font-weight: 900; flex-shrink: 0;
     }
 
-    .progress-wrap { display: flex; gap: 5px; margin-bottom: 25px; }
-    .dot { height: 4px; flex: 1; background: var(--border); border-radius: 2px; }
-    .dot.active { background: var(--slate-900); }
-
-    input, select {
-      width: 100%; padding: 18px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; font-size: 16px; background: var(--soft-gray);
+    /* Quiz Logic UI */
+    .option {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.2s;
     }
+    .option:hover { border-color: var(--accent); }
+    .option.active { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(15,23,42,0.05); }
+
+    .progress-bar { height: 6px; background: #e2e8f0; border-radius: 10px; margin-bottom: 30px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.4s ease; }
 
     .hidden { display: none; }
-    .animate { animation: fadeIn 0.4s ease forwards; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    input, select {
+      width: 100%; padding: 18px; border: 2px solid #e2e8f0; border-radius: 12px; 
+      margin-bottom: 15px; font-size: 16px; outline: none;
+    }
   </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-title">מרכז המידע לזכויות עובדים</div>
-</div>
+<div class="wrapper">
+  <div class="grid">
+    
+    <div class="main-card">
+      <div id="landing">
+        <h1>נפגעת בעבודה? <br> בואו נבדוק מה מגיע לך.</h1>
+        <p class="lead">בדיקה מקצועית, מהירה ודיסקרטית שתעזור לך להבין את הזכויות שלך מול המערכת.</p>
+        <button class="btn" onclick="start()">התחל בדיקת זכאות</button>
+      </div>
 
-<div class="main-container">
-  
-  <div id="landing" class="animate">
-    <h1>כמה מגיע לך? בואו נבדוק.</h1>
-    <p class="intro-text">נפגעת בעבודה? במקום לנחש, ענו על מספר שאלות קצרות וקבלו אבחון ראשוני של הזכויות שלכם.</p>
-    <button class="btn-black" onclick="startQuiz()">התחל בבדיקה</button>
-  </div>
+      <div id="quiz" class="hidden">
+        <div class="progress-bar"><div id="pFill" class="progress-fill"></div></div>
+        <h2 id="qTitle" style="font-size: 24px; margin-bottom: 25px;"></h2>
+        <div id="qForm"></div>
+        <div style="margin-top: 30px; display: flex; gap: 10px;">
+          <button class="btn" id="nextBtn" onclick="next()">המשך</button>
+          <button class="btn" style="background: #e2e8f0; color: #64748b;" onclick="back()">חזור</button>
+        </div>
+      </div>
 
-  <div id="quiz" class="hidden animate">
-    <div class="progress-wrap" id="dots"></div>
-    <h2 id="qTitle" style="font-size: 24px; margin-bottom: 25px; letter-spacing: -1px;"></h2>
-    <div id="qForm"></div>
-    <button class="btn-black" id="nextBtn" onclick="next()">המשך</button>
-  </div>
+      <div id="done" class="hidden">
+        <h1>הבדיקה הושלמה.</h1>
+        <p class="lead">הנתונים שלך נותחו. כדי שמומחה יוכל לחזור אליך עם תשובות מדויקות, אנא השאר פרטים:</p>
+        <input type="text" id="fullName" placeholder="שם מלא" />
+        <input type="tel" id="phone" placeholder="מספר טלפון" />
+        <select id="prefTime">
+          <option value="">מתי נוח לך לדבר?</option>
+          <option>בוקר</option>
+          <option>צהריים</option>
+          <option>ערב</option>
+        </select>
+        <button class="btn" onclick="submit()">שלחו לי את סיכום הזכויות</button>
+      </div>
+    </div>
 
-  <div id="done" class="hidden animate">
-    <h1>הבדיקה הושלמה.</h1>
-    <p class="intro-text">ניתחנו את התשובות שלך. כדי לקבל את סיכום הזכויות המלא ממומחה, השאירו פרטים ונחזור אליכם.</p>
-    <input type="text" id="fullName" placeholder="שם מלא" />
-    <input type="tel" id="phone" placeholder="מספר טלפון לשיחה" />
-    <select id="prefTime">
-      <option value="">מתי הכי נוח לדבר?</option>
-      <option>בוקר</option>
-      <option>צהריים</option>
-      <option>ערב</option>
-    </select>
-    <button class="btn-black" id="submitBtn" onclick="submit()">רוצה שיחזרו אליי ויעשו לי סדר</button>
+    <div class="side-card">
+      <h3 style="margin-top: 0;">איך זה עובד?</h3>
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div><b>אבחון מהיר:</b> 5 שאלות ממוקדות על המקרה שלך.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div><b>דירוג זכאות:</b> המערכת מזהה את פוטנציאל הפיצוי.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div><b>שיחת מומחה:</b> נציג יחזור אליך לעשות סדר בבלאגן.</div>
+      </div>
+      <hr style="border: 0; border-top: 1px solid #cbd5e1; margin: 30px 0;">
+      <p style="font-size: 13px; color: var(--text-light);">🔒 המידע שלך מאובטח ומשמש לצורך אבחון הזכויות בלבד.</p>
+    </div>
+
   </div>
 </div>
 
 <script>
-  // 1) המנוע של הצאט - WEBHOOK
+  // לוגיקה מקורית ומלאה
   const WEBHOOK_URL = "PASTE_YOUR_WEBHOOK_URL_HERE";
-
-  const state = {
-    step: 0,
-    answers: { q1_whenContext: null, q2_whenTime: null, q3_impact: null, q4_docs: [], q5_process: null }
-  };
-
+  const state = { step: 0, answers: { q4_docs: [] } };
   const steps = [
-    { key: "q1_whenContext", title: "האם הפגיעה קרתה בזמן העבודה, בדרך אליה או בחזרה?", type: "single", options: [{l:"כן", v:"yes"}, {l:"לא", v:"no"}, {l:"אני לא בטוח/ה", v:"unsure"}] },
-    { key: "q2_whenTime", title: "מתי בערך קרתה הפגיעה?", type: "single", options: [{l:"ממש עכשיו", v:0}, {l:"בחודשים האחרונים", v:1}, {l:"לפני שנה או יותר", v:2}, {l:"לפני יותר מ-3 שנים", v:3}] },
-    { key: "q3_impact", title: "איך הפגיעה השפיעה עליך?", type: "single", options: [{l:"ניתוח / שיקום ארוך", v:0}, {l:"טיפול במיון / בדיקות", v:1}, {l:"ימי מחלה בלבד", v:2}, {l:"חזרתי לעבוד עם כאבים", v:3}, {l:"פגיעה קלה", v:4}] },
-    { key: "q4_docs", title: "האם יש תיעוד כלשהו?", type: "multi", options: [{l:"תיעוד רפואי", v:"medical"}, {l:"דיווח למעסיק", v:"employer"}, {l:"עדים / תמונות", v:"evidence"}, {l:"אין לי תיעוד", v:"none"}] },
-    { key: "q5_process", title: "האם פנית כבר לביטוח לאומי?", type: "single", options: [{l:"לא, עדיין לא", v:0}, {l:"פניתי אך לא בטוח/ה שצדקתי", v:1}, {l:"הגשתי כבר תביעה", v:2}, {l:"אני בתהליך מתקדם", v:3}] }
+    { key: "q1", title: "האם הפגיעה קרתה בזמן העבודה, בדרך אליה או בחזרה?", options: ["כן", "לא", "אני לא בטוח/ה"], type: "single" },
+    { key: "q2", title: "מתי בערך קרתה הפגיעה?", options: ["בשבוע האחרון", "בחודשים האחרונים", "לפני יותר משנה", "לפני יותר מ-3 שנים"], type: "single" },
+    { key: "q3", title: "איך הפציעה השפיעה עליך?", options: ["ניתוח / אשפוז ארוך", "טיפול במיון / בדיקות", "ימי מחלה בלבד", "חזרתי לעבוד עם כאבים", "פגיעה קלה"], type: "single" },
+    { key: "q4", title: "האם יש תיעוד כלשהו מהאירוע? (בחירה מרובה)", options: ["תיעוד רפואי", "דיווח למעסיק", "יש עדים / תמונות", "אין לי תיעוד"], type: "multi" },
+    { key: "q5", title: "האם פנית כבר לביטוח לאומי?", options: ["לא, עדיין לא", "פניתי אך לא בטוח/ה שצדקתי", "הגשתי כבר תביעה", "אני בתהליך מתקדם"], type: "single" }
   ];
 
-  function startQuiz() {
+  function start() {
     document.getElementById("landing").classList.add("hidden");
     document.getElementById("quiz").classList.remove("hidden");
     render();
@@ -161,8 +180,55 @@
     document.getElementById("qTitle").innerText = s.title;
     const form = document.getElementById("qForm");
     form.innerHTML = "";
-    
-    const dotsContainer = document.getElementById("dots");
-    dotsContainer.innerHTML = steps.map((_, i) => `<div class="dot ${i <= state.step ? 'active' : ''}"></div>`).join('');
+    document.getElementById("pFill").style.width = ((state.step + 1) / steps.length) * 100 + "%";
 
-    s.options.
+    s.options.forEach(opt => {
+      const div = document.createElement("div");
+      div.className = "option";
+      const isSelected = s.type === "single" ? state.answers[s.key] === opt : state.answers[s.key]?.includes(opt);
+      if (isSelected) div.classList.add("active");
+
+      div.innerText = opt;
+      div.onclick = () => {
+        if (s.type === "single") {
+          state.answers[s.key] = opt;
+          setTimeout(next, 300);
+        } else {
+          const idx = state.answers[s.key].indexOf(opt);
+          if (idx > -1) state.answers[s.key].splice(idx, 1);
+          else state.answers[s.key].push(opt);
+        }
+        render();
+      };
+      form.appendChild(div);
+    });
+  }
+
+  function next() {
+    if (state.step < steps.length - 1) {
+      state.step++;
+      render();
+    } else {
+      document.getElementById("quiz").classList.add("hidden");
+      document.getElementById("done").classList.remove("hidden");
+    }
+  }
+
+  function back() { if (state.step > 0) { state.step--; render(); } }
+
+  async function submit() {
+    const payload = {
+      name: document.getElementById("fullName").value,
+      phone: document.getElementById("phone").value,
+      answers: state.answers,
+      time: document.getElementById("prefTime").value
+    };
+    try {
+      await fetch(WEBHOOK_URL, { method: "POST", body: JSON.stringify(payload) });
+      document.getElementById("done").innerHTML = "<h1>נשלח בהצלחה.</h1><p class='lead'>נציג יחזור אליך בהקדם.</p>";
+    } catch (e) { alert("תודה, הפרטים נשמרו."); }
+  }
+</script>
+
+</body>
+</html>

@@ -6,6 +6,8 @@
   <title>בדיקה קצרה לזכויות אחרי פגיעה בעבודה</title>
   <meta name="description" content="בדיקה קצרה ולא מחייבת שמסדרת את התמונה אחרי פגיעה בעבודה. דיסקרטי, אנושי, בערך 2 דקות." />
 
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root{
       --bgTop:#0b1220;
@@ -25,11 +27,9 @@
     }
 
     *{ box-sizing:border-box; }
-    
     body{
       margin:0;
-      /* עדכון הפונט למודרני ונקי */
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Assistant', system-ui, -apple-system, sans-serif;
       color: var(--text);
       background:
         radial-gradient(1100px 680px at 80% -10%, rgba(14,165,233,.28), transparent 55%),
@@ -50,44 +50,36 @@
     .grid{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 14px; }
     @media (max-width: 940px){ .grid{ grid-template-columns: 1fr; } }
     .card{ background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; box-shadow: var(--shadow2); }
-    h1{ margin: 0 0 10px; font-size: 34px; line-height: 1.15; letter-spacing: -.5px; }
+    h1{ margin: 0 0 10px; font-size: 34px; line-height: 1.15; letter-spacing: -.5px; font-weight: 800; }
     .lead{ margin: 0 0 16px; color: var(--muted); font-size: 16.5px; max-width: 62ch; }
-    .heroRow{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top: 10px; }
-    .btn{ border:0; cursor:pointer; border-radius: 16px; padding: 14px 18px; font-weight: 1000; font-size: 16px; color:#fff; background: linear-gradient(135deg, var(--primary), var(--primary2)); box-shadow: 0 16px 30px rgba(37,99,235,.20); transition: transform .15s ease, filter .15s ease; min-width: 240px; }
+    .btn{ border:0; cursor:pointer; border-radius: 16px; padding: 14px 18px; font-weight: 800; font-size: 16px; color:#fff; background: linear-gradient(135deg, var(--primary), var(--primary2)); box-shadow: 0 16px 30px rgba(37,99,235,.20); transition: transform .15s ease, filter .15s ease; min-width: 240px; font-family: inherit; }
     .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
     .btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+    
     .trustStrip{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
     @media (max-width: 940px){ .trustStrip{ grid-template-columns: 1fr; } }
     .trust{ border-radius: 16px; padding: 12px; border: 1px solid rgba(226,232,240,.95); background: linear-gradient(180deg, #ffffff, #fbfdff); display:flex; gap:10px; align-items:flex-start; }
-    .ico{ width:34px; height:34px; border-radius: 14px; background: #f1f5ff; display:grid; place-items:center; color: #1d4ed8; font-weight: 1000; flex: 0 0 auto; }
+    .ico{ width:34px; height:34px; border-radius: 14px; background: #f1f5ff; display:grid; place-items:center; color: #1d4ed8; font-weight: 800; flex: 0 0 auto; }
+    .trust b{ display:block; margin-bottom: 2px; font-weight: 700; }
+    .trust span{ color: var(--muted); font-size: 13px; }
     .divider{ height:1px; background: rgba(226,232,240,.95); margin: 16px 0; }
-    .kicker{ margin: 0 0 10px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #64748b; font-weight: 1000; }
-    .steps{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
-    .step{ border:1px solid rgba(226,232,240,.95); border-radius: 16px; padding: 12px; background: #fff; display:flex; gap:10px; align-items:flex-start; }
-    .num{ width:28px;height:28px;border-radius: 11px; display:flex;align-items:center;justify-content:center; background: rgba(14,165,233,.10); color: #0369a1; font-weight: 1000; flex: 0 0 auto; }
+    .num{ width:28px;height:28px;border-radius: 11px; display:flex;align-items:center;justify-content:center; background: rgba(14,165,233,.10); color: #0369a1; font-weight: 800; flex: 0 0 auto; }
     details{ border:1px solid rgba(226,232,240,.95); border-radius: 16px; background: #fff; padding: 12px 14px; margin: 10px 0; }
-    summary{ cursor:pointer; font-weight: 1000; color: var(--text); list-style:none; }
-    .mini{ margin-top: 12px; color: #64748b; font-size: 12px; }
+    summary{ cursor:pointer; font-weight: 700; color: var(--text); list-style:none; }
     .hidden{ display:none !important; }
 
     /* QUIZ */
-    .quizTop{ display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom: 10px; }
-    .badge{ display:inline-flex; align-items:center; gap:8px; padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(203,213,225,.95); background: #f8fafc; font-weight: 1000; font-size: 12px; color: var(--text); }
-    .badgeLow{ background:#f8fafc; border-color:#e2e8f0; color:#334155; }
+    .progressText{ font-size: 12px; color: var(--muted); font-weight: 700; }
     .bar{ height: 10px; background: rgba(226,232,240,.95); border-radius: 999px; overflow:hidden; margin: 10px 0 16px; }
     .fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--primary), var(--primary2), #22c55e); transition: width .25s ease; }
-    .qTitle{ margin:0 0 8px; font-size: 20px; letter-spacing: -.1px; }
-    .hint{ margin:0 0 10px; color: var(--muted); font-size: 13px; font-weight: 950; }
+    .qTitle{ margin:0 0 8px; font-size: 20px; font-weight: 800; }
     .option{ display:flex; align-items:flex-start; gap: 12px; padding: 14px; margin: 10px 0; border-radius: 16px; border: 1px solid rgba(203,213,225,.95); background: #fff; cursor:pointer; transition: 0.12s ease; }
     .option:hover{ transform: translateY(-1px); border-color: rgba(37,99,235,.35); background: #f8fbff; }
     .option.active{ border-color: var(--primary); background: #f0f7ff; }
-    .option label{ cursor:pointer; font-weight: 1000; flex:1; }
-    .actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 12px; }
-    .btnGhost{ border-radius: 16px; padding: 14px 18px; font-weight: 1000; font-size: 16px; background: #fff; color: var(--text); border: 1px solid rgba(203,213,225,.95); cursor:pointer; min-width: 240px; }
+    .option label{ cursor:pointer; font-weight: 700; flex:1; }
+    .btnGhost{ border-radius: 16px; padding: 14px 18px; font-weight: 800; font-size: 16px; background: #fff; color: var(--text); border: 1px solid rgba(203,213,225,.95); cursor:pointer; min-width: 240px; font-family: inherit; }
 
     input[type="text"], input[type="tel"]{ width:100%; padding: 14px; border-radius: 16px; border: 1px solid rgba(203,213,225,.95); background: #fff; font-size: 16px; outline:none; font-family: inherit; }
-    .sticky{ position: fixed; left: 12px; right: 12px; bottom: 12px; display:none; z-index: 50; }
-    @media (max-width: 940px){ .sticky{ display:block; } .sticky .btn{ width:100%; min-width:auto; } }
   </style>
 </head>
 
@@ -107,58 +99,48 @@
         <div class="card">
           <h1>נפגעת בעבודה? בואי נעשה סדר רגע.</h1>
           <p class="lead">זה לא טופס מפחיד ולא “משפטי”. רק כמה שאלות קצרות שמסדרות את התמונה ומגלות אם יש היתכנות לפיצוי.</p>
-          <div class="heroRow">
-            <button class="btn" id="startBtn" type="button">מתחילים בדיקה</button>
-          </div>
+          <div class="heroRow"><button class="btn" id="startBtn" type="button">מתחילים בדיקה</button></div>
           <div class="trustStrip">
-            <div class="trust"><div class="ico">🧠</div><div><b>ברור ופשוט</b></div></div>
-            <div class="trust"><div class="ico">👂</div><div><b>אוזן קשבת</b><span>אנחנו כאן כדי להקשיב ולהבין את המצב שלך באמת.</span></div></div>
-            <div class="trust"><div class="ico">🛡️</div><div><b>דיסקרטי</b></div></div>
+            <div class="trust"><div class="ico">🧠</div><div><b>ברור ופשוט</b><span>בלי מילים מסובכות.</span></div></div>
+            <div class="trust"><div class="ico">👂</div><div><b>אוזן קשבת</b><span>אנחנו כאן כדי להבין אותך באמת.</span></div></div>
+            <div class="trust"><div class="ico">🛡️</div><div><b>דיסקרטי</b><span>את בוחרת אם להשאיר פרטים.</span></div></div>
           </div>
           <div class="divider"></div>
           <div id="faq">
-            <div class="kicker">שאלות נפוצות</div>
             <details><summary>זה מחייב אותי לפנות לעו״ד?</summary><p>לא. זו בדיקה ראשונית בלבד.</p></details>
             <details><summary>למה אתם שואלים על תיעוד?</summary><p>כדי להבין מהר אם יש בסיס לתביעה.</p></details>
-            <details><summary>האם הבדיקה כרוכה בתשלום?</summary><p>ממש לא. הבדיקה והשיחה הראשונית ניתנות ללא עלות וללא התחייבות.</p></details>
+            <details><summary>האם הבדיקה כרוכה בתשלום?</summary><p>ממש לא. הבדיקה והשיחה הראשונית ניתנות ללא עלות.</p></details>
           </div>
         </div>
         <div class="card">
-          <div class="kicker">איך זה עובד</div>
-          <ul class="steps">
-            <li class="step"><div class="num">1</div><p>ממלאים 5 שאלות.</p></li>
-            <li class="step"><div class="num">2</div><p>מנתחים את התמונה.</p></li>
-            <li class="step"><div class="num">3</div><p>בסוף — משאירים פרטים למי שרוצה שיחה.</p></li>
+          <ul style="list-style:none; padding:0;">
+            <li class="trust" style="margin-bottom:10px;"><div class="num">1</div><p>ממלאים 5 שאלות.</p></li>
+            <li class="trust" style="margin-bottom:10px;"><div class="num">2</div><p>מנתחים את התמונה.</p></li>
+            <li class="trust" style="margin-bottom:10px;"><div class="num">3</div><p>בסוף — משאירים פרטים לשיחה.</p></li>
           </ul>
         </div>
       </div>
 
       <div id="quiz" class="card hidden">
-        <div class="quizTop">
-          <span id="leadBadge" class="badge badgeLow">אימות: —</span>
-          <span id="progressTxt" class="progressText">שאלה 1 מתוך 5</span>
-        </div>
+        <div style="display:flex; justify-content:space-between;"><span id="progressTxt" class="progressText">שאלה 1 מתוך 5</span></div>
         <div class="bar"><div id="progressFill" class="fill"></div></div>
         <h2 id="qTitle" class="qTitle"></h2>
         <div id="qForm"></div>
-        <div class="actions">
+        <div style="display:flex; gap:10px; margin-top:20px;">
           <button class="btnGhost" id="backBtn" type="button" style="min-width:auto; flex:1;">אחורה</button>
           <button class="btn" id="nextBtn" type="button" style="min-width:auto; flex:2;">המשך</button>
         </div>
       </div>
 
       <div id="done" class="card hidden">
-        <h2 style="margin:0 0 8px;font-size:22px;">סיכום קצר ✅</h2>
-        <div id="summaryBox" class="mini" style="font-size:14px;color:var(--text); padding:15px; background:#f8fafc; border-radius:15px; margin-bottom:20px;"></div>
-        <div class="field"><label>שם מלא</label><input type="text" id="fullName" placeholder="בר כהן" /></div>
-        <div class="field" style="margin-top:10px;"><label>טלפון</label><input type="tel" id="phone" placeholder="05XXXXXXXX" /></div>
-        <button class="btn" id="submitBtn" type="button" style="width:100%; margin-top:20px;">רוצה שיחזרו אליי</button>
-        <button class="btnGhost" id="restartBtn" type="button" style="width:100%; margin-top:10px;">מילוי מחדש</button>
+        <h2>סיכום קצר ✅</h2>
+        <div id="summaryBox" style="background:#f8fafc; padding:15px; border-radius:15px; margin-bottom:20px; font-size:14px;"></div>
+        <input type="text" id="fullName" placeholder="שם מלא" />
+        <input type="tel" id="phone" placeholder="טלפון" />
+        <button class="btn" id="submitBtn" style="width:100%; margin-top:20px;">רוצה שיחזרו אליי</button>
       </div>
     </div>
   </div>
-
-  <div class="sticky"><button class="btn" id="stickyStart">מתחילים בדיקה</button></div>
 
 <script>
   const WEBHOOK_URL = "PASTE_YOUR_WEBHOOK_URL_HERE";
@@ -180,19 +162,19 @@
 
     const steps = [
       { id: "q1", title: "האם זה קרה בזמן העבודה, בדרך אליה או בחזרה?", key: "q1", options: [{label:"כן", v:"yes"}, {label:"לא", v:"no"}, {label:"לא בטוחה", v:"maybe"}] },
-      { id: "q2", title: "מתי בערך זה קרה?", key: "q2", options: [{label:"השבוע", v:0}, {label:"בחודשים האחרונים", v:1}, {label:"לפני שנה או יותר", v:2}] },
-      { id: "q3", title: "איך זה השפיע עליך?", key: "q3", options: [{label:"ניתוח / אשפוז", v:0}, {label:"טיפול במיון", v:1}, {label:"ימי מחלה", v:2}, {label:"פגיעה קלה", v:3}] },
+      { id: "q2", title: "מתי זה קרה?", key: "q2", options: [{label:"השבוע", v:0}, {label:"בחודשים האחרונים", v:1}, {label:"לפני שנה או יותר", v:2}] },
+      { id: "q3", title: "חומרת הפציעה?", key: "q3", options: [{label:"ניתוח / אשפוז", v:0}, {label:"טיפול במיון", v:1}, {label:"ימי מחלה", v:2}, {label:"פגיעה קלה", v:3}] },
       { id: "q4", title: "יש לך תיעוד?", key: "q4", type: "multi", options: [{label:"רפואי", v:"med"}, {label:"מעסיק", v:"emp"}, {label:"אין", v:"none"}] },
-      { id: "q5", title: "פנית לביטוח לאומי?", key: "q5", options: [{label:"עדיין לא", v:"no"}, {label:"כן", v:"yes"}] }
+      { id: "q5", title: "פנית לביטוח לאומי?", key: "q5", options: [{label:"עדיין לא", v:0}, {label:"כן", v:1}] }
     ];
 
     function renderStep() {
       const s = steps[state.step];
-      qTitle.textContent = s.title;
-      qForm.innerHTML = "";
-      progressFill.style.width = ((state.step + 1) / steps.length) * 100 + "%";
-      progressTxt.textContent = `שאלה ${state.step + 1} מתוך ${steps.length}`;
-      
+      document.getElementById("qTitle").innerText = s.title;
+      document.getElementById("progressTxt").innerText = `שאלה ${state.step + 1} מתוך ${steps.length}`;
+      document.getElementById("progressFill").style.width = ((state.step + 1) / steps.length) * 100 + "%";
+      const form = document.getElementById("qForm");
+      form.innerHTML = "";
       s.options.forEach(opt => {
         const div = document.createElement("div");
         div.className = "option" + (state.answers[s.key] === opt.v || (Array.isArray(state.answers[s.key]) && state.answers[s.key].includes(opt.v)) ? " active" : "");
@@ -204,24 +186,22 @@
           } else { state.answers[s.key] = opt.v; }
           renderStep();
         };
-        qForm.appendChild(div);
+        form.appendChild(div);
       });
       nextBtn.disabled = Array.isArray(state.answers[s.key]) ? state.answers[s.key].length === 0 : state.answers[s.key] === null;
       backBtn.disabled = state.step === 0;
     }
 
-    startBtn.onclick = () => { landingEl.classList.add("hidden"); quizEl.classList.remove("hidden"); renderStep(); window.scrollTo(0,0); };
-    document.getElementById("stickyStart").onclick = () => startBtn.click();
-    backBtn.onclick = () => { if(state.step > 0) { state.step--; renderStep(); } };
+    startBtn.onclick = () => { landingEl.classList.add("hidden"); quizEl.classList.remove("hidden"); renderStep(); };
+    backBtn.onclick = () => { if (state.step > 0) { state.step--; renderStep(); } };
     nextBtn.onclick = () => {
       if (state.step < steps.length - 1) { state.step++; renderStep(); }
       else {
-        quizEl.classList.add("hidden");
-        doneEl.classList.remove("hidden");
-        summaryBox.innerText = "תודה על המענה המלא. המערכת ניתחה את הנתונים שלך ונראה שיש בסיס לבדיקת זכאות.";
+        document.getElementById("quiz").classList.add("hidden");
+        document.getElementById("done").classList.remove("hidden");
+        document.getElementById("summaryBox").innerText = "תודה על המענה. המערכת ניתחה את הנתונים שלך ונראה שיש בסיס לבדיקת זכאות.";
       }
     };
-    document.getElementById("restartBtn").onclick = () => location.reload();
 
     document.getElementById("submitBtn").onclick = async () => {
       const name = document.getElementById("fullName").value;
@@ -229,7 +209,7 @@
       if(!name || phone.length < 9) return alert("נא למלא פרטים תקינים");
       try {
         await fetch(WEBHOOK_URL, { method: "POST", body: JSON.stringify({ name, phone, answers: state.answers }) });
-        alert("נשלח בהצלחה! ניצור קשר בקרוב.");
+        alert("נשלח בהצלחה!");
       } catch(e) { alert("תודה, הפרטים נשמרו."); }
     };
   });

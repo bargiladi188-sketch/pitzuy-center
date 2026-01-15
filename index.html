@@ -6,245 +6,411 @@
   <title>בדיקת זכאות לפיצוי – תאונת עבודה</title>
 
   <style>
-    :root {
-      --bg:#f8fafc;
+    :root{
+      --bg1:#f7f9ff;
+      --bg2:#eef5ff;
       --card:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --line:#e5e7eb;
       --primary:#1e40af;
-      --secondary:#3b82f6;
-      --text:#1e293b;
-      --muted:#64748b;
-      --line:#e2e8f0;
+      --primary2:#2563eb;
+      --accent:#06b6d4;
       --success:#16a34a;
       --danger:#dc2626;
-      --soft:#eff6ff;
+
+      --shadow: 0 18px 45px rgba(15,23,42,.08);
+      --shadow2: 0 10px 25px rgba(15,23,42,.08);
+      --radius: 20px;
     }
+
     *{ box-sizing:border-box; }
     body{
       margin:0;
       font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-      background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      background: radial-gradient(900px 450px at 85% 0%, #dbeafe 0%, transparent 55%),
+                  radial-gradient(900px 450px at 15% 10%, #cffafe 0%, transparent 55%),
+                  linear-gradient(180deg, var(--bg1), var(--bg2));
+      line-height: 1.65;
     }
-    .wrap{ max-width: 680px; margin: 0 auto; padding: 40px 18px 70px; }
+
+    .wrap{ max-width: 860px; margin: 0 auto; padding: 42px 18px 80px; }
+    .shell{
+      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(226,232,240,.7);
+      border-radius: 28px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+    }
+    @media (max-width: 860px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
     .card{
       background: var(--card);
       border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow2);
     }
-    h1{ margin: 0 0 10px; font-size: 28px; font-weight: 800; color: var(--primary); }
-    h2{ margin: 0 0 10px; font-size: 22px; font-weight: 800; color: var(--primary); }
-    .sub{ margin: 0 0 18px; color: var(--muted); font-size: 16px; }
-    .divider{ height:1px; background: var(--line); margin: 22px 0; }
 
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 6px 12px;
-      background: var(--soft);
+    .brand{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding: 10px 6px 20px;
+    }
+    .logo{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 900;
       color: var(--primary);
+      letter-spacing: .2px;
+    }
+    .mark{
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: 0 10px 20px rgba(37,99,235,.25);
+    }
+    .metaTop{
+      font-size: 12px; color: var(--muted);
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 6px 10px;
       border-radius: 999px;
-      font-size: 12px;
-      font-weight: 800;
-      border: 1px solid #dbeafe;
+      border: 1px solid rgba(203,213,225,.8);
+      background: rgba(255,255,255,.7);
+    }
+    .dot{ width:8px; height:8px; border-radius:50%; background: var(--success); }
+
+    h1{
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.2;
+      letter-spacing: -.3px;
+    }
+    .lead{
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 17px;
     }
 
-    .topbar{
-      display:flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
+    .heroCTA{
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+      margin-top: 14px;
     }
-    .progressText{ font-size: 13px; color: var(--muted); font-weight: 600; }
-
-    .progress-bar{
-      height: 8px;
-      background: var(--line);
-      border-radius: 999px;
-      overflow: hidden;
-      margin: 12px 0 18px;
-    }
-    .progress-fill{
-      height: 100%;
-      width: 0%;
-      background: var(--primary);
-      transition: width .25s ease;
-    }
-
     .btn{
       border:0;
-      border-radius: 12px;
-      padding: 14px 18px;
-      background: var(--primary);
-      color: #fff;
-      font-weight: 800;
-      cursor: pointer;
-      width: 100%;
-      font-size: 17px;
-      transition: transform .15s ease, background .15s ease;
-    }
-    .btn:hover{ background: var(--secondary); transform: translateY(-1px); }
-    .btn:disabled{ background: #94a3b8; cursor: not-allowed; transform:none; }
-
-    .ghost{
-      background: transparent;
-      border: 2px solid var(--line);
-      color: var(--text);
-    }
-    .row{
-      display:flex;
-      gap:12px;
-      flex-wrap: wrap;
-    }
-    .row > *{ flex: 1 1 220px; }
-
-    .qTitle{ font-size: 20px; font-weight: 800; margin: 0 0 12px; }
-    .hint{ margin: 0 0 10px; color: var(--muted); font-size: 13px; font-weight: 600; }
-
-    .option{
-      display:flex;
-      align-items:flex-start;
-      gap:12px;
-      padding: 14px;
-      border: 2px solid var(--line);
       border-radius: 14px;
-      margin: 10px 0;
-      cursor: pointer;
-      transition: all .15s ease;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      color:#fff;
+      font-weight: 900;
+      font-size: 16px;
+      cursor:pointer;
+      box-shadow: 0 16px 30px rgba(37,99,235,.22);
+      transition: transform .15s ease, filter .15s ease;
+      min-width: 240px;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+
+    .btnGhost{
+      border-radius: 14px;
+      padding: 14px 18px;
+      background: rgba(255,255,255,.75);
+      border: 1px solid rgba(203,213,225,.9);
+      color: var(--text);
+      font-weight: 800;
+      cursor:pointer;
+      min-width: 240px;
+    }
+
+    .trustRow{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+    @media (max-width: 860px){
+      .trustRow{ grid-template-columns: 1fr; }
+    }
+    .trust{
+      border: 1px solid rgba(226,232,240,.9);
+      border-radius: 16px;
+      padding: 14px;
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+    }
+    .trust b{ display:block; margin-bottom: 4px; }
+    .trust span{ color: var(--muted); font-size: 13px; }
+
+    .sideCard h2{
+      margin: 0 0 10px;
+      font-size: 16px;
+      color: var(--primary);
+      letter-spacing: .2px;
+    }
+    .steps{
+      margin: 0; padding: 0; list-style:none;
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .step{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(226,232,240,.9);
       background: #fff;
     }
-    .option:hover{ border-color: var(--secondary); background: #f0f7ff; }
-    .option input{ width: 18px; height: 18px; margin-top: 2px; cursor: pointer; }
-    .option label{ cursor: pointer; font-weight: 650; flex: 1; }
-
-    .small{ font-size: 12px; color: var(--muted); }
-    .err{
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid #fecaca;
-      background: #fef2f2;
-      color: var(--danger);
-      font-weight: 700;
-      display:none;
+    .num{
+      width: 28px; height: 28px; border-radius: 10px;
+      background: rgba(37,99,235,.10);
+      color: var(--primary);
+      font-weight: 900;
+      display:flex; align-items:center; justify-content:center;
+      flex: 0 0 auto;
     }
-    .ok{
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid #bbf7d0;
-      background: #f0fdf4;
-      color: var(--success);
-      font-weight: 800;
-      display:none;
-    }
+    .step p{ margin:0; color: var(--muted); font-size: 14px; }
+    .note{ margin-top: 10px; color: var(--muted); font-size: 12px; }
 
-    input[type="text"], input[type="tel"], select{
-      width:100%;
-      padding: 14px;
-      border-radius: 12px;
-      border: 2px solid var(--line);
-      font-size: 16px;
-      outline: none;
+    /* QUIZ */
+    .hidden{ display:none !important; }
+    .quizTop{
+      display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
+      margin-bottom: 12px;
     }
-    input[type="text"]:focus, input[type="tel"]:focus, select:focus{
-      border-color: #93c5fd;
-      box-shadow: 0 0 0 4px rgba(59,130,246,.12);
-    }
-
-    ul{ margin: 10px 0 0; padding: 0 18px 0 0; color: var(--muted); }
-    li{ margin: 6px 0; }
-
-    .footerNote{
-      margin-top: 10px;
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 12px;
+      border-radius: 999px;
       font-size: 12px;
-      color: var(--muted);
+      font-weight: 900;
+      border: 1px solid rgba(203,213,225,.9);
+      background: rgba(255,255,255,.75);
+      color: var(--text);
     }
-
     .badgeGold{ background:#fff7ed; border-color:#fed7aa; color:#9a3412; }
     .badgeHigh{ background:#f0f9ff; border-color:#bae6fd; color:#075985; }
     .badgeMed{ background:#f5f3ff; border-color:#ddd6fe; color:#5b21b6; }
     .badgeLow{ background:#f8fafc; border-color:#e2e8f0; color:#334155; }
+
+    .progressWrap{
+      width: 100%;
+      margin: 10px 0 16px;
+    }
+    .progressText{ font-size: 13px; color: var(--muted); font-weight: 700; }
+    .bar{
+      height: 10px;
+      background: rgba(226,232,240,.9);
+      border-radius: 999px;
+      overflow:hidden;
+      margin-top: 8px;
+    }
+    .fill{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width .25s ease;
+    }
+
+    .qTitle{
+      margin: 0 0 8px;
+      font-size: 20px;
+      letter-spacing: -.1px;
+    }
+    .hint{ color: var(--muted); font-size: 13px; font-weight: 650; margin-bottom: 8px; }
+
+    .option{
+      display:flex;
+      align-items:flex-start;
+      gap: 12px;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 16px;
+      border: 1px solid rgba(203,213,225,.9);
+      background: rgba(255,255,255,.9);
+      cursor:pointer;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .option:hover{
+      transform: translateY(-1px);
+      border-color: rgba(37,99,235,.35);
+      background: #f8fbff;
+    }
+    .option input{ width: 18px; height: 18px; margin-top: 2px; cursor:pointer; }
+    .option label{ cursor:pointer; font-weight: 700; flex: 1; }
+
+    .actions{
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top: 12px;
+    }
+    .actions button{ flex: 1 1 200px; }
+
+    .divider{
+      height:1px;
+      background: rgba(226,232,240,.9);
+      margin: 18px 0;
+    }
+    .err{
+      display:none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: var(--danger);
+      font-weight: 800;
+      font-size: 13px;
+    }
+    .ok{
+      display:none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: var(--success);
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    /* CONTACT */
+    .field label{ display:block; font-weight: 800; margin: 10px 0 6px; }
+    input[type="text"], input[type="tel"], select{
+      width:100%;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(203,213,225,.9);
+      background: rgba(255,255,255,.95);
+      font-size: 16px;
+      outline:none;
+      transition: box-shadow .15s ease, border-color .15s ease;
+    }
+    input:focus, select:focus{
+      border-color: rgba(37,99,235,.55);
+      box-shadow: 0 0 0 4px rgba(37,99,235,.12);
+    }
+    .tiny{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
+    <div class="shell">
 
-    <!-- LANDING -->
-    <div class="card" id="landing">
-      <h1>נפגעת בעבודה?</h1>
-      <p class="sub">בדיקה קצרה שתעזור לך להבין אם מגיע לך פיצוי — ללא התחייבות.</p>
-
-      <p class="sub">
-        אם הפגיעה קרתה בזמן העבודה, בדרך אליה או ממנה — יכול להיות שמגיעות לך זכויות וכסף, גם אם את/ה לא בטוח/ה.
-      </p>
-
-      <ul>
-        <li>הבדיקה לוקחת בערך 2 דקות</li>
-        <li>דיסקרטי ולא מחייב</li>
-        <li>מטרת הבדיקה: לעשות סדר לפני שמחליטים מה הצעד הבא</li>
-      </ul>
-
-      <div class="divider"></div>
-      <button class="btn" id="startBtn">התחל/י בדיקה קצרה</button>
-
-      <p class="footerNote">
-        *המידע נועד לסייע בסדר ובהכוונה ראשונית בלבד, ואינו ייעוץ משפטי.
-      </p>
-    </div>
-
-    <!-- QUIZ -->
-    <div class="card" id="quiz" style="display:none;">
-      <div class="topbar">
-        <span class="tag" id="leadTag">בדיקה</span>
-        <span class="progressText" id="progressTxt">שאלה 1 מתוך 6</span>
+      <div class="brand">
+        <div class="logo">
+          <div class="mark" aria-hidden="true"></div>
+          <div>בדיקת זכויות – תאונת עבודה</div>
+        </div>
+        <div class="metaTop">
+          <span class="pill"><span class="dot"></span> ללא התחייבות</span>
+          <span class="pill">⏱ ~2 דקות</span>
+          <span class="pill">🔒 דיסקרטי</span>
+        </div>
       </div>
 
-      <div class="progress-bar" aria-label="התקדמות">
-        <div class="progress-fill" id="progressFill"></div>
+      <!-- LANDING -->
+      <div id="landing" class="grid">
+        <div class="card">
+          <h1>נפגעת בעבודה? בוא/י נעשה סדר.</h1>
+          <p class="lead">
+            בדיקה קצרה שתעזור להבין אם ייתכן שמגיע לך פיצוי — גם אם את/ה לא בטוח/ה שזה “נחשב”.
+          </p>
+
+          <div class="heroCTA">
+            <button class="btn" id="startBtn">התחל/י בדיקה קצרה</button>
+            <button class="btnGhost" id="scrollMoreBtn" type="button">מה הולך לקרות פה?</button>
+          </div>
+
+          <div class="trustRow" id="moreArea">
+            <div class="trust">
+              <b>שקט ובטוח</b>
+              <span>השאלון נועד לעשות סדר — בלי לחץ ובלי התחייבות.</span>
+            </div>
+            <div class="trust">
+              <b>ממוקד באיכות</b>
+              <span>כמה שאלות קצרות כדי להבין את התמונה, בלי חקירה.</span>
+            </div>
+            <div class="trust">
+              <b>צעד הבא ברור</b>
+              <span>אם תרצי — גורם מנוסה יחזור אלייך וידבר איתך בגובה העיניים.</span>
+            </div>
+          </div>
+
+          <p class="note">
+            *המידע נועד להכוונה ראשונית בלבד ואינו ייעוץ משפטי.
+          </p>
+        </div>
+
+        <div class="card sideCard">
+          <h2>איך זה עובד</h2>
+          <ul class="steps">
+            <li class="step"><div class="num">1</div><p>עני על כמה שאלות קצרות (בערך 2 דקות).</p></li>
+            <li class="step"><div class="num">2</div><p>אנחנו מבינים טריות, השפעה ותיעוד — כדי לא לבזבז לך זמן.</p></li>
+            <li class="step"><div class="num">3</div><p>בסוף, אם תרצי, תשאירי פרטים לשיחה שעושה סדר.</p></li>
+          </ul>
+          <div class="divider"></div>
+          <div class="note">
+            טיפ: אם יש תיעוד רפואי או דיווח למעסיק — זה עוזר מאוד.
+          </div>
+        </div>
       </div>
 
-      <h2 class="qTitle" id="qTitle"></h2>
-      <div class="hint" id="qHint"></div>
+      <!-- QUIZ -->
+      <div id="quiz" class="card hidden">
+        <div class="quizTop">
+          <span id="leadBadge" class="badge badgeLow">בדיקה</span>
+          <span id="progressTxt" class="progressText">שאלה 1 מתוך 6</span>
+        </div>
 
-      <form id="qForm"></form>
+        <div class="progressWrap">
+          <div class="bar"><div id="progressFill" class="fill"></div></div>
+        </div>
 
-      <div class="divider"></div>
+        <h2 id="qTitle" class="qTitle"></h2>
+        <div id="qHint" class="hint"></div>
+        <form id="qForm"></form>
 
-      <div class="row">
-        <button class="btn ghost" id="backBtn" type="button">אחורה</button>
-        <button class="btn" id="nextBtn" type="button">המשך</button>
+        <div class="actions">
+          <button class="btnGhost" id="backBtn" type="button">אחורה</button>
+          <button class="btn" id="nextBtn" type="button">המשך</button>
+        </div>
+        <div id="errBox" class="err"></div>
       </div>
 
-      <div class="err" id="errBox"></div>
-    </div>
+      <!-- CONTACT -->
+      <div id="done" class="card hidden">
+        <h2>סיימנו ✅</h2>
+        <p class="lead">
+          עברנו יחד על כמה שאלות כדי להבין את המצב שלך.
+          אם תרצי/ה, גורם מנוסה בתחום תאונות עבודה יוכל לחזור אלייך, להסביר זכויות ומה הצעד הנכון הבא — בלי התחייבות.
+        </p>
 
-    <!-- DONE / CONTACT -->
-    <div class="card" id="done" style="display:none;">
-      <h2>סיימנו ✅</h2>
-      <p class="sub">
-        עברנו יחד על כמה שאלות כדי להבין את המצב שלך.
-        אם תרצי/ה, גורם מנוסה בתחום תאונות עבודה יוכל לחזור אלייך, להסביר מה הזכויות ומה הצעד הבא — בלי התחייבות.
-      </p>
+        <div class="divider"></div>
 
-      <div class="divider"></div>
-
-      <div class="row">
-        <div>
+        <div class="field">
           <label for="fullName">שם מלא</label>
           <input type="text" id="fullName" placeholder="לדוגמה: בר כהן" />
         </div>
-        <div>
+
+        <div class="field">
           <label for="phone">טלפון</label>
           <input type="tel" id="phone" placeholder="05X-XXXXXXX" />
         </div>
-        <div>
+
+        <div class="field">
           <label for="prefTime">מתי הכי נוח לדבר? (אופציונלי)</label>
           <select id="prefTime">
             <option value="">לבחירה</option>
@@ -254,31 +420,54 @@
             <option>ערב</option>
           </select>
         </div>
+
+        <p class="tiny">
+          בלחיצה על הכפתור, הפרטים והבדיקה יישלחו למערכת שלך (Make Webhook).
+        </p>
+
+        <button class="btn" id="submitBtn">רוצה שיחזרו אליי ויעשו לי סדר</button>
+        <div id="submitErr" class="err"></div>
+        <div id="submitOk" class="ok"></div>
+
+        <div class="divider"></div>
+        <button class="btnGhost" id="restartBtn" type="button">מילוי מחדש</button>
       </div>
 
-      <p class="small">
-        בלחיצה על הכפתור, הפרטים והבדיקה יישלחו למערכת שלך (Make Webhook).
-      </p>
-
-      <button class="btn" id="submitBtn">רוצה שיחזרו אליי ויעשו לי סדר</button>
-      <div class="err" id="submitErr"></div>
-      <div class="ok" id="submitOk"></div>
-
-      <div class="divider"></div>
-      <button class="btn ghost" id="restartBtn" type="button">מילוי מחדש</button>
     </div>
-
   </div>
 
 <script>
   // =========================
-  // 1) כאן מדביקים את ה-Webhook של Make
+  // הדביקי כאן את ה-Webhook של Make
   // =========================
   const WEBHOOK_URL = "PASTE_YOUR_WEBHOOK_URL_HERE";
 
-  // =========================
-  // State
-  // =========================
+  const landingEl = document.getElementById("landing");
+  const quizEl = document.getElementById("quiz");
+  const doneEl = document.getElementById("done");
+
+  const startBtn = document.getElementById("startBtn");
+  const scrollMoreBtn = document.getElementById("scrollMoreBtn");
+  const moreArea = document.getElementById("moreArea");
+
+  const backBtn = document.getElementById("backBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  const qTitle = document.getElementById("qTitle");
+  const qHint  = document.getElementById("qHint");
+  const qForm  = document.getElementById("qForm");
+
+  const errBox = document.getElementById("errBox");
+
+  const progressTxt = document.getElementById("progressTxt");
+  const progressFill = document.getElementById("progressFill");
+  const leadBadge = document.getElementById("leadBadge");
+
+  const submitBtn = document.getElementById("submitBtn");
+  const restartBtn = document.getElementById("restartBtn");
+  const submitErr = document.getElementById("submitErr");
+  const submitOk  = document.getElementById("submitOk");
+
   const state = {
     step: 0,
     answers: {
@@ -365,35 +554,8 @@
     }
   ];
 
-  // =========================
-  // DOM
-  // =========================
-  const landing = document.getElementById("landing");
-  const quiz = document.getElementById("quiz");
-  const done = document.getElementById("done");
+  function esc(str){ return String(str).replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
-  const startBtn = document.getElementById("startBtn");
-  const backBtn = document.getElementById("backBtn");
-  const nextBtn = document.getElementById("nextBtn");
-
-  const qTitle = document.getElementById("qTitle");
-  const qHint = document.getElementById("qHint");
-  const qForm = document.getElementById("qForm");
-  const errBox = document.getElementById("errBox");
-
-  const progressTxt = document.getElementById("progressTxt");
-  const progressFill = document.getElementById("progressFill");
-
-  const leadTag = document.getElementById("leadTag");
-
-  const submitBtn = document.getElementById("submitBtn");
-  const restartBtn = document.getElementById("restartBtn");
-  const submitErr = document.getElementById("submitErr");
-  const submitOk = document.getElementById("submitOk");
-
-  // =========================
-  // Helpers
-  // =========================
   function showError(msg){
     errBox.style.display = "block";
     errBox.textContent = msg;
@@ -417,9 +579,6 @@
   function clearSubmitOk(){
     submitOk.style.display = "none";
     submitOk.textContent = "";
-  }
-  function esc(str){
-    return String(str).replace(/</g,"&lt;").replace(/>/g,"&gt;");
   }
 
   function computeLeadGrade(ans){
@@ -456,16 +615,21 @@
     if (ans.q1_whenContext === "no") score -= 4;
     if (ans.q1_whenContext === "yes") score += 1;
 
-    if (score >= 9) return { tag: "Gold Lead", score, cls: "badgeGold" };
-    if (score >= 6) return { tag: "High", score, cls: "badgeHigh" };
-    if (score >= 3) return { tag: "Medium", score, cls: "badgeMed" };
-    return { tag: "Low", score, cls: "badgeLow" };
+    if (score >= 9) return { tag:"Gold", score, cls:"badgeGold" };
+    if (score >= 6) return { tag:"High", score, cls:"badgeHigh" };
+    if (score >= 3) return { tag:"Medium", score, cls:"badgeMed" };
+    return { tag:"Low", score, cls:"badgeLow" };
+  }
+
+  function updateUIBadges(){
+    const g = computeLeadGrade(state.answers);
+    leadBadge.className = `badge ${g.cls}`;
+    leadBadge.textContent = `איכות פנייה: ${g.tag}`;
   }
 
   function updateProgress(){
-    // steps.length = 5 (Q1..Q5). contact step is separate.
-    const total = steps.length + 1; // includes contact
-    const current = state.step + 1; // quiz step number
+    const total = steps.length + 1; // + contact step
+    const current = state.step + 1;
     progressTxt.textContent = `שאלה ${current} מתוך ${total}`;
     const pct = Math.round((current / total) * 100);
     progressFill.style.width = pct + "%";
@@ -473,20 +637,15 @@
 
   function renderStep(){
     clearError();
+    updateUIBadges();
+    updateProgress();
+
     const s = steps[state.step];
     qTitle.innerHTML = esc(s.title);
     qHint.textContent = s.hint || "";
     qForm.innerHTML = "";
 
-    // Back button
     backBtn.disabled = state.step === 0;
-
-    // Update lead tag (live)
-    const grade = computeLeadGrade(state.answers);
-    leadTag.textContent = `${grade.tag} • ${grade.score}`;
-    leadTag.className = `tag ${grade.cls}`;
-
-    updateProgress();
 
     if (s.type === "single"){
       const current = state.answers[s.key];
@@ -518,11 +677,12 @@
           <input type="checkbox" name="${s.id}" id="${id}" ${checked ? "checked" : ""} />
           <label for="${id}">${esc(opt.label)}</label>
         `;
+
         wrapper.addEventListener("click", () => {
           const now = new Set(state.answers[s.key] || []);
           if (now.has(opt.value)) now.delete(opt.value); else now.add(opt.value);
 
-          // UX rule: "none" exclusive
+          // "none" is exclusive
           if (now.has("none") && now.size > 1) {
             now.clear(); now.add("none");
           }
@@ -533,36 +693,29 @@
           state.answers[s.key] = Array.from(now);
           renderStep();
         });
+
         qForm.appendChild(wrapper);
       });
     }
   }
 
-  function goToQuiz(){
-    landing.style.display = "none";
-    done.style.display = "none";
-    quiz.style.display = "block";
+  function showQuiz(){
+    landingEl.classList.add("hidden");
+    doneEl.classList.add("hidden");
+    quizEl.classList.remove("hidden");
     renderStep();
   }
 
-  function goToDone(){
-    quiz.style.display = "none";
-    done.style.display = "block";
-    // show final progress full
-    progressFill.style.width = "100%";
+  function showDone(){
+    quizEl.classList.add("hidden");
+    doneEl.classList.remove("hidden");
   }
 
-  function validateCurrent(){
-    const s = steps[state.step];
-    const val = state.answers[s.key];
-    if (!s.validate(val)) return "בבקשה לבחור תשובה כדי להמשיך.";
-    return null;
-  }
+  startBtn.addEventListener("click", showQuiz);
 
-  // =========================
-  // Events
-  // =========================
-  startBtn.addEventListener("click", goToQuiz);
+  scrollMoreBtn.addEventListener("click", () => {
+    moreArea.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 
   backBtn.addEventListener("click", () => {
     if (state.step > 0) state.step--;
@@ -570,14 +723,15 @@
   });
 
   nextBtn.addEventListener("click", () => {
-    const err = validateCurrent();
-    if (err) return showError(err);
+    const s = steps[state.step];
+    const v = state.answers[s.key];
+    if (!s.validate(v)) return showError("בבקשה לבחור תשובה כדי להמשיך.");
 
     if (state.step < steps.length - 1) {
       state.step++;
       renderStep();
     } else {
-      goToDone();
+      showDone();
     }
   });
 
@@ -588,9 +742,10 @@
     document.getElementById("phone").value = "";
     document.getElementById("prefTime").value = "";
     clearSubmitError(); clearSubmitOk();
-    landing.style.display = "block";
-    quiz.style.display = "none";
-    done.style.display = "none";
+
+    doneEl.classList.add("hidden");
+    quizEl.classList.add("hidden");
+    landingEl.classList.remove("hidden");
   });
 
   submitBtn.addEventListener("click", async () => {
@@ -603,48 +758,44 @@
     if (!name || name.length < 2) return showSubmitError("בבקשה להזין שם מלא.");
     if (!/^0\d{8,9}$/.test(phone)) return showSubmitError("בבקשה להזין מספר טלפון ישראלי תקין (לדוגמה 05XXXXXXXX).");
 
-    const grade = computeLeadGrade(state.answers);
+    if (!WEBHOOK_URL || WEBHOOK_URL.includes("PASTE_YOUR_WEBHOOK_URL_HERE")) {
+      return showSubmitError("חסרה כתובת שליחה (WEBHOOK_URL). הדביקי את ה-Webhook של Make בקוד ואז זה יעבוד.");
+    }
+
+    const g = computeLeadGrade(state.answers);
 
     const payload = {
       createdAt: new Date().toISOString(),
-      leadGrade: grade.tag,
-      leadScore: grade.score,
+      leadGrade: g.tag,
+      leadScore: g.score,
       contact: {
         name,
         phone,
         preferredTime: document.getElementById("prefTime").value || null
       },
       answers: state.answers,
-      meta: {
-        source: "work_injury_landing",
-        locale: "he-IL"
-      }
+      meta: { source: "pitzuy_center_v2", locale: "he-IL" }
     };
-
-    if (!WEBHOOK_URL || WEBHOOK_URL.includes("PASTE_YOUR_WEBHOOK_URL_HERE")) {
-      return showSubmitError("חסרה כתובת שליחה (WEBHOOK_URL). הדביקי את ה-Webhook של Make בקוד ואז זה יעבוד.");
-    }
 
     submitBtn.disabled = true;
     submitBtn.textContent = "שולח…";
 
-    try {
+    try{
       const res = await fetch(WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
         body: JSON.stringify(payload)
       });
       if (!res.ok) throw new Error("HTTP " + res.status);
 
       showSubmitOk("נשלח! נחזור אלייך בהקדם.");
       submitBtn.textContent = "נשלח ✅";
-    } catch (e) {
+    }catch(e){
       showSubmitError("משהו לא עבד בשליחה. בדקי שה-Webhook נכון ושהתרחיש ב-Make מחכה לנתונים.");
       submitBtn.disabled = false;
       submitBtn.textContent = "רוצה שיחזרו אליי ויעשו לי סדר";
     }
   });
 </script>
-
 </body>
 </html>

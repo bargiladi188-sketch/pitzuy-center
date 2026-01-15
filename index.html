@@ -3,56 +3,43 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-  <title>מרכז זכויות עובדים | אבחון פרימיום</title>
+  <title>זכויות עובדים | אבחון מהיר</title>
   <style>
     :root {
-      --main-bg: #0f172a;
-      --accent: #3b82f6;
-      --glass: rgba(255, 255, 255, 0.03);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --text-white: #f8fafc;
-      --text-dim: #94a3b8;
+      --primary: #0f172a;
+      --accent: #2563eb;
+      --bg: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --faded: #f8fafc;
     }
 
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: radial-gradient(circle at top right, #1e293b, #0f172a);
-      color: var(--text-white);
-      min-height: 100vh;
+      font-family: -apple-system, system-ui, sans-serif;
+      background-color: var(--faded);
+      color: var(--text);
       display: flex;
       justify-content: center;
-      align-items: center;
+      min-height: 100vh;
     }
 
-    .container {
+    .wrapper {
       width: 100%;
-      max-width: 500px;
-      padding: 20px;
-      animation: fadeIn 0.8s ease-out;
+      max-width: 460px;
+      padding: 60px 24px;
+      display: flex;
+      flex-direction: column;
     }
 
-    .glass-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 32px;
+    .main-card {
+      background: var(--bg);
       padding: 45px 35px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    }
-
-    .logo-text {
-      font-size: 14px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--accent);
-      margin-bottom: 20px;
-      display: block;
+      border-radius: 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.02);
       text-align: center;
     }
 
@@ -60,144 +47,124 @@
       font-size: 34px;
       font-weight: 800;
       line-height: 1.1;
-      margin-bottom: 15px;
-      text-align: center;
-      letter-spacing: -1px;
+      margin: 0 0 15px;
+      letter-spacing: -1.2px;
+      color: var(--primary);
     }
 
-    .sub-text {
+    .description {
       font-size: 17px;
-      color: var(--text-dim);
-      text-align: center;
-      margin-bottom: 35px;
       line-height: 1.5;
+      color: var(--muted);
+      margin-bottom: 40px;
     }
 
     .option {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
+      background: var(--faded);
       padding: 20px;
       border-radius: 18px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       cursor: pointer;
-      font-size: 18px;
-      font-weight: 600;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: 700;
+      font-size: 17px;
+      border: 2px solid transparent;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
-      align-items: center;
+      justify-content: center;
     }
 
-    .option:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: var(--accent);
-      transform: translateX(-5px);
-    }
+    .option:hover { background: #fff; border-color: #e2e8f0; transform: translateY(-2px); }
+    .option.active { background: #fff; border-color: var(--primary); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
 
-    .option.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: white;
-    }
-
-    .btn-primary {
-      background: var(--accent);
+    .btn-main {
+      background: var(--primary);
       color: white;
       border: none;
-      padding: 20px;
+      padding: 22px;
       width: 100%;
       border-radius: 18px;
       font-size: 18px;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 20px;
-      box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+      margin-top: 25px;
+      transition: opacity 0.2s;
     }
 
-    .btn-primary:hover {
-      filter: brightness(1.1);
-      box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
-    }
+    .btn-main:active { transform: scale(0.98); }
 
-    .progress-bar {
-      height: 4px;
-      background: var(--glass-border);
-      border-radius: 10px;
+    .dots-nav {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
       margin-bottom: 30px;
-      overflow: hidden;
     }
 
-    .progress-fill {
-      height: 100%;
-      background: var(--accent);
-      width: 0%;
-      transition: width 0.5s ease;
-    }
+    .dot { width: 8px; height: 8px; background: #e2e8f0; border-radius: 50%; }
+    .dot.active { background: var(--primary); width: 20px; border-radius: 10px; }
 
     input, select {
       width: 100%;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      padding: 18px;
-      border-radius: 16px;
-      color: white;
+      padding: 20px;
+      border-radius: 18px;
+      border: 1.5px solid #f1f5f9;
+      margin-bottom: 12px;
       font-size: 16px;
-      margin-bottom: 15px;
-      outline: none;
+      background: var(--faded);
+      font-family: inherit;
     }
 
     .hidden { display: none; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .animate { animation: slideIn 0.5s ease-out; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="glass-card">
-    <div id="landing">
-      <span class="logo-text">Legal Check 2026</span>
-      <h1>נפגעת בעבודה?<br>זה הזמן לקבל תשובות.</h1>
-      <p class="sub-text">אלפי עובדים מוותרים על כסף שמגיע להם. בואו נבדוק ב-60 שניות מה גובה הפיצוי שייתכן ומגיע לכם.</p>
-      <button class="btn-primary" onclick="startQuiz()">בדיקת זכאות עכשיו</button>
+<div class="wrapper">
+  <div class="main-card">
+    
+    <div id="landing" class="animate">
+      <div style="font-size: 12px; font-weight: 900; color: var(--accent); margin-bottom: 15px; letter-spacing: 1px;">אבחון זכויות 2026</div>
+      <h1>נפגעת בעבודה? <br>מגיע לך לדעת.</h1>
+      <p class="description">בדיקה קצרה שתעזור לך להבין אם יש היתכנות לפיצוי כספי מהמדינה. דקה אחת ונדע איפה התיק שלך עומד.</p>
+      <button class="btn-main" onclick="start()">בואו נתחיל</button>
     </div>
 
-    <div id="quiz" class="hidden">
-      <div class="progress-bar"><div id="pFill" class="progress-fill"></div></div>
-      <h2 id="qTitle" style="font-size: 24px; margin-bottom: 25px;"></h2>
+    <div id="quiz" class="hidden animate">
+      <div class="dots-nav" id="dots"></div>
+      <h2 id="qTitle" style="font-size: 24px; font-weight: 800; margin-bottom: 30px; line-height: 1.2;"></h2>
       <div id="qForm"></div>
-      <button class="btn-primary" id="nextBtn" onclick="next()">המשך</button>
+      <button class="btn-main" id="nextBtn" onclick="next()">המשך</button>
+      <button onclick="back()" style="background:none; border:none; color:var(--muted); font-weight:700; margin-top:20px; cursor:pointer;">חזור</button>
     </div>
 
-    <div id="done" class="hidden">
-      <h1>האבחון הושלם.</h1>
-      <p class="sub-text">ניתחנו את המקרה שלך. השאר/י פרטים ומומחה זכויות יחזור אליך עם סיכום הזכאות המלא.</p>
+    <div id="done" class="hidden animate">
+      <h1>הבנו את התמונה.</h1>
+      <p class="description">כדי שנוכל לתת לך תשובה סופית ומקצועית לגבי גובה הפיצוי, נשמח לדעת איך לחזור אליך.</p>
       <input type="text" id="fullName" placeholder="שם מלא" />
-      <input type="tel" id="phone" placeholder="מספר טלפון" />
-      <select id="prefTime" style="color: #94a3b8;">
+      <input type="tel" id="phone" placeholder="מספר טלפון לשיחה" />
+      <select id="prefTime">
         <option value="">זמן נוח לשיחה</option>
         <option>בוקר</option>
         <option>צהריים</option>
         <option>ערב</option>
       </select>
-      <button class="btn-primary" onclick="submit()">שלחו לי את סיכום הזכויות</button>
+      <button class="btn-main" onclick="submit()">שלחו לי את סיכום הזכויות</button>
     </div>
   </div>
 </div>
 
 <script>
-  // מנוע הלוגיקה וה-Webhook
   const WEBHOOK_URL = "PASTE_YOUR_WEBHOOK_URL_HERE";
   const state = { step: 0, answers: {} };
+  
   const steps = [
-    { key: "q1", title: "האם הפגיעה קרתה בזמן העבודה או בדרך?", options: ["כן", "לא", "לא בטוח/ה"] },
-    { key: "q2", title: "מתי זה קרה?", options: ["השבוע", "בחודשים האחרונים", "לפני יותר משנה"] },
-    { key: "q3", title: "חומרת הפציעה?", options: ["ניתוח / אשפוז", "טיפול במיון", "ימי מחלה בלבד", "פגיעה קלה"] }
+    { key: "q1", title: "זה קרה בזמן העבודה, בדרך אליה או בחזרה?", options: ["כן", "לא", "אני לא בטוח/ה"] },
+    { key: "q2", title: "מתי בערך קרתה הפגיעה?", options: ["ממש עכשיו", "בחודשים האחרונים", "לפני שנה או יותר"] },
+    { key: "q3", title: "איך הפציעה משפיעה עליך?", options: ["ניתוח / אשפוז", "טיפול במיון / בדיקות", "ימי מחלה בלבד", "פגיעה קלה"] }
   ];
 
-  function startQuiz() {
+  function start() {
     document.getElementById("landing").classList.add("hidden");
     document.getElementById("quiz").classList.remove("hidden");
     render();
@@ -208,7 +175,7 @@
     document.getElementById("qTitle").innerText = s.title;
     const form = document.getElementById("qForm");
     form.innerHTML = "";
-    document.getElementById("pFill").style.width = ((state.step + 1) / steps.length) * 100 + "%";
+    document.getElementById("dots").innerHTML = steps.map((_, i) => `<div class="dot ${i <= state.step ? 'active' : ''}"></div>`).join('');
 
     s.options.forEach(opt => {
       const div = document.createElement("div");
@@ -217,7 +184,7 @@
       div.onclick = () => {
         state.answers[s.key] = opt;
         render();
-        setTimeout(next, 400); // מעבר אוטומטי חלק
+        setTimeout(next, 350); 
       };
       form.appendChild(div);
     });
@@ -234,19 +201,8 @@
     }
   }
 
+  function back() { if (state.step > 0) { state.step--; render(); } }
+
   async function submit() {
     const name = document.getElementById("fullName").value;
     const phone = document.getElementById("phone").value;
-    if (!name || phone.length < 9) return alert("אנא מלאו פרטים תקינים");
-    
-    const payload = { name, phone, answers: state.answers };
-    try {
-      await fetch(WEBHOOK_URL, { method: "POST", body: JSON.stringify(payload) });
-      document.querySelector(".glass-card").innerHTML = "<h1 style='text-align:center;'>תודה!</h1><p style='text-align:center; color:var(--text-dim);'>הנתונים נשלחו. ניצור קשר בקרוב.</p>";
-    } catch (e) {
-      alert("תודה, הפרטים נשמרו.");
-    }
-  }
-</script>
-</body>
-</html>

@@ -27,7 +27,7 @@
     *{ box-sizing:border-box; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
       color: var(--text);
       background:
         radial-gradient(1100px 680px at 80% -10%, rgba(14,165,233,.28), transparent 55%),
@@ -38,176 +38,202 @@
     }
 
     .wrap{ max-width: 1040px; margin: 0 auto; padding: 22px 16px 90px; }
-    .header{ color:#fff; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom: 14px; }
-    .brand{ display:flex; align-items:center; gap:10px; font-weight: 950; }
-    .logo{ width:40px; height:40px; border-radius: 14px; background: #fff; display:grid; place-items:center; color:#0b1220; font-weight: 1000; }
-    .chips{ display:flex; gap:10px; }
-    .chip{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius: 999px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.18); color: #fff; font-size: 12px; font-weight: 950; }
+
+    .header{
+      color:#fff;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom: 14px;
+    }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight: 950; letter-spacing:-.3px; }
+    .logo{
+      width:40px; height:40px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.65));
+      box-shadow: 0 18px 40px rgba(0,0,0,.18);
+      display:grid; place-items:center;
+      color:#0b1220;
+      font-weight: 1000;
+    }
+    .chips{ display:flex; gap:10px; flex-wrap:wrap; }
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius: 999px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.92);
+      font-size: 12px; font-weight: 950;
+      backdrop-filter: blur(8px);
+    }
     .dot{ width:8px; height:8px; border-radius: 99px; background: #86efac; }
-    .shell{ margin-top: 8px; background: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.55); border-radius: 26px; padding: 16px; box-shadow: var(--shadow); backdrop-filter: blur(10px); }
-    .grid{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 14px; }
-    @media (max-width: 940px){ .grid{ grid-template-columns: 1fr; } }
-    .card{ background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; box-shadow: var(--shadow2); }
-    h1{ margin: 0 0 10px; font-size: 34px; font-weight: 900; }
-    .lead{ margin: 0 0 16px; color: var(--muted); font-size: 16.5px; }
 
-    .btn{ border:0; cursor:pointer; border-radius: 16px; padding: 14px 18px; font-weight: 1000; font-size: 16px; color:#fff; background: linear-gradient(135deg, var(--primary), var(--primary2)); box-shadow: 0 16px 30px rgba(37,99,235,.20); min-width: 240px; }
-    .btnGhost{ border-radius: 16px; padding: 14px 18px; font-weight: 1000; font-size: 16px; background: #fff; color: var(--text); border: 1px solid var(--line); cursor:pointer; min-width: 240px; }
-
-    .trustStrip{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
-    @media (max-width: 940px){ .trustStrip{ grid-template-columns: 1fr; } }
-    .trust{ border-radius: 16px; padding: 12px; border: 1px solid var(--line); background: #fff; display:flex; gap:10px; }
-    .ico{ width:34px; height:34px; border-radius: 14px; background: #f1f5ff; display:grid; place-items:center; color: #1d4ed8; font-weight: 1000; }
-    
-    .divider{ height:1px; background: var(--line); margin: 16px 0; }
-    .steps{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
-    .step{ border:1px solid var(--line); border-radius: 16px; padding: 12px; background: #fff; display:flex; gap:10px; }
-    .num{ width:28px;height:28px;border-radius: 11px; display:flex;align-items:center;justify-content:center; background: rgba(14,165,233,.10); color: #0369a1; font-weight: 1000; }
-
-    /* QUIZ */
-    .option{ display:flex; align-items:flex-start; gap: 12px; padding: 14px; margin: 10px 0; border-radius: 16px; border: 1px solid var(--line); background: #fff; cursor:pointer; transition: 0.2s; }
-    .option:hover{ background: #f8fbff; border-color: var(--primary); }
-    .option.active{ border-color: var(--primary); background: #f0f7ff; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
-    .option input{ width:18px; height:18px; margin-top:2px; }
-    .option label{ cursor:pointer; font-weight: 1000; flex:1; }
-
-    .hidden{ display:none !important; }
-    .bar{ height: 10px; background: var(--line); border-radius: 999px; overflow:hidden; margin: 10px 0 16px; }
-    .fill{ height:100%; width:0%; background: var(--primary); transition: width .25s ease; }
-    
-    input[type="text"], input[type="tel"], select{ width:100%; padding: 14px; border-radius: 16px; border: 1px solid var(--line); margin-bottom: 10px; font-size: 16px; }
-  </style>
-</head>
-
-<body>
-  <div class="wrap">
-    <div class="header">
-      <div class="brand"><div class="logo">✓</div><div>בדיקה קצרה אחרי פגיעה בעבודה</div></div>
-      <div class="chips">
-        <span class="chip"><span class="dot"></span> ללא התחייבות</span>
-        <span class="chip">🔒 דיסקרטי</span>
-      </div>
-    </div>
-
-    <div class="shell">
-      <div id="landing" class="grid">
-        <div class="card">
-          <h1>נפגעת בעבודה? בואי נעשה סדר רגע.</h1>
-          <p class="lead">זה לא טופס מפחיד ולא “משפטי”. רק כמה שאלות קצרות שמסדרות את התמונה ומגלות אם יש היתכנות לפיצוי.</p>
-          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;">
-            <button class="btn" id="startBtn">מתחילים בדיקה</button>
-            <button class="btnGhost" id="toFaqBtn">רוצה להבין לפני</button>
-          </div>
-          <div class="trustStrip">
-            <div class="trust"><div class="ico">🧠</div><div><b>ברור ופשוט</b></div></div>
-            <div class="trust"><div class="ico">🤝</div><div><b>אנושי</b></div></div>
-            <div class="trust"><div class="ico">🛡️</div><div><b>דיסקרטי</b></div></div>
-          </div>
-          <div class="divider"></div>
-          <div id="faq">
-            <details><summary>זה מחייב אותי לפנות לעו״ד?</summary><p>לא. זו בדיקה ראשונית בלבד.</p></details>
-            <details><summary>למה אתם שואלים על תיעוד?</summary><p>כדי להבין מהר אם יש בסיס לתביעה.</p></details>
-          </div>
-        </div>
-        <div class="card">
-          <p><b>איך זה עובד</b></p>
-          <ul class="steps">
-            <li class="step"><div class="num">1</div><p>ממלאים 5 שאלות.</p></li>
-            <li class="step"><div class="num">2</div><p>מנתחים את התמונה.</p></li>
-            <li class="step"><div class="num">3</div><p>מקבלים סיכום.</p></li>
-          </ul>
-        </div>
-      </div>
-
-      <div id="quiz" class="card hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span id="leadBadge" style="background:#f1f5f9; padding:5px 10px; border-radius:99px; font-size:12px; font-weight:1000;">איכות: —</span>
-          <span id="progressTxt" style="font-size:12px; font-weight:1000;">שאלה 1 מתוך 5</span>
-        </div>
-        <div class="bar"><div id="progressFill" class="fill"></div></div>
-        <h2 id="qTitle" style="font-size:20px; margin-bottom:15px;"></h2>
-        <div id="qForm"></div>
-        <div style="display:flex; gap:10px; margin-top:20px;">
-          <button class="btnGhost" id="backBtn">אחורה</button>
-          <button class="btn" id="nextBtn">המשך</button>
-        </div>
-      </div>
-
-      <div id="done" class="card hidden">
-        <h2>סיכום קצר לפי מה שמילאת ✅</h2>
-        <div id="summaryBox" style="background:#f8fafc; padding:15px; border-radius:15px; margin-bottom:20px; font-size:14px;"></div>
-        <input type="text" id="fullName" placeholder="שם מלא" />
-        <input type="tel" id="phone" placeholder="טלפון" />
-        <button class="btn" id="submitBtn" style="width:100%;">רוצה שיחזרו אליי</button>
-      </div>
-    </div>
-  </div>
-
-<script>
-  const WEBHOOK_URL = "PASTE_YOUR_WEBHOOK_URL_HERE";
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const state = { step: 0, answers: { q1: null, q2: null, q3: null, q4: [], q5: null } };
-    const steps = [
-      { id: "q1", title: "האם זה קרה בזמן העבודה, בדרך אליה או בחזרה?", key: "q1", options: [{label:"כן", v:"yes"}, {label:"לא", v:"no"}, {label:"לא בטוחה", v:"maybe"}] },
-      { id: "q2", title: "מתי זה קרה?", key: "q2", options: [{label:"השבוע", v:0}, {label:"בחודשים האחרונים", v:1}, {label:"לפני שנה או יותר", v:2}] },
-      { id: "q3", title: "חומרת הפציעה?", key: "q3", options: [{label:"ניתוח / אשפוז", v:0}, {label:"טיפול במיון", v:1}, {label:"ימי מחלה", v:2}, {label:"פגיעה קלה", v:3}] },
-      { id: "q4", title: "יש תיעוד?", key: "q4", type: "multi", options: [{label:"רפואי", v:"med"}, {label:"מעסיק", v:"emp"}, {label:"אין", v:"none"}] },
-      { id: "q5", title: "פנית לביטוח לאומי?", key: "q5", options: [{label:"לא", v:0}, {label:"כן", v:1}] }
-    ];
-
-    function renderStep() {
-      const s = steps[state.step];
-      document.getElementById("qTitle").innerText = s.title;
-      document.getElementById("progressTxt").innerText = `שאלה ${state.step + 1} מתוך ${steps.length}`;
-      document.getElementById("progressFill").style.width = ((state.step + 1) / steps.length) * 100 + "%";
-      
-      const form = document.getElementById("qForm");
-      form.innerHTML = "";
-      
-      s.options.forEach(opt => {
-        const div = document.createElement("div");
-        div.className = "option" + (state.answers[s.key] === opt.v || (Array.isArray(state.answers[s.key]) && state.answers[s.key].includes(opt.v)) ? " active" : "");
-        div.innerHTML = `<label>${opt.label}</label>`;
-        div.onclick = () => {
-          if (s.type === "multi") {
-            const idx = state.answers[s.key].indexOf(opt.v);
-            if (idx > -1) state.answers[s.key].splice(idx, 1); else state.answers[s.key].push(opt.v);
-          } else { state.answers[s.key] = opt.v; }
-          renderStep();
-        };
-        form.appendChild(div);
-      });
-      document.getElementById("nextBtn").disabled = Array.isArray(state.answers[s.key]) ? state.answers[s.key].length === 0 : state.answers[s.key] === null;
-      document.getElementById("backBtn").disabled = state.step === 0;
+    .shell{
+      margin-top: 8px;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 26px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
     }
 
-    document.getElementById("startBtn").onclick = () => {
-      document.getElementById("landing").classList.add("hidden");
-      document.getElementById("quiz").classList.remove("hidden");
-      renderStep();
-    };
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+    }
+    @media (max-width: 940px){
+      .grid{ grid-template-columns: 1fr; }
+    }
 
-    document.getElementById("toFaqBtn").onclick = () => {
-      document.getElementById("faq").scrollIntoView({ behavior: "smooth" });
-    };
+    .card{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      padding: 22px;
+      box-shadow: var(--shadow2);
+    }
 
-    document.getElementById("backBtn").onclick = () => {
-      if (state.step > 0) { state.step--; renderStep(); }
-    };
+    h1{ margin: 0 0 10px; font-size: 34px; line-height: 1.15; letter-spacing: -.5px; }
+    .lead{ margin: 0 0 16px; color: var(--muted); font-size: 16.5px; max-width: 62ch; }
 
-    document.getElementById("nextBtn").onclick = () => {
-      if (state.step < steps.length - 1) { state.step++; renderStep(); }
-      else {
-        document.getElementById("quiz").classList.add("hidden");
-        document.getElementById("done").classList.remove("hidden");
-        document.getElementById("summaryBox").innerText = "תודה על המענה. המערכת ניתחה את הנתונים שלך.";
-      }
-    };
+    .heroRow{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top: 10px; }
+    .btn{
+      border:0; cursor:pointer;
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-weight: 1000;
+      font-size: 16px;
+      color:#fff;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      box-shadow: 0 16px 30px rgba(37,99,235,.20);
+      transition: transform .15s ease, filter .15s ease;
+      min-width: 240px;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
 
-    document.getElementById("submitBtn").onclick = async () => {
-      const name = document.getElementById("fullName").value;
-      const phone = document.getElementById("phone").value;
-      if(!name || !phone) return alert("נא למלא פרטים");
-      try {
-        await fetch(WEBHOOK_URL, { method: "POST", body: JSON.stringify
+    .trustStrip{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    @media (max-width: 940px){ .trustStrip{ grid-template-columns: 1fr; } }
+    .trust{
+      border-radius: 16px;
+      padding: 12px;
+      border: 1px solid rgba(226,232,240,.95);
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+      display:flex; gap:10px; align-items:flex-start;
+    }
+    .ico{
+      width:34px; height:34px; border-radius: 14px;
+      background: #f1f5ff;
+      display:grid; place-items:center;
+      color: #1d4ed8;
+      font-weight: 1000;
+      flex: 0 0 auto;
+    }
+    .trust b{ display:block; margin-bottom: 2px; }
+    .trust span{ color: var(--muted); font-size: 13px; }
+
+    .divider{ height:1px; background: rgba(226,232,240,.95); margin: 16px 0; }
+
+    .kicker{
+      margin: 0 0 10px;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #64748b;
+      font-weight: 1000;
+    }
+    .steps{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .step{
+      border:1px solid rgba(226,232,240,.95);
+      border-radius: 16px;
+      padding: 12px;
+      background: #fff;
+      display:flex; gap:10px; align-items:flex-start;
+    }
+    .num{
+      width:28px;height:28px;border-radius: 11px;
+      display:flex;align-items:center;justify-content:center;
+      background: rgba(14,165,233,.10);
+      color: #0369a1;
+      font-weight: 1000;
+      flex: 0 0 auto;
+    }
+    .step p{ margin:0; color: var(--muted); font-size: 13px; }
+
+    details{
+      border:1px solid rgba(226,232,240,.95);
+      border-radius: 16px;
+      background: #fff;
+      padding: 12px 14px;
+      margin: 10px 0;
+    }
+    summary{ cursor:pointer; font-weight: 1000; color: var(--text); list-style:none; }
+    summary::-webkit-details-marker{ display:none; }
+    details p{ margin: 8px 0 0; color: var(--muted); font-size: 13px; }
+
+    .mini{ margin-top: 12px; color: #64748b; font-size: 12px; }
+
+    .hidden{ display:none !important; }
+
+    /* QUIZ */
+    .quizTop{
+      display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(203,213,225,.95);
+      background: #f8fafc;
+      font-weight: 1000;
+      font-size: 12px;
+      color: var(--text);
+    }
+    .badgeGold{ background:#fff7ed; border-color:#fed7aa; color:#9a3412; }
+    .badgeHigh{ background:#f0f9ff; border-color:#bae6fd; color:#075985; }
+    .badgeMed{ background:#f5f3ff; border-color:#ddd6fe; color:#5b21b6; }
+    .badgeLow{ background:#f8fafc; border-color:#e2e8f0; color:#334155; }
+
+    .progressText{ font-size: 12px; color: var(--muted); font-weight: 1000; }
+    .bar{ height: 10px; background: rgba(226,232,240,.95); border-radius: 999px; overflow:hidden; margin: 10px 0 16px; }
+    .fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--primary), var(--primary2), #22c55e); transition: width .25s ease; }
+
+    .qTitle{ margin:0 0 8px; font-size: 20px; letter-spacing: -.1px; }
+    .hint{ margin:0 0 10px; color: var(--muted); font-size: 13px; font-weight: 950; }
+
+    .option{
+      display:flex; align-items:flex-start; gap: 12px;
+      padding: 14px; margin: 10px 0;
+      border-radius: 16px;
+      border: 1px solid rgba(203,213,225,.95);
+      background: #fff;
+      cursor:pointer;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .option:hover{ transform: translateY(-1px); border-color: rgba(37,99,235,.35); background: #f8fbff; }
+    .option input{ width:18px; height:18px; margin-top:2px; cursor:pointer; }
+    .option label{ cursor:pointer; font-weight: 1000; flex:1; }
+
+    .actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 12px; }
+    .actions button{ flex: 1 1 200px; }
+
+    .err,.ok,.info{
+      display:none;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      font-weight: 1000;
+      font-size: 13px;
+      border: 1px solid;
+    }
+    .err{ background:#fef2f2; border-color:#fecaca; color: var(--bad); }
+    .ok{ background:#f0fdf4; border-color

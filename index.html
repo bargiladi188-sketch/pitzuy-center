@@ -146,26 +146,13 @@
   const WEBHOOK_URL = "PASTE_YOUR_WEBHOOK_URL_HERE";
 
   document.addEventListener("DOMContentLoaded", () => {
-    const landingEl = document.getElementById("landing");
-    const quizEl = document.getElementById("quiz");
-    const doneEl = document.getElementById("done");
-    const startBtn = document.getElementById("startBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    const backBtn = document.getElementById("backBtn");
-    const qTitle = document.getElementById("qTitle");
-    const qForm  = document.getElementById("qForm");
-    const progressFill = document.getElementById("progressFill");
-    const progressTxt = document.getElementById("progressTxt");
-    const summaryBox = document.getElementById("summaryBox");
-
-    let state = { step: 0, answers: { q1: null, q2: null, q3: null, q4: [], q5: null } };
-
+    const state = { step: 0, answers: { q1: null, q2: null, q3: null, q4: [], q5: null } };
     const steps = [
       { id: "q1", title: "האם זה קרה בזמן העבודה, בדרך אליה או בחזרה?", key: "q1", options: [{label:"כן", v:"yes"}, {label:"לא", v:"no"}, {label:"לא בטוחה", v:"maybe"}] },
       { id: "q2", title: "מתי זה קרה?", key: "q2", options: [{label:"השבוע", v:0}, {label:"בחודשים האחרונים", v:1}, {label:"לפני שנה או יותר", v:2}] },
       { id: "q3", title: "חומרת הפציעה?", key: "q3", options: [{label:"ניתוח / אשפוז", v:0}, {label:"טיפול במיון", v:1}, {label:"ימי מחלה", v:2}, {label:"פגיעה קלה", v:3}] },
       { id: "q4", title: "יש לך תיעוד?", key: "q4", type: "multi", options: [{label:"רפואי", v:"med"}, {label:"מעסיק", v:"emp"}, {label:"אין", v:"none"}] },
-      { id: "q5", title: "פנית לביטוח לאומי?", key: "q5", options: [{label:"עדיין לא", v:0}, {label:"כן", v:1}] }
+      { id: "q5", title: "פנית לביטוח לאומי?", key: "q5", options: [{label:"עדיין לא", v:"no"}, {label:"כן", v:"yes"}] }
     ];
 
     function renderStep() {
@@ -188,13 +175,18 @@
         };
         form.appendChild(div);
       });
-      nextBtn.disabled = Array.isArray(state.answers[s.key]) ? state.answers[s.key].length === 0 : state.answers[s.key] === null;
-      backBtn.disabled = state.step === 0;
+      document.getElementById("nextBtn").disabled = Array.isArray(state.answers[s.key]) ? state.answers[s.key].length === 0 : state.answers[s.key] === null;
+      document.getElementById("backBtn").disabled = state.step === 0;
     }
 
-    startBtn.onclick = () => { landingEl.classList.add("hidden"); quizEl.classList.remove("hidden"); renderStep(); };
-    backBtn.onclick = () => { if (state.step > 0) { state.step--; renderStep(); } };
-    nextBtn.onclick = () => {
+    document.getElementById("startBtn").onclick = () => {
+      document.getElementById("landing").classList.add("hidden");
+      document.getElementById("quiz").classList.remove("hidden");
+      renderStep();
+    };
+
+    document.getElementById("backBtn").onclick = () => { if (state.step > 0) { state.step--; renderStep(); } };
+    document.getElementById("nextBtn").onclick = () => {
       if (state.step < steps.length - 1) { state.step++; renderStep(); }
       else {
         document.getElementById("quiz").classList.add("hidden");

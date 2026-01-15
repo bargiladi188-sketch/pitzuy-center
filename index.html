@@ -3,160 +3,92 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-  <title>מימוש זכויות רפואיות | תאונות עבודה ופיצויים</title>
+  <title>המרכז למימוש זכויות | תאונות עבודה ופיצויים</title>
   <style>
     :root {
-      --primary: #1a237e; /* כחול סמכותי עמוק */
-      --accent: #c6a052;  /* זהב מעודן ליוקרה */
-      --text: #2c3e50;
-      --light-text: #546e7a;
+      --primary: #0f172a; /* כחול לילית - סמכות מקסימלית */
+      --accent: #b5935a;  /* זהב מט יוקרתי */
       --bg: #ffffff;
-      --section-bg: #f8fafc;
-      --white: #ffffff;
+      --soft-bg: #f8fafc;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
     }
 
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
     
     body {
       margin: 0;
-      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-family: -apple-system, system-ui, sans-serif;
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
     }
 
-    /* Accessibility Button */
-    .acc-btn {
-      position: fixed; top: 20px; left: 20px; background: var(--primary);
-      color: white; border-radius: 50%; width: 45px; height: 45px;
+    /* Accessibility Float */
+    .acc-circle {
+      position: fixed; top: 20px; left: 20px; width: 40px; height: 40px;
+      background: var(--primary); color: white; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      cursor: pointer; z-index: 1000; font-size: 20px;
     }
 
-    /* Hero Section */
-    header {
-      padding: 100px 24px 60px;
+    /* Hero */
+    .hero {
+      padding: 120px 24px 80px;
+      background: radial-gradient(circle at top right, #f1f5f9, #ffffff);
       text-align: center;
-      background: linear-gradient(180deg, #f1f4f9 0%, #ffffff 100%);
     }
 
-    .hero-tag { color: var(--accent); font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; }
-    h1 { font-size: clamp(32px, 5vw, 54px); font-weight: 900; line-height: 1.1; margin: 0 0 20px; color: var(--primary); }
-    .hero-sub { font-size: 20px; max-width: 700px; margin: 0 auto 40px; color: var(--light-text); }
-
-    /* Trust Section */
-    .trust-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px; max-width: 1100px; margin: 0 auto 60px; padding: 0 24px;
-    }
-    .trust-card { background: var(--white); padding: 30px; border-radius: 12px; border: 1px solid #eee; text-align: right; }
-    .trust-card h3 { color: var(--primary); margin-top: 0; font-size: 20px; }
-    .trust-card p { font-size: 15px; color: var(--light-text); margin: 0; }
-
-    /* Quiz Container (The Brain) */
-    .quiz-container {
-      max-width: 600px; margin: 0 auto 100px; background: var(--white);
-      border-radius: 24px; padding: 50px 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.05);
-      border: 1px solid #f1f1f1;
+    .badge-top {
+      display: inline-block; padding: 6px 16px; background: #eff6ff;
+      color: var(--accent); border-radius: 30px; font-size: 13px;
+      font-weight: 800; letter-spacing: 1px; margin-bottom: 25px;
     }
 
-    .q-title { font-size: 24px; font-weight: 800; margin-bottom: 30px; color: var(--primary); }
-    .option {
-      background: #f8fafc; border: 1.5px solid #e2e8f0; padding: 20px;
-      border-radius: 15px; margin-bottom: 12px; cursor: pointer;
+    h1 {
+      font-size: clamp(34px, 6vw, 58px);
+      font-weight: 900; line-height: 1.1; margin: 0 0 25px;
+      letter-spacing: -2px; color: var(--primary);
+    }
+
+    .hero-p { font-size: 21px; color: var(--muted); max-width: 650px; margin: 0 auto 50px; }
+
+    /* Trust Blocks */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    
+    .feature-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px; margin-bottom: 80px;
+    }
+
+    .f-card {
+      background: var(--bg); padding: 35px; border-radius: 24px;
+      border: 1px solid var(--border); transition: transform 0.3s;
+    }
+    .f-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+    .f-card h3 { margin: 0 0 15px; font-size: 20px; color: var(--primary); }
+    .f-card p { margin: 0; font-size: 15px; color: var(--muted); }
+
+    /* The Main Quiz Box */
+    .quiz-wrap {
+      max-width: 550px; margin: 0 auto 100px; background: #fff;
+      border-radius: 32px; padding: 50px 40px;
+      box-shadow: 0 30px 100px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+    }
+
+    .q-head { font-size: 26px; font-weight: 800; margin-bottom: 30px; color: var(--primary); text-align: center; }
+
+    .opt {
+      padding: 20px 25px; border: 2.5px solid var(--soft-bg);
+      border-radius: 18px; margin-bottom: 12px; cursor: pointer;
       font-weight: 600; font-size: 17px; transition: 0.2s;
+      background: var(--soft-bg);
     }
-    .option:hover { border-color: var(--accent); background: #fff; }
-    .option.active { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1); }
+    .opt:hover { border-color: #cbd5e1; }
+    .opt.active { border-color: var(--primary); background: #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.04); }
 
     .btn-next {
-      background: var(--primary); color: white; border: none; padding: 20px;
-      width: 100%; border-radius: 15px; font-size: 18px; font-weight: 700;
-      cursor: pointer; margin-top: 25px;
-    }
-
-    /* Social Proof Section */
-    .proof-section { background: var(--section-bg); padding: 80px 24px; text-align: center; }
-    .proof-grid { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; opacity: 0.8; }
-    .proof-item b { display: block; font-size: 24px; color: var(--primary); }
-
-    /* Sticky WhatsApp Footer */
-    .whatsapp-float {
-      position: fixed; bottom: 20px; right: 20px; background: #25d366;
-      color: white; border-radius: 50px; padding: 12px 20px;
-      display: flex; align-items: center; gap: 10px; font-weight: 700;
-      text-decoration: none; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
-
-    .hidden { display: none; }
-    input, select { width: 100%; padding: 18px; border-radius: 12px; border: 1.5px solid #e2e8f0; margin-bottom: 15px; font-size: 16px; }
-  </style>
-</head>
-<body>
-
-<div class="acc-btn" title="נגישות">♿</div>
-
-<header>
-  <span class="hero-tag">ייעוץ משפטי | תאונות עבודה</span>
-  <h1>נפגעת בעבודה? <br>מגיע לך פיצוי כספי מהביטוח הלאומי.</h1>
-  <p class="hero-sub">אנחנו עוזרים לנפגעים לממש את זכויותיהם ולקבל את המקסימום מהמעסיק ומחברות הביטוח. ללא עלות ראשונית.</p>
-</header>
-
-<div class="trust-grid">
-  <div class="trust-card">
-    <h3>מה לעשות עכשיו?</h3>
-    <p>השאלות הראשונות הן הקריטיות ביותר. אנחנו נעשה לך סדר בבלבול מול הביטוח הלאומי.</p>
-  </div>
-  <div class="trust-card">
-    <h3>מי משלם על הטיפול?</h3>
-    <p>חשוב לדעת: הוצאות רפואיות ודמי פגיעה מגיעים לך כחוק. אל תשלמו מכיסכם.</p>
-  </div>
-  <div class="trust-card">
-    <h3>אל תאבדו זכויות</h3>
-    <p>פנייה מוקדמת היא המפתח להצלחה. בדיקה פשוטה תמנע אובדן של עשרות אלפי שקלים.</p>
-  </div>
-</div>
-
-<div class="quiz-container">
-  <div id="quiz">
-    <div id="qContent">
-      <h2 id="qTitle" class="q-title">בואו נבדוק מה מגיע לך:</h2>
-      <div id="qForm"></div>
-    </div>
-    <button class="btn-next" id="nextBtn" onclick="next()" disabled>המשך לצעד הבא</button>
-  </div>
-
-  <div id="done" class="hidden">
-    <h2 class="q-title">השלב הבא הוא שלנו.</h2>
-    <p style="color: var(--light-text); margin-bottom: 25px;">הבנו את התמונה. השאירו פרטים ומומחה (LL.B) יחזור אליכם לשיחת ייעוץ ראשונית ללא התחייבות.</p>
-    <input type="text" id="fullName" placeholder="שם מלא" />
-    <input type="tel" id="phone" placeholder="מספר טלפון ליצירת קשר" />
-    <button class="btn-next" onclick="submit()">בדיקת זכאות חינם</button>
-  </div>
-</div>
-
-<div class="proof-section">
-  <div class="proof-grid">
-    <div class="proof-item"><b>15+</b> שנים של ניסיון</div>
-    <div class="proof-item"><b>98%</b> הצלחה בתביעות</div>
-    <div class="proof-item"><b>LL.B / MBA</b> הסמכה מקצועית</div>
-  </div>
-</div>
-
-<a href="https://wa.me/YOUR_NUMBER" class="whatsapp-float">
-  <span>שלחו לנו הודעה</span>
-</a>
-
-<script>
-  const WEBHOOK_URL = "PASTE_YOUR_WEBHOOK_URL_HERE";
-  const state = { step: 0, answers: {} };
-  const steps = [
-    { key: "q1", title: "האם הפגיעה קרתה בזמן העבודה או בדרך?", options: ["כן, במהלך העבודה", "בדרך לעבודה / חזרה", "אני לא בטוח/ה"] },
-    { key: "q2", title: "מתי זה קרה?", options: ["בשבוע האחרון", "בחודשים האחרונים", "לפני יותר משנה"] },
-    { key: "q3", title: "איך המרגש מאז?", options: ["נדרש ניתוח / אשפוז", "טיפול במיון בלבד", "ימי מחלה ומנוחה", "פגיעה קלה"] }
-  ];
-
-  function render() {
-    const s = steps[state.step];
-    document.getElementById("qTitle").innerText = s.title;
-    const form = document
+      background: var(--primary); color: white; border: none; padding: 22px;
+      width: 100%; border-radius: 18px; font-size: 19px; font-weight

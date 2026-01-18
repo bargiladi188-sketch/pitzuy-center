@@ -6,144 +6,158 @@
   <title>סדר זכויות | בדיקה קצרה אחרי פגיעה בעבודה</title>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root{ --bg1:#0b1220; --paper:#f6f8ff; --card:#ffffff; --text:#0f172a; --muted:#475569; --primary:#2563eb; --primary2:#0ea5e9; --r2:24px; }
-    *{box-sizing:border-box}
-    body{ margin:0; font-family:'Assistant',sans-serif; background: radial-gradient(900px 500px at 80% -10%, rgba(14,165,233,.25), transparent), linear-gradient(180deg, var(--bg1) 0%, var(--bg1) 32%, var(--paper) 32%); color:var(--text); line-height:1.6; }
-    .wrap{max-width:1100px;margin:0 auto;padding:20px 16px 80px}
-    .card{ background:#fff; border-radius:var(--r2); padding:24px; box-shadow:0 12px 30px rgba(0,0,0,.12); margin-bottom: 20px; }
-    h1{font-size:36px;margin:0 0 10px;font-weight:900; line-height:1.1;}
-    .lead{color:var(--muted);font-size:17px;max-width:65ch; margin-bottom:20px;}
-    .btn{ border:0; border-radius:18px; padding:14px 18px; font-weight:900; background:linear-gradient(135deg,var(--primary),var(--primary2)); color:#fff; cursor:pointer; width: 100%; max-width: 300px; font-family: inherit; font-size:16px;}
-    .btn:disabled{ opacity: 0.5; }
+    :root{
+      --bg1:#0b1220; --paper:#f6f8ff; --card:#ffffff; --text:#0f172a; --muted:#475569;
+      --primary:#2563eb; --primary2:#0ea5e9; --r2:24px; --shadow: 0 12px 30px rgba(0,0,0,.12);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0; font-family:'Assistant', sans-serif; color:var(--text);
+      background: radial-gradient(1100px 650px at 80% -10%, rgba(14,165,233,.25), transparent), 
+                  linear-gradient(180deg, var(--bg1) 0%, var(--bg1) 32%, var(--paper) 32%);
+      line-height:1.65;
+    }
+    .wrap{ max-width:1100px; margin:0 auto; padding:20px 16px 80px; }
+    .topbar{ color:#fff; display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; }
+    .brand{ display:flex; align-items:center; gap:10px; }
+    .mark{ width:42px; height:42px; border-radius:16px; background: #fff; display:grid; place-items:center; color:#0b1220; font-weight:900; }
+    .shell{ background: rgba(255,255,255,.55); border-radius: 28px; padding: 16px; backdrop-filter: blur(10px); }
+    .grid{ display:grid; grid-template-columns: 1.3fr .7fr; gap:16px; }
+    @media (max-width: 900px){ .grid{ grid-template-columns:1fr; } }
+    .card{ background:#fff; border-radius:var(--r2); padding:24px; box-shadow:var(--shadow); margin-bottom: 20px; }
+    h1{ font-size:36px; margin:0 0 10px; font-weight:900; line-height:1.1; }
+    .lead{ color:var(--muted); font-size:17px; margin-bottom:20px; }
+    .btn{ border:0; cursor:pointer; border-radius:18px; padding:14px 18px; font-weight:900; font-size:16px; color:#fff; background: linear-gradient(135deg, var(--primary), var(--primary2)); width: 100%; max-width: 300px; font-family: inherit; }
     .btnGhost{ background:#fff; color:var(--text); border:1px solid #ddd; width: auto; }
     
-    /* הריבועים הגבוהים והיפים */
-    .features{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:24px; }
-    @media(max-width:900px){.features{grid-template-columns:1fr}}
+    .features{ display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; margin-top:24px; }
+    @media(max-width:900px){ .features{ grid-template-columns:1fr; } }
     .feat{ display:flex; flex-direction:column; justify-content:center; gap:8px; padding:18px; min-height:140px; border-radius:20px; background:#fff; border:1px solid rgba(148,163,184,.25); }
     .feat .ico{ width:44px; height:44px; border-radius:14px; display:grid; place-items:center; background:rgba(37,99,235,.1); font-size:20px; }
     .feat b{ font-size:16px; font-weight:900; }
-    .feat span{ font-size:14px; color:var(--muted); line-height:1.45; }
+    .feat span{ font-size:14px; color:var(--muted); line-height:1.4; }
+
+    .step-box{ display:flex; gap:12px; padding:14px; border:1px solid #eee; border-radius:18px; margin-bottom:10px; background:#fff; }
+    .num{ width:30px; height:30px; border-radius:10px; background:rgba(14,165,233,.1); color:#0369a1; font-weight:900; display:grid; place-items:center; flex-shrink:0; }
     
-    /* שאלות נפוצות */
-    .faq{ margin-top: 30px; }
+    .faq-section{ margin-top: 25px; }
     details{ border:1px solid #eee; border-radius:16px; padding:12px; margin-bottom:10px; background:#fff; }
-    summary{ cursor:pointer; font-weight:800; list-style:none; outline:none; }
-    details p{ margin-top:10px; color:var(--muted); font-size:15px; }
+    summary{ cursor:pointer; font-weight:800; list-style:none; }
     
-    .hidden{display:none !important}
-    .option{ padding:14px; margin:10px 0; border-radius:18px; border:1px solid #ddd; cursor:pointer; font-weight:800; }
+    .hidden{ display:none !important; }
+    .option{ padding:14px; margin:10px 0; border-radius:18px; border:1px solid #ddd; cursor:pointer; font-weight:800; transition:0.2s; }
     .option.active{ border-color:var(--primary); background:rgba(37,99,235,.06); }
     .bar{ height: 10px; background: #eee; border-radius: 99px; overflow: hidden; margin-bottom: 20px; }
     .fill{ height: 100%; background: var(--primary); width: 0%; transition: 0.3s; }
-    input{ width:100%; padding:14px; border-radius:16px; border:1px solid #ddd; font-size:16px; margin-bottom: 10px; font-family: inherit; }
+    input{ width:100%; padding:14px; border-radius:16px; border:1px solid #ddd; font-size:16px; margin-bottom:10px; font-family:inherit; }
   </style>
 </head>
 <body>
-<div class="wrap">
-  <div id="landing">
-    <div class="card">
-      <h1>נפגעת בעבודה? בואי נעשה סדר רגע.</h1>
-      <p class="lead">בדיקה קצרה ולא משפטית שמסדרת את התמונה, כדי להבין אם יש היתכנות לפיצוי ומה נכון לעשות עכשיו.</p>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn" id="startBtn">מתחילים בדיקה</button>
-      </div>
-      <div class="features">
-        <div class="feat"><div class="ico">🧠</div><b>ברור ופשוט</b><span>בלי מונחים משפטיים ובלי בלבול.</span></div>
-        <div class="feat"><div class="ico">👂</div><b>אוזן קשבת</b><span>הבדיקה נבנתה כדי להבין אותך באמת.</span></div>
-        <div class="feat"><div class="ico">🛡️</div><b>דיסקרטי</b><span>רק אם תרצי – נשאיר פרטים בסוף.</span></div>
-      </div>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand"><div class="mark">✓</div><div><div style="font-weight:900">סדר זכויות</div></div></div>
+      <div style="font-size:13px; font-weight:800">🔒 דיסקרטי ומאובטח</div>
     </div>
-    
-    <div class="faq">
-      <h3 style="margin-bottom:15px;">שאלות נפוצות</h3>
-      <details><summary>זה מחייב אותי למשהו?</summary><p>ממש לא. זו בדיקה ראשונית בלבד לשימושך האישי.</p></details>
-      <details><summary>כמה זמן הבדיקה לוקחת?</summary><p>בערך 2 דקות. 5 שאלות מהירות וזהו.</p></details>
-      <details><summary>האם המידע שלי מוגן?</summary><p>כן, אנחנו שומרים על פרטיות מלאה ודיסקרטיות לאורך כל התהליך.</p></details>
-    </div>
-  </div>
 
-  <div id="quiz" class="card hidden">
-    <div class="bar"><div id="progressFill" class="fill"></div></div>
-    <h2 id="qTitle" style="margin-bottom:15px;"></h2>
-    <div id="qForm"></div>
-    <div style="display:flex; gap:10px; margin-top:20px;">
-      <button id="backBtn" class="btn btnGhost">אחורה</button>
-      <button class="btn" id="nextBtn">המשך</button>
+    <div id="landing" class="grid">
+      <div class="card">
+        <h1>נפגעת בעבודה? בואי נעשה סדר רגע.</h1>
+        <p class="lead">בדיקה קצרה ולא משפטית שמסדרת את התמונה, כדי להבין אם יש היתכנות לפיצוי ומה נכון לעשות עכשיו.</p>
+        <div style="display:flex; gap:10px;">
+          <button class="btn" id="startBtn">מתחילים בדיקה</button>
+          <button class="btn btnGhost" id="scrollFaqBtn">שאלות נפוצות</button>
+        </div>
+        
+        <div class="features">
+          <div class="feat"><div class="ico">🧠</div><b>ברור ופשוט</b><span>בלי מונחים משפטיים ובלי בלבול.</span></div>
+          <div class="feat"><div class="ico">👂</div><b>אוזן קשבת</b><span>הבדיקה נבנתה כדי להבין אותך באמת.</span></div>
+          <div class="feat"><div class="ico">🛡️</div><b>דיסקרטי</b><span>רק אם תרצי – נשאיר פרטים בסוף.</span></div>
+        </div>
+
+        <div id="faq" class="faq-section">
+          <h3 style="margin-bottom:12px;">שאלות נפוצות</h3>
+          <details><summary>זה מחייב אותי למשהו?</summary><p>לא. זו בדיקה ראשונית בלבד לשימושך האישי.</p></details>
+          <details><summary>האם זה בתשלום?</summary><p>הבדיקה והשיחה הראשונית ללא עלות.</p></details>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">איך זה עובד?</h3>
+        <div class="step-box"><div class="num">1</div><div><b>עונים על שאלות</b><div style="font-size:13px; color:var(--muted)">מתי זה קרה ומה חומרת הפציעה.</div></div></div>
+        <div class="step-box"><div class="num">2</div><div><b>מקבלים סיכום</b><div style="font-size:13px; color:var(--muted)">הסבר פשוט מה המצב ומה הצעד הבא.</div></div></div>
+        <button class="btn" id="startBtn2" style="margin-top:10px">יאללה, מתחילים</button>
+      </div>
+    </div>
+
+    <div id="quiz" class="card hidden">
+      <div class="bar"><div id="progressFill" class="fill"></div></div>
+      <h2 id="qTitle"></h2>
+      <div id="qForm"></div>
+      <div style="display:flex; gap:10px; margin-top:20px;">
+        <button id="backBtn" class="btn btnGhost">אחורה</button>
+        <button class="btn" id="nextBtn">המשך</button>
+      </div>
+    </div>
+
+    <div id="done" class="card hidden">
+      <h2>סיימנו! השאירי פרטים ונחזור אלייך ✅</h2>
+      <input type="text" id="fullName" placeholder="שם מלא" />
+      <input type="tel" id="phone" placeholder="מספר טלפון" />
+      <button class="btn" id="submitBtn">רוצה שיחזרו אליי</button>
     </div>
   </div>
-
-  <div id="done" class="card hidden">
-    <h2>סיימנו! השאירי פרטים ונחזור אלייך ✅</h2>
-    <p style="color:var(--muted); margin-bottom:15px;">ננתח את התשובות שלך וניצור קשר לשיחה קצרה.</p>
-    <input type="text" id="fullName" placeholder="שם מלא" />
-    <input type="tel" id="phone" placeholder="מספר טלפון" />
-    <button class="btn" id="submitBtn">רוצה שיחזרו אליי</button>
-  </div>
-</div>
 
 <script>
-const WEBHOOK_URL="https://hook.eu1.make.com/zodd6hyaiagfivgofyy1h6jjamyymm23";
+  const WEBHOOK_URL = "https://hook.eu1.make.com/zodd6hyaiagfivgofyy1h6jjamyymm23";
+  const state = { step: 0, answers: {} };
+  const steps = [
+    { key:"q1", title:"האם זה קרה בזמן העבודה, בדרך אליה או בחזרה?", options:[{l:"כן", v:"yes"},{l:"לא", v:"no"},{l:"אני לא בטוחה", v:"maybe"}] },
+    { key:"q2", title:"מתי בערך זה קרה?", options:[{l:"השבוע", v:"7d"},{l:"השנה", v:"months"},{l:"לפני שנה+", v:"old"}] },
+    { key:"q3", title:"איך היית מתארת את חומרת הפציעה?", options:[{l:"אשפוז / ניתוח", v:"severe"},{l:"מיון / בדיקות", v:"er"},{l:"ימי מחלה", v:"sick"}] },
+    { key:"q4", title:"יש לך תיעוד רפואי?", options:[{l:"כן", v:"yes"},{l:"חלקי", v:"partial"},{l:"אין", v:"none"}] },
+    { key:"q5", title:"פנית לביטוח לאומי?", options:[{l:"עדיין לא", v:"no"},{l:"כן", v:"yes"}] }
+  ];
 
-const state = { step: 0, answers: {} };
-const steps = [
-  { key:"q1", title:"האם זה קרה בזמן העבודה, בדרך אליה או בחזרה?", options:[{l:"כן", v:"yes"},{l:"לא", v:"no"},{l:"אני לא בטוחה", v:"maybe"}] },
-  { key:"q2", title:"מתי בערך זה קרה?", options:[{l:"השבוע", v:"7d"},{l:"השנה", v:"months"},{l:"לפני שנה+", v:"old"}] },
-  { key:"q3", title:"איך היית מתארת את חומרת הפציעה?", options:[{l:"אשפוז / ניתוח", v:"severe"},{l:"מיון / בדיקות", v:"er"},{l:"ימי מחלה", v:"sick"}] },
-  { key:"q4", title:"יש לך תיעוד רפואי כלשהו?", options:[{l:"כן, מלא", v:"yes"},{l:"חלקי", v:"partial"},{l:"אין עדיין", v:"none"}] },
-  { key:"q5", title:"האם כבר פנית לביטוח לאומי?", options:[{l:"עדיין לא", v:"no"},{l:"כן, התחלתי תהליך", v:"yes"}] }
-];
-
-function render() {
-  const s = steps[state.step];
-  document.getElementById("qTitle").innerText = s.title;
-  document.getElementById("progressFill").style.width = ((state.step + 1) / steps.length) * 100 + "%";
-  const form = document.getElementById("qForm");
-  form.innerHTML = "";
-  s.options.forEach(o => {
-    const d = document.createElement("div");
-    d.className = "option" + (state.answers[s.key] === o.v ? " active" : "");
-    d.innerText = o.l;
-    d.onclick = () => { state.answers[s.key] = o.v; render(); };
-    form.appendChild(d);
-  });
-  document.getElementById("nextBtn").disabled = !state.answers[s.key];
-  document.getElementById("backBtn").style.visibility = state.step === 0 ? "hidden" : "visible";
-}
-
-document.getElementById("startBtn").onclick = () => {
-  document.getElementById("landing").classList.add("hidden");
-  document.getElementById("quiz").classList.remove("hidden");
-  render();
-};
-
-document.getElementById("backBtn").onclick = () => { if(state.step > 0) { state.step--; render(); } };
-document.getElementById("nextBtn").onclick = () => {
-  if(state.step < steps.length - 1) { state.step++; render(); }
-  else { document.getElementById("quiz").classList.add("hidden"); document.getElementById("done").classList.remove("hidden"); }
-};
-
-document.getElementById("submitBtn").onclick = async () => {
-  const name = document.getElementById("fullName").value;
-  const phone = document.getElementById("phone").value;
-  if(!name || phone.length < 9) return alert("נא למלא פרטים תקינים");
-  
-  document.getElementById("submitBtn").innerText = "שולח...";
-  document.getElementById("submitBtn").disabled = true;
-
-  try {
-    await fetch(WEBHOOK_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, phone, answers: state.answers, source: "seder_zchuyot" })
+  function render() {
+    const s = steps[state.step];
+    document.getElementById("qTitle").innerText = s.title;
+    document.getElementById("progressFill").style.width = ((state.step + 1) / steps.length) * 100 + "%";
+    const form = document.getElementById("qForm");
+    form.innerHTML = "";
+    s.options.forEach(o => {
+      const d = document.createElement("div");
+      d.className = "option" + (state.answers[s.key] === o.v ? " active" : "");
+      d.innerText = o.l; d.onclick = () => { state.answers[s.key] = o.v; render(); };
+      form.appendChild(d);
     });
-    alert("נשלח בהצלחה! ניצור קשר בקרוב.");
-    location.reload();
-  } catch(e) {
-    alert("נשלח בהצלחה!"); // הודעת הצלחה למשתמש גם אם יש שגיאת CORS
-    location.reload();
+    document.getElementById("nextBtn").disabled = !state.answers[s.key];
+    document.getElementById("backBtn").style.visibility = state.step === 0 ? "hidden" : "visible";
   }
-};
+
+  const startQuiz = () => { document.getElementById("landing").classList.add("hidden"); document.getElementById("quiz").classList.remove("hidden"); render(); };
+  document.getElementById("startBtn").onclick = startQuiz;
+  document.getElementById("startBtn2").onclick = startQuiz;
+  document.getElementById("scrollFaqBtn").onclick = () => { document.getElementById("faq").scrollIntoView({ behavior:"smooth", block:"start" }); };
+  document.getElementById("backBtn").onclick = () => { if(state.step > 0) { state.step--; render(); } };
+  document.getElementById("nextBtn").onclick = () => {
+    if(state.step < steps.length - 1) { state.step++; render(); }
+    else { document.getElementById("quiz").classList.add("hidden"); document.getElementById("done").classList.remove("hidden"); }
+  };
+
+  document.getElementById("submitBtn").onclick = async () => {
+    const name = document.getElementById("fullName").value;
+    const phone = document.getElementById("phone").value;
+    if(!name || phone.length < 9) return alert("פרטים תקינים בבקשה");
+    document.getElementById("submitBtn").disabled = true;
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, answers: state.answers, source: "seder_zchuyot", page: location.href })
+      });
+      alert("נשלח בהצלחה!"); location.reload();
+    } catch(e) { alert("נשלח בהצלחה!"); location.reload(); }
+  };
 </script>
 </body>
 </html>

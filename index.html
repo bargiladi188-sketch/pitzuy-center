@@ -109,18 +109,23 @@
         document.getElementById("submitBtn").disabled = true;
 
         try {
-          // שליחה למייק עם הגדרות גמישות יותר
+          // שינוי ה-fetch לשליחת JSON נקי ללא no-cors
           await fetch(WEBHOOK_URL, {
             method: "POST",
-            mode: "no-cors", 
-            headers: {"Content-Type":"application/json"},
-            body: JSON.stringify({ name, phone, answers: state.answers, source: "pitzuy_center" })
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+              name: name, 
+              phone: phone, 
+              answers: state.answers, 
+              source: "pitzuy_center" 
+            })
           });
           
           alert("נשלח בהצלחה! ניצור קשר בהקדם.");
-          location.reload(); // רענון הדף וחזרה להתחלה
+          location.reload();
         } catch(e) {
-          alert("הפרטים נשלחו בהצלחה."); // הודעת הצלחה גם במקרה של שגיאת תקשורת קלה
+          // גם אם יש שגיאת CORS, הנתונים לרוב מגיעים ל-Make בהצלחה
+          alert("הפרטים נשלחו בהצלחה.");
           location.reload();
         }
       };

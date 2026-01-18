@@ -3,66 +3,74 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>זכויות בעבודה | בדיקה קצרה אחרי פגיעה בעבודה</title>
-  <meta name="description" content="בדיקה קצרה ולא מחייבת שעושה סדר אחרי פגיעה בעבודה. דיסקרטי, אנושי, בערך 2 דקות." />
+  <title>זכות-ברור | בדיקה קצרה אחרי פגיעה בעבודה</title>
+  <meta name="description" content="בדיקה קצרה ולא מחייבת שמסדרת את התמונה אחרי פגיעה בעבודה. דיסקרטי ואנושי. בערך 2 דקות." />
 
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
+      --bg0:#070b16;
       --bg1:#0b1220;
-      --bg2:#f3f6fb;
+      --paper:#f6f8ff;
       --card:#ffffff;
       --text:#0f172a;
       --muted:#475569;
-      --line:#e2e8f0;
+      --line:rgba(148,163,184,.35);
       --primary:#2563eb;
       --primary2:#0ea5e9;
-      --good:#16a34a;
-      --radius:20px;
+      --ok:#16a34a;
+      --warn:#f59e0b;
+      --bad:#dc2626;
+      --r1:18px;
+      --r2:24px;
       --shadow: 0 18px 55px rgba(2,6,23,.22);
-      --shadow2: 0 10px 26px rgba(2,6,23,.10);
+      --shadow2: 0 12px 30px rgba(2,6,23,.12);
     }
 
     *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
       font-family:'Assistant', system-ui, -apple-system, sans-serif;
       color:var(--text);
-      line-height:1.65;
       background:
-        radial-gradient(1100px 680px at 85% -10%, rgba(14,165,233,.30), transparent 55%),
-        radial-gradient(900px 650px at 10% 0%, rgba(34,197,94,.16), transparent 55%),
-        radial-gradient(900px 650px at 55% 120%, rgba(249,115,22,.12), transparent 55%),
-        linear-gradient(180deg, var(--bg1) 0%, var(--bg1) 28%, var(--bg2) 28%, var(--bg2) 100%);
+        radial-gradient(1100px 650px at 80% -10%, rgba(14,165,233,.28), transparent 55%),
+        radial-gradient(900px 620px at 10% 0%, rgba(34,197,94,.15), transparent 55%),
+        radial-gradient(900px 620px at 50% 115%, rgba(249,115,22,.12), transparent 55%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg1) 34%, var(--paper) 34%, var(--paper) 100%);
+      line-height:1.65;
     }
 
-    .wrap{ max-width: 1120px; margin: 0 auto; padding: 22px 16px 90px; }
+    a{ color:inherit; }
+    .wrap{ max-width:1100px; margin:0 auto; padding:20px 16px 90px; }
     .topbar{
-      color:#fff; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
-      margin-bottom: 14px;
+      color:#fff; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-bottom:14px;
     }
-    .brand{ display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:-.2px; }
-    .logo{
-      width:42px; height:42px; border-radius: 16px;
+
+    .brand{ display:flex; align-items:center; gap:10px; }
+    .mark{
+      width:42px; height:42px; border-radius:16px;
       background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.65));
-      box-shadow: 0 18px 40px rgba(0,0,0,.18);
       display:grid; place-items:center; color:#0b1220; font-weight:900;
+      box-shadow: 0 20px 40px rgba(0,0,0,.18);
     }
-    .chips{ display:flex; gap:10px; flex-wrap:wrap; }
+    .brandTitle{ font-weight:900; letter-spacing:-.2px; }
+    .chips{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
     .chip{
       display:inline-flex; align-items:center; gap:8px;
       padding:8px 12px; border-radius:999px;
-      background: rgba(255,255,255,.14);
-      border: 1px solid rgba(255,255,255,.18);
-      color: rgba(255,255,255,.92);
-      font-size: 12px; font-weight: 800;
-      backdrop-filter: blur(8px);
+      background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      color:rgba(255,255,255,.92);
+      font-size:12.5px; font-weight:800;
+      backdrop-filter: blur(10px);
     }
-    .dot{ width:8px; height:8px; border-radius:99px; background: #86efac; }
+    .dot{ width:8px; height:8px; border-radius:99px; background:#86efac; }
 
     .shell{
-      margin-top: 8px;
+      margin-top:8px;
       background: rgba(255,255,255,.55);
       border: 1px solid rgba(255,255,255,.55);
       border-radius: 28px;
@@ -71,150 +79,230 @@
       backdrop-filter: blur(10px);
     }
 
-    .grid{ display:grid; grid-template-columns: 1.25fr .75fr; gap: 14px; }
-    @media (max-width: 980px){ .grid{ grid-template-columns: 1fr; } }
+    .grid{ display:grid; grid-template-columns: 1.25fr .75fr; gap:14px; }
+    @media (max-width: 980px){ .grid{ grid-template-columns:1fr; } }
 
     .card{
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 24px;
+      background:var(--card);
+      border:1px solid rgba(148,163,184,.28);
+      border-radius: var(--r2);
+      padding: 22px;
       box-shadow: var(--shadow2);
     }
 
-    h1{ margin: 0 0 10px; font-size: 36px; line-height: 1.12; letter-spacing:-.6px; font-weight: 800; }
-    .lead{ margin: 0 0 16px; color: var(--muted); font-size: 16.8px; max-width: 62ch; }
+    .hero{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      align-items:center;
+    }
+    @media (max-width: 980px){ .hero{ grid-template-columns:1fr; } }
 
-    .heroRow{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top: 10px; }
+    h1{
+      margin:0 0 10px;
+      font-size: 38px;
+      line-height:1.1;
+      letter-spacing:-.6px;
+      font-weight:900;
+    }
+    .lead{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size: 17px;
+      max-width: 62ch;
+    }
+
+    .ctaRow{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top: 8px; }
     .btn{
       border:0; cursor:pointer;
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 14px 18px;
-      font-weight: 800;
-      font-size: 16px;
+      font-weight:900;
+      font-size: 16.5px;
       color:#fff;
       background: linear-gradient(135deg, var(--primary), var(--primary2));
-      box-shadow: 0 16px 30px rgba(37,99,235,.20);
+      box-shadow: 0 18px 30px rgba(37,99,235,.22);
       transition: transform .15s ease, filter .15s ease;
-      min-width: 240px;
       font-family: inherit;
     }
-    .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.03); }
     .btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
 
     .btnGhost{
-      border-radius: 16px; padding: 14px 18px;
-      font-weight: 800; font-size: 16px;
-      background:#fff; color: var(--text);
-      border: 1px solid rgba(203,213,225,.95);
-      cursor:pointer; min-width: 240px; font-family: inherit;
+      background:#fff;
+      color:var(--text);
+      border:1px solid rgba(148,163,184,.35);
+      box-shadow:none;
     }
 
-    .trustStrip{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
-    @media (max-width: 980px){ .trustStrip{ grid-template-columns: 1fr; } }
+    .miniNote{
+      color:var(--muted);
+      font-size: 13.5px;
+      margin-top:10px;
+      display:flex;
+      gap:8px;
+      align-items:flex-start;
+    }
+    .miniNote b{ color:var(--text); }
 
-    .trust{
-      border-radius: 16px;
-      padding: 12px 12px;
-      border: 1px solid rgba(226,232,240,.95);
+    .features{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+    @media (max-width: 980px){ .features{ grid-template-columns:1fr; } }
+
+    .feat{
+      border-radius: 18px;
+      padding: 14px;
+      border:1px solid rgba(148,163,184,.25);
       background: linear-gradient(180deg, #ffffff, #fbfdff);
-      display:flex; gap:10px; align-items:flex-start;
+      display:flex; gap:12px; align-items:flex-start;
     }
     .ico{
-      width:36px; height:36px; border-radius: 14px;
-      background: #f1f5ff; display:grid; place-items:center;
-      color: #1d4ed8; font-weight: 900; flex: 0 0 auto;
+      width:38px; height:38px; border-radius: 14px;
+      background: rgba(37,99,235,.08);
+      display:grid; place-items:center;
+      color:#1d4ed8; font-weight:900;
+      flex: 0 0 auto;
     }
-    .trust b{ display:block; margin-bottom: 4px; font-weight: 800; }
-    .trust span{ color: var(--muted); font-size: 13.5px; display:block; }
+    .feat b{ display:block; margin-bottom: 2px; font-weight:900; }
+    .feat span{ color:var(--muted); font-size: 13.5px; }
 
-    .divider{ height:1px; background: rgba(226,232,240,.95); margin: 16px 0; }
-    .miniTitle{ font-size:14px; font-weight:900; letter-spacing:-.2px; margin:0 0 10px; }
-
-    .stepsBox{ display:grid; gap:10px; }
+    .steps{
+      display:grid; gap:10px;
+    }
     .step{
-      display:flex; gap:10px; align-items:flex-start;
-      padding: 12px; border-radius: 16px;
-      border: 1px solid rgba(226,232,240,.95);
-      background: #fff;
+      border-radius: 18px;
+      padding: 14px;
+      border:1px solid rgba(148,163,184,.25);
+      background:#fff;
+      display:flex; gap:12px;
     }
     .num{
       width:30px; height:30px; border-radius: 12px;
       display:grid; place-items:center;
       background: rgba(14,165,233,.10);
-      color: #0369a1; font-weight: 900;
-      flex: 0 0 auto;
+      color:#0369a1;
+      font-weight:900;
+      flex:0 0 auto;
     }
-    .step p{ margin:0; color: var(--muted); }
+    .step p{ margin:0; color:var(--muted); }
+    .step b{ display:block; margin-bottom:2px; color:var(--text); font-weight:900; }
 
-    details{ border:1px solid rgba(226,232,240,.95); border-radius: 16px; background: #fff; padding: 12px 14px; margin: 10px 0; }
-    summary{ cursor:pointer; font-weight: 800; color: var(--text); list-style:none; }
-    details p{ margin:10px 0 0; color: var(--muted); }
-
-    .fine{
-      font-size: 12.5px; color: #64748b;
-      background: rgba(255,255,255,.75);
-      border: 1px solid rgba(226,232,240,.95);
-      border-radius: 16px;
-      padding: 12px;
+    details{
+      border:1px solid rgba(148,163,184,.28);
+      border-radius: 18px;
+      background:#fff;
+      padding: 12px 14px;
+      margin: 10px 0;
     }
+    summary{
+      cursor:pointer;
+      font-weight:900;
+      list-style:none;
+    }
+    details p{ color:var(--muted); margin:10px 0 0; }
 
     .hidden{ display:none !important; }
 
-    /* QUIZ */
-    .progressText{ font-size: 12.5px; color: var(--muted); font-weight: 800; }
-    .bar{ height: 10px; background: rgba(226,232,240,.95); border-radius: 999px; overflow:hidden; margin: 10px 0 16px; }
+    /* Quiz */
+    .quizHead{ display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap; }
+    .progressText{ font-size: 13px; color:var(--muted); font-weight:800; }
+    .bar{ height: 10px; background: rgba(148,163,184,.25); border-radius: 999px; overflow:hidden; margin: 10px 0 16px; }
     .fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--primary), var(--primary2), #22c55e); transition: width .25s ease; }
-    .qTitle{ margin:0 0 8px; font-size: 20px; font-weight: 900; }
-    .qHint{ margin:0 0 14px; color: var(--muted); font-size: 14px; }
+    .qTitle{ margin: 0 0 8px; font-size: 21px; font-weight: 900; letter-spacing:-.2px; }
+    .qHint{ margin: 0 0 10px; color: var(--muted); font-size: 14px; }
+
     .option{
-      display:flex; align-items:flex-start; gap: 12px;
-      padding: 14px; margin: 10px 0;
-      border-radius: 16px;
-      border: 1px solid rgba(203,213,225,.95);
+      display:flex; gap:12px; align-items:flex-start;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,.28);
       background: #fff;
       cursor:pointer;
-      transition: 0.12s ease;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
     .option:hover{ transform: translateY(-1px); border-color: rgba(37,99,235,.35); background: #f8fbff; }
-    .option.active{ border-color: var(--primary); background: #f0f7ff; }
-    .option .optTitle{ font-weight: 900; }
-    .option .optSub{ color: var(--muted); font-size: 13.5px; margin-top: 2px; }
+    .option.active{ border-color: rgba(37,99,235,.9); background: rgba(37,99,235,.06); }
+    .bullet{
+      width: 22px; height: 22px;
+      border-radius: 10px;
+      border: 2px solid rgba(148,163,184,.5);
+      margin-top: 2px;
+      flex: 0 0 auto;
+      position: relative;
+    }
+    .option.active .bullet{
+      border-color: rgba(37,99,235,.9);
+      background: rgba(37,99,235,.12);
+    }
+    .option.active .bullet:after{
+      content:"";
+      position:absolute; inset:5px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+    }
+
+    .navRow{ display:flex; gap:10px; margin-top:16px; }
+    .navRow .btn{ flex: 2; width: auto; }
+    .navRow .btnGhost{ flex: 1; width: auto; }
 
     input[type="text"], input[type="tel"]{
-      width:100%; padding: 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(203,213,225,.95);
-      background: #fff;
+      width:100%;
+      padding: 14px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,.35);
+      background:#fff;
       font-size: 16px;
       outline:none;
       font-family: inherit;
     }
-    .successPill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 8px 12px; border-radius: 999px;
-      background: rgba(22,163,74,.10);
-      color: #166534; border: 1px solid rgba(22,163,74,.18);
-      font-weight: 900; font-size: 13px;
-      margin-bottom: 12px;
-    }
-    .twoCol{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    @media (max-width: 680px){ .twoCol{ grid-template-columns: 1fr; } }
+    .formGrid{ display:grid; gap:10px; margin-top: 12px; }
 
-    .smallLinkBtn{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 10px 12px; border-radius: 14px;
-      background:#fff; border: 1px solid rgba(203,213,225,.95);
-      color: var(--text); font-weight: 800;
-      cursor:pointer; font-family:inherit;
-    }
-
-    /* tiny svg illustration card */
-    .illus{
+    .summary{
       border-radius: 18px;
-      border: 1px solid rgba(226,232,240,.95);
-      background: linear-gradient(180deg, #ffffff, #fbfdff);
       padding: 14px;
+      border:1px solid rgba(148,163,184,.25);
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(148,163,184,.25);
+      background:#fff;
+      margin: 6px 6px 0 0;
+      color: var(--text);
+      font-weight:800;
+      font-size: 12.5px;
+    }
+
+    footer{
+      margin-top: 16px;
+      color: rgba(255,255,255,.78);
+      font-size: 12.5px;
+    }
+    .legal{
+      margin-top: 14px;
+      color: rgba(15,23,42,.65);
+      font-size: 12.5px;
+      line-height:1.6;
+    }
+
+    /* Hero illustration */
+    .illus{
+      background: radial-gradient(420px 260px at 30% 30%, rgba(14,165,233,.18), transparent 65%),
+                  radial-gradient(420px 260px at 70% 70%, rgba(34,197,94,.14), transparent 65%),
+                  #ffffff;
+      border:1px solid rgba(148,163,184,.25);
+      border-radius: 22px;
+      padding: 14px;
+      box-shadow: 0 18px 30px rgba(2,6,23,.08);
       overflow:hidden;
     }
     .illus svg{ width:100%; height:auto; display:block; }
@@ -225,127 +313,133 @@
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
-        <div class="logo">✓</div>
-        <div>זכויות בעבודה</div>
+        <div class="mark">✓</div>
+        <div>
+          <div class="brandTitle">זכות-ברור</div>
+          <div style="font-size:12.5px; color:rgba(255,255,255,.78); font-weight:700">בדיקה קצרה אחרי פגיעה בעבודה</div>
+        </div>
       </div>
       <div class="chips">
-        <span class="chip"><span class="dot"></span> לא מחייב</span>
+        <span class="chip"><span class="dot"></span> ללא התחייבות</span>
         <span class="chip">🔒 דיסקרטי</span>
         <span class="chip">⏱ בערך 2 דקות</span>
       </div>
     </div>
 
     <div class="shell">
-
       <!-- LANDING -->
       <div id="landing" class="grid">
         <div class="card">
-          <h1>נפגעת בעבודה? בואי נעשה סדר רגע.</h1>
-          <p class="lead">
-            את לא אמורה לדעת עכשיו “מה נחשב תאונת עבודה”, “איזה טופס צריך” או “מה עושים קודם”.
-            הבדיקה הזאת מסדרת את התמונה, מראה אם יש היתכנות לפיצוי, ורק בסוף – אם תרצי – משאירים פרטים.
-          </p>
+          <div class="hero">
+            <div>
+              <h1>נפגעת בעבודה? בואי נעשה סדר רגע.</h1>
+              <p class="lead">
+                זה לא טופס מפחיד ולא “משפטי”.
+                רק כמה שאלות קצרות שמסדרות את התמונה, כדי להבין אם יש היתכנות לפיצוי ומה נכון לעשות עכשיו.
+              </p>
 
-          <div class="heroRow">
-            <button class="btn" id="startBtn" type="button">מתחילים בדיקה</button>
-            <button class="btnGhost" id="whatBtn" type="button">מה קורה אחרי שאשאיר פרטים?</button>
+              <div class="ctaRow">
+                <button class="btn" id="startBtn" type="button">מתחילים בדיקה</button>
+                <button class="btn btnGhost" id="scrollFaqBtn" type="button">שאלות נפוצות</button>
+              </div>
+
+              <div class="miniNote">
+                <span>ℹ️</span>
+                <div>
+                  <b>חשוב:</b> ככל שפועלים מוקדם יותר, קל יותר לתעד את המקרה ולהימנע מפספוס זכויות.
+                  <span style="display:block; margin-top:4px;">הבדיקה כאן היא מידע ראשוני ולא תחליף לייעוץ משפטי.</span>
+                </div>
+              </div>
+
+              <div class="features">
+                <div class="feat"><div class="ico">🧠</div><div><b>ברור ופשוט</b><span>בלי מילים מסובכות — רק מה שצריך.</span></div></div>
+                <div class="feat"><div class="ico">👂</div><div><b>אוזן קשבת</b><span>מסבירים לך את התמונה בשפה אנושית.</span></div></div>
+                <div class="feat"><div class="ico">🛡️</div><div><b>דיסקרטי</b><span>את בוחרת אם להשאיר פרטים בסוף.</span></div></div>
+              </div>
+            </div>
+
+            <div class="illus" aria-hidden="true">
+              <!-- Inline SVG illustration -->
+              <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#2563eb" stop-opacity="0.9"/>
+                    <stop offset="1" stop-color="#0ea5e9" stop-opacity="0.9"/>
+                  </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="640" height="420" rx="24" fill="#ffffff"/>
+                <circle cx="120" cy="110" r="78" fill="#2563eb" fill-opacity="0.08"/>
+                <circle cx="520" cy="300" r="110" fill="#22c55e" fill-opacity="0.08"/>
+                <rect x="70" y="80" width="500" height="260" rx="22" fill="#0f172a" fill-opacity="0.04"/>
+                <rect x="95" y="110" width="300" height="26" rx="13" fill="#0f172a" fill-opacity="0.10"/>
+                <rect x="95" y="150" width="420" height="16" rx="8" fill="#0f172a" fill-opacity="0.08"/>
+                <rect x="95" y="178" width="380" height="16" rx="8" fill="#0f172a" fill-opacity="0.08"/>
+                <rect x="95" y="220" width="180" height="42" rx="16" fill="url(#g1)"/>
+                <rect x="95" y="280" width="440" height="14" rx="7" fill="#0f172a" fill-opacity="0.07"/>
+                <rect x="95" y="306" width="360" height="14" rx="7" fill="#0f172a" fill-opacity="0.07"/>
+                <circle cx="420" cy="241" r="22" fill="#22c55e" fill-opacity="0.18"/>
+                <path d="M410 241l7 7 14-16" stroke="#16a34a" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
           </div>
 
-          <div class="trustStrip">
-            <div class="trust">
-              <div class="ico">🧠</div>
-              <div>
-                <b>ברור ופשוט</b>
-                <span>בלי ניסוחים משפטיים. שאלה-שאלה, בקצב רגוע.</span>
-              </div>
-            </div>
-            <div class="trust">
-              <div class="ico">👂</div>
-              <div>
-                <b>אוזן קשבת</b>
-                <span>המטרה היא להבין את המקרה שלך – לא “לדחוף” משהו.</span>
-              </div>
-            </div>
-            <div class="trust">
-              <div class="ico">🛡️</div>
-              <div>
-                <b>דיסקרטי</b>
-                <span>את בוחרת אם להשאיר פרטים. אפשר לעצור בכל רגע.</span>
-              </div>
+          <div style="margin-top:16px;">
+            <div style="font-weight:900; margin-bottom:8px;">איך זה עובד בפועל?</div>
+            <div class="steps">
+              <div class="step"><div class="num">1</div><div><b>עונים על 5 שאלות</b><p>מתי קרה, חומרה, תיעוד — כדי להבין אם יש בסיס.</p></div></div>
+              <div class="step"><div class="num">2</div><div><b>מקבלים סיכום קצר</b><p>הסבר מה המשמעות של התשובות ומה כדאי לעשות עכשיו.</p></div></div>
+              <div class="step"><div class="num">3</div><div><b>רק אם תרצי — משאירים פרטים</b><p>חוזרים אלייך לשיחה קצרה שמסדרת את הצעדים הבאים.</p></div></div>
             </div>
           </div>
 
-          <div class="divider"></div>
+          <div id="faq" style="margin-top:18px;">
+            <div style="font-weight:900; margin-bottom:8px;">שאלות נפוצות</div>
+            <details>
+              <summary>זה מחייב אותי לפנות לעו״ד?</summary>
+              <p>לא. זו בדיקה ראשונית בלבד. בסוף את בוחרת אם להשאיר פרטים.</p>
+            </details>
+            <details>
+              <summary>למה אתם שואלים על תיעוד רפואי/דיווח?</summary>
+              <p>כי תיעוד מוקדם עוזר להבין מהר אם יש בסיס לתביעה ומה המסלול הנכון.</p>
+            </details>
+            <details>
+              <summary>האם זה בתשלום?</summary>
+              <p>הבדיקה והשיחה הראשונית ללא עלות. אין התחייבות.</p>
+            </details>
+          </div>
 
-          <p class="miniTitle">שאלות נפוצות (בדיוק מה שאנשים שואלים כשזה קרה להם)</p>
-          <details>
-            <summary>זה מחייב אותי לפנות לעורך דין?</summary>
-            <p>לא. זו בדיקה ראשונית בלבד, כדי לעשות סדר ולהבין אם יש בסיס לתביעה.</p>
-          </details>
-          <details>
-            <summary>למה אתם שואלים על תיעוד רפואי/מעסיק?</summary>
-            <p>כי “תיק מבושל” עם תיעוד ברור מתקדם מהר יותר. זה גם מה שעוזר לסנן פניות לא רלוונטיות.</p>
-          </details>
-          <details>
-            <summary>אם אני לא בטוחה שזה “תאונת עבודה” – עדיין שווה לענות?</summary>
-            <p>כן. בדיוק בשביל זה יש אופציה “לא בטוחה” בשאלון.</p>
-          </details>
-
-          <div class="divider"></div>
-
-          <div class="fine">
-            הערה חשובה: האתר מספק מידע כללי ובדיקה ראשונית בלבד ואינו תחליף לייעוץ משפטי/רפואי.
-            לא נטען כאן שום “אישור רשמי”. המטרה היא לעשות סדר ולהפנות להמשך בדיקה.
+          <div class="legal">
+            *האתר אינו אתר רשמי של הביטוח הלאומי ואינו מספק ייעוץ משפטי. מטרתו מידע ראשוני וסידור התמונה בלבד.
           </div>
         </div>
 
         <div class="card">
-          <p class="miniTitle">איך זה עובד (בצורה הכי פשוטה)</p>
-          <div class="stepsBox">
-            <div class="step"><div class="num">1</div><div><b>עונים על 5 שאלות</b><p>זמן/טריות, חומרה, תיעוד ועוד.</p></div></div>
-            <div class="step"><div class="num">2</div><div><b>אנחנו מסווגים את המקרה</b><p>כדי להבין אם יש כיוון נכון ומה הצעד הבא.</p></div></div>
-            <div class="step"><div class="num">3</div><div><b>רק אם תרצי – משאירים פרטים</b><p>ומקבלים שיחה שמסדרת לך מה עושים קודם.</p></div></div>
+          <div style="font-weight:900; font-size:18px; margin-bottom:10px;">מה אנשים מרגישים אחרי פגיעה?</div>
+          <div class="summary">
+            בדרך כלל יש שילוב של כאב + בלבול + פחד “לטעות”.
+            האתר הזה בנוי כדי לתת לך תחושה של יד מכוונת: קצר, ברור, בלי הפחדות.
+            <div style="margin-top:10px; color:var(--muted); font-weight:800;">הבדיקה לוקחת בערך 2 דקות.</div>
           </div>
 
-          <div class="divider"></div>
-
-          <div class="illus" aria-hidden="true">
-            <!-- simple inline SVG illustration (no external images needed) -->
-            <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="g1" x1="0" x2="1">
-                  <stop offset="0" stop-color="#2563eb" stop-opacity=".18"/>
-                  <stop offset="1" stop-color="#0ea5e9" stop-opacity=".18"/>
-                </linearGradient>
-              </defs>
-              <rect x="0" y="0" width="640" height="360" rx="22" fill="url(#g1)"/>
-              <rect x="70" y="70" width="500" height="70" rx="16" fill="#ffffff" opacity=".9"/>
-              <rect x="70" y="160" width="330" height="40" rx="14" fill="#ffffff" opacity=".9"/>
-              <rect x="70" y="210" width="420" height="40" rx="14" fill="#ffffff" opacity=".9"/>
-              <rect x="70" y="260" width="240" height="40" rx="14" fill="#ffffff" opacity=".9"/>
-              <circle cx="520" cy="195" r="62" fill="#ffffff" opacity=".85"/>
-              <path d="M510 195l18 18 34-44" fill="none" stroke="#16a34a" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          <div style="margin-top:14px; font-weight:900;">מה יופיע בסיכום?</div>
+          <div>
+            <span class="pill">טריות המקרה</span>
+            <span class="pill">חומרת הפגיעה</span>
+            <span class="pill">תיעוד</span>
+            <span class="pill">הצעד הבא</span>
           </div>
 
-          <div class="divider"></div>
-
-          <div class="twoCol">
-            <button class="smallLinkBtn" id="openFaq">📌 מה לעשות עכשיו (מיד אחרי פגיעה)</button>
-            <button class="smallLinkBtn" id="openDocs">📎 מה נחשב “תאונת עבודה”?</button>
+          <div style="margin-top:14px;">
+            <button class="btn" type="button" id="startBtn2" style="width:100%;">כן, אני רוצה להתחיל</button>
           </div>
-
-          <p id="quickInfo" class="qHint" style="margin-top:12px;">
-            * המידע כאן כללי. אם את רוצה, בסוף הבדיקה נשלח סיכום קצר למייל שלנו (לא אלייך) ונסדר את הצעדים.
-          </p>
         </div>
       </div>
 
       <!-- QUIZ -->
       <div id="quiz" class="card hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
-          <span id="progressTxt" class="progressText">שאלה 1 מתוך 5</span>
-          <span class="successPill">✅ בדיקה קצרה • לא מחייב</span>
+        <div class="quizHead">
+          <div class="progressText" id="progressTxt">שאלה 1 מתוך 5</div>
+          <div class="progressText" id="timeTxt">⏱ בערך דקה</div>
         </div>
         <div class="bar"><div id="progressFill" class="fill"></div></div>
 
@@ -353,227 +447,265 @@
         <p id="qHint" class="qHint"></p>
         <div id="qForm"></div>
 
-        <div style="display:flex; gap:10px; margin-top:20px;">
-          <button class="btnGhost" id="backBtn" type="button" style="min-width:auto; flex:1;">אחורה</button>
-          <button class="btn" id="nextBtn" type="button" style="min-width:auto; flex:2;">המשך</button>
+        <div class="navRow">
+          <button class="btn btnGhost" id="backBtn" type="button">אחורה</button>
+          <button class="btn" id="nextBtn" type="button">המשך</button>
         </div>
       </div>
 
       <!-- DONE -->
       <div id="done" class="card hidden">
-        <span class="successPill">הבדיקה הושלמה ✅</span>
-        <h2 style="margin:0 0 6px; font-size: 26px; font-weight: 900;">סיכום קצר</h2>
-        <p style="margin:0 0 14px; color: var(--muted);">
-          כדי שנוכל לחזור אלייך עם סדר פעולות ברור (מה עושים קודם), השאירי שם וטלפון.
-        </p>
+        <h2 style="margin:0 0 8px; font-weight:900; letter-spacing:-.2px;">סיכום קצר ✅</h2>
+        <div id="summaryBox" class="summary"></div>
 
-        <div id="summaryBox" style="background:#f8fafc; border:1px solid rgba(226,232,240,.95); padding:14px; border-radius:16px; margin-bottom:14px; color: var(--muted);"></div>
-
-        <div class="twoCol">
-          <input type="text" id="fullName" placeholder="שם מלא" />
-          <input type="tel" id="phone" placeholder="טלפון" inputmode="tel" />
-        </div>
-
-        <button class="btn" id="submitBtn" type="button" style="width:100%; margin-top:12px;">רוצה שיחזרו אליי</button>
-
-        <div class="fine" style="margin-top:12px;">
-          דיסקרטיות: הפרטים נשלחים למערכת שלנו בלבד לצורך חזרה. אין כאן התחייבות לשום שירות.
+        <div class="formGrid">
+          <input type="text" id="fullName" placeholder="שם מלא" autocomplete="name" />
+          <input type="tel" id="phone" placeholder="מספר טלפון" autocomplete="tel" inputmode="tel" />
+          <button class="btn" id="submitBtn" type="button">רוצה שיחזרו אליי</button>
+          <div class="legal">בלחיצה את מאשרת יצירת קשר לגבי הבדיקה שביצעת.</div>
         </div>
       </div>
-
     </div>
+
+    <footer>
+      זכות-ברור · בדיקה קצרה אחרי פגיעה בעבודה
+    </footer>
   </div>
 
 <script>
-  // Make webhook (שלך)
+  // ✅ Make webhook
   const WEBHOOK_URL = "https://hook.eu1.make.com/zodd6hyaiagfivgofyy1h6jjamyymm23";
 
   document.addEventListener("DOMContentLoaded", () => {
-    const el = (id) => document.getElementById(id);
+    const els = {
+      landing: document.getElementById("landing"),
+      quiz: document.getElementById("quiz"),
+      done: document.getElementById("done"),
+      startBtn: document.getElementById("startBtn"),
+      startBtn2: document.getElementById("startBtn2"),
+      scrollFaqBtn: document.getElementById("scrollFaqBtn"),
+      progressFill: document.getElementById("progressFill"),
+      progressTxt: document.getElementById("progressTxt"),
+      qTitle: document.getElementById("qTitle"),
+      qHint: document.getElementById("qHint"),
+      qForm: document.getElementById("qForm"),
+      backBtn: document.getElementById("backBtn"),
+      nextBtn: document.getElementById("nextBtn"),
+      summaryBox: document.getElementById("summaryBox"),
+      fullName: document.getElementById("fullName"),
+      phone: document.getElementById("phone"),
+      submitBtn: document.getElementById("submitBtn"),
+    };
 
     const state = {
       step: 0,
-      answers: { q1:null, q2:null, q3:null, q4:null, q5:null }
+      answers: { q1:null, q2:null, q3:null, q4:null, q5:null },
     };
 
+    // שאלון לפי ה"מוח": טריות → התאמה לתאונת עבודה → חומרה → תיעוד → סטטוס ב"ל
     const steps = [
       {
         key: "q1",
-        title: "האם הפגיעה קרתה בזמן העבודה, בדרך אליה או בחזרה ממנה?",
-        hint: "אם את לא בטוחה — זה בדיוק נפוץ. אפשר לבחור “לא בטוחה”.",
+        title: "האם זה קרה בזמן העבודה, בדרך אליה או בחזרה ממנה?",
+        hint: "אם את לא בטוחה — זה בסדר, הרבה אנשים מתבלבלים פה.",
         options: [
-          { l:"כן", v:"yes", s:"האירוע קשור לעבודה" },
-          { l:"לא", v:"no", s:"כנראה לא במסגרת עבודה" },
-          { l:"לא בטוחה", v:"maybe", s:"נבדוק את זה יחד" }
+          { l: "כן", v: "yes" },
+          { l: "לא", v: "no" },
+          { l: "אני לא בטוחה", v: "maybe" },
         ]
       },
       {
         key: "q2",
         title: "מתי בערך קרתה הפגיעה?",
-        hint: "פניות “חמות” (מהזמן האחרון) בדרך כלל קל יותר לתעד.",
+        hint: "ככל שזה טרי יותר — קל יותר לתעד.",
         options: [
-          { l:"ב־7 הימים האחרונים", v:"week", s:"מקרה טרי" },
-          { l:"בחודשים האחרונים", v:"months", s:"עדיין רלוונטי" },
-          { l:"לפני שנה או יותר", v:"old", s:"עדיין אפשרי – תלוי נסיבות" }
+          { l: "ב־7 הימים האחרונים", v: "7d" },
+          { l: "בחודשים האחרונים", v: "months" },
+          { l: "לפני שנה או יותר", v: "1y" },
+          { l: "לפני יותר מ־3 שנים", v: "3y" },
         ]
       },
       {
         key: "q3",
-        title: "מה הייתה חומרת הפציעה?",
-        hint: "בחרי את האפשרות שהכי קרובה למצב שלך (בלי להיבהל).",
+        title: "איך היית מתארת את חומרת הפגיעה?",
+        hint: "אל תדאגי — זו רק אינדיקציה ראשונית.",
         options: [
-          { l:"אשפוז / ניתוח / שיקום", v:"severe", s:"בדרך כלל תיק “כבד” יותר" },
-          { l:"מיון / בדיקות משמעותיות", v:"er", s:"מראה חומרה ותיעוד" },
-          { l:"ימי מחלה / ביקור רופא", v:"sick", s:"יכול להיות רלוונטי" },
-          { l:"פגיעה קלה וחזרתי מהר", v:"minor", s:"לפעמים לא מצדיק תביעה" }
+          { l: "ניתוח / אשפוז / שיקום ארוך", v: "severe" },
+          { l: "מיון / בדיקות רפואיות", v: "er" },
+          { l: "ימי מחלה בלבד", v: "sick" },
+          { l: "פגיעה קלה וחזרתי מהר לשגרה", v: "minor" },
         ]
       },
       {
         key: "q4",
-        title: "האם יש תיעוד ראשוני כלשהו?",
-        hint: "תיעוד יכול להיות מיון/רופא/מסמך/צילום. גם “חלקי” זה התחלה.",
+        title: "יש לך תיעוד כלשהו מהימים הראשונים?",
+        hint: "תיעוד מקל להבין אם יש בסיס (אפשר גם חלקי).",
         options: [
-          { l:"כן, תיעוד רפואי ברור", v:"med_yes", s:"מצוין" },
-          { l:"יש משהו חלקי", v:"partial", s:"עדיין עוזר" },
-          { l:"אין כרגע", v:"none", s:"לא סוף העולם — יש צעדים לתקן" }
+          { l: "כן, יש תיעוד רפואי", v: "med_yes" },
+          { l: "דיווחתי למעסיק", v: "emp_yes" },
+          { l: "יש לי משהו חלקי", v: "partial" },
+          { l: "אין לי עדיין", v: "none" },
         ]
       },
       {
         key: "q5",
-        title: "האם כבר פנית לביטוח לאומי בנושא?",
-        hint: "גם אם התחלת לבד ולא בטוחה שעשית נכון — זה בסדר.",
+        title: "האם כבר פנית לביטוח לאומי לגבי הפגיעה?",
+        hint: "גם אם התחלת תהליך — אפשר עדיין לעשות סדר.",
         options: [
-          { l:"עדיין לא", v:"no", s:"אפשר לעשות סדר מהתחלה" },
-          { l:"כן, התחלתי", v:"yes", s:"נבדוק מה נעשה עד עכשיו" },
-          { l:"כן, אבל לא בטוחה שעשיתי נכון", v:"unsure", s:"מוטיבציה גבוהה לסדר" }
+          { l: "עדיין לא", v: "no" },
+          { l: "כן, אבל אני לא בטוחה שעשיתי נכון", v: "unsure" },
+          { l: "כן, התחלתי תהליך", v: "started" },
         ]
-      }
+      },
     ];
 
-    function renderStep(){
+    function goQuiz() {
+      els.landing.classList.add("hidden");
+      els.quiz.classList.remove("hidden");
+      els.done.classList.add("hidden");
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function render() {
       const s = steps[state.step];
-      el("qTitle").innerText = s.title;
-      el("qHint").innerText = s.hint || "";
-      el("progressTxt").innerText = `שאלה ${state.step + 1} מתוך ${steps.length}`;
-      el("progressFill").style.width = ((state.step + 1) / steps.length) * 100 + "%";
+      els.qTitle.textContent = s.title;
+      els.qHint.textContent = s.hint || "";
+      els.progressTxt.textContent = `שאלה ${state.step + 1} מתוך ${steps.length}`;
+      els.progressFill.style.width = ((state.step + 1) / steps.length) * 100 + "%";
 
-      const form = el("qForm");
-      form.innerHTML = "";
-
+      els.qForm.innerHTML = "";
       s.options.forEach(opt => {
-        const d = document.createElement("div");
-        const active = state.answers[s.key] === opt.v;
-        d.className = "option" + (active ? " active" : "");
-        d.innerHTML = `
-          <div style="flex:1;">
-            <div class="optTitle">${opt.l}</div>
-            <div class="optSub">${opt.s}</div>
-          </div>
+        const div = document.createElement("div");
+        const isActive = state.answers[s.key] === opt.v;
+        div.className = "option" + (isActive ? " active" : "");
+        div.innerHTML = `
+          <div class="bullet" aria-hidden="true"></div>
+          <div style="font-weight:900">${opt.l}</div>
         `;
-        d.onclick = () => {
+        div.addEventListener("click", () => {
           state.answers[s.key] = opt.v;
-          renderStep();
-        };
-        form.appendChild(d);
+          render();
+        });
+        els.qForm.appendChild(div);
       });
 
-      el("nextBtn").disabled = !state.answers[s.key];
-      el("backBtn").disabled = (state.step === 0);
+      els.nextBtn.disabled = !state.answers[s.key];
+      els.backBtn.disabled = state.step === 0;
     }
 
-    function buildSummary(){
-      // סיכום אנושי קצר (ללא הבטחות)
-      const a = state.answers;
-      const map = {
-        yes:"כן", no:"לא", maybe:"לא בטוחה",
-        week:"7 ימים", months:"חודשים אחרונים", old:"שנה+",
-        severe:"אשפוז/ניתוח", er:"מיון/בדיקות", sick:"ימי מחלה/רופא", minor:"פגיעה קלה",
-        med_yes:"תיעוד רפואי ברור", partial:"תיעוד חלקי", none:"אין תיעוד",
-        unsure:"כן, לא בטוחה שעשיתי נכון"
-      };
-      const lines = [
-        `• מסגרת האירוע: ${map[a.q1] || a.q1}`,
-        `• מתי קרה: ${map[a.q2] || a.q2}`,
-        `• חומרה: ${map[a.q3] || a.q3}`,
-        `• תיעוד: ${map[a.q4] || a.q4}`,
-        `• ביטוח לאומי: ${map[a.q5] || a.q5}`,
-      ];
-      el("summaryBox").innerText = "מה שסיפרת לנו:\n" + lines.join("\n") + "\n\nהשלב הבא: שיחה קצרה שתעשה סדר בצעדים (מה עושים קודם).";
+    function buildSummary(a) {
+      // סיכום “אנושי” קצר ולא משפטי
+      const chips = [];
+      if (a.q2 === "7d") chips.push("המקרה טרי מאוד");
+      if (a.q2 === "months") chips.push("המקרה יחסית טרי");
+      if (a.q2 === "1y") chips.push("המקרה לא מהשבועות האחרונים");
+      if (a.q2 === "3y") chips.push("המקרה ותיק יחסית");
+
+      if (a.q3 === "severe") chips.push("פגיעה משמעותית");
+      if (a.q3 === "er") chips.push("הייתה פנייה רפואית");
+      if (a.q3 === "sick") chips.push("היו ימי מחלה");
+      if (a.q3 === "minor") chips.push("נשמע קל יותר");
+
+      if (a.q4 === "med_yes") chips.push("יש תיעוד רפואי");
+      if (a.q4 === "emp_yes") chips.push("דווח למעסיק");
+      if (a.q4 === "partial") chips.push("יש תיעוד חלקי");
+      if (a.q4 === "none") chips.push("אין תיעוד עדיין");
+
+      let next = "אם תרצי, נחזור אלייך לשיחה קצרה שמסדרת את הצעדים הבאים.";
+      if (a.q2 === "7d") next = "כדאי לפעול מהר כדי לשמור תיעוד ולמנוע טעויות.";
+      if (a.q3 === "severe") next = "בפגיעות משמעותיות חשוב להבין מוקדם את המסלול הנכון.";
+
+      const pills = chips.map(t => `<span class="pill">✓ ${t}</span>`).join(" ");
+      return `
+        <div style="font-weight:900; color:var(--text); margin-bottom:6px;">מה שאנחנו רואים מהתשובות שלך:</div>
+        <div>${pills}</div>
+        <div style="margin-top:10px;">${next}</div>
+      `;
     }
 
-    // Landing helper buttons
-    el("whatBtn").onclick = () => {
-      alert("איך זה עובד:\n1) עונים על 5 שאלות\n2) מקבלים סיכום קצר\n3) אם רוצים – משאירים פרטים ונחזור עם סדר פעולות ברור.\n\nזה לא מחייב לשום דבר.");
-    };
-    el("openFaq").onclick = () => {
-      alert("מה עושים עכשיו (בגדול):\n• תיעוד רפואי ראשוני\n• דיווח מסודר (אם רלוונטי)\n• שמירה על מסמכים/צילומים\n\nבסוף הבדיקה נוכל להמליץ על סדר הפעולות.");
-    };
-    el("openDocs").onclick = () => {
-      alert("מה נחשב תאונת עבודה? זה תלוי נסיבות.\nבגלל שיש הרבה מקרים 'אפרוריים', השאלון מתחיל בדיוק שם.");
-    };
-
-    // Start
-    el("startBtn").onclick = () => {
-      el("landing").classList.add("hidden");
-      el("quiz").classList.remove("hidden");
-      state.step = 0;
-      renderStep();
-    };
-
-    // Nav
-    el("backBtn").onclick = () => {
-      if(state.step > 0){
-        state.step--;
-        renderStep();
+    async function postLead(payload) {
+      // ניסיון 1: JSON רגיל
+      try {
+        const res = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        // אם אין CORS תקין, לפעמים res "opaque" לא קורה פה. אם אנחנו פה - נמשיך.
+        if (res && res.ok === false) throw new Error("HTTP not ok");
+        return true;
+      } catch (e) {
+        // ניסיון 2: no-cors כדי לא לאבד לידים
+        try {
+          await fetch(WEBHOOK_URL, {
+            method: "POST",
+            mode: "no-cors",
+            body: JSON.stringify(payload)
+          });
+          return true;
+        } catch (e2) {
+          return false;
+        }
       }
-    };
-    el("nextBtn").onclick = () => {
-      if(state.step < steps.length - 1){
+    }
+
+    // Events
+    els.startBtn.addEventListener("click", goQuiz);
+    els.startBtn2.addEventListener("click", goQuiz);
+
+    els.scrollFaqBtn.addEventListener("click", () => {
+      const faq = document.getElementById("faq");
+      faq.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    els.backBtn.addEventListener("click", () => {
+      if (state.step > 0) { state.step--; render(); }
+    });
+
+    els.nextBtn.addEventListener("click", () => {
+      if (state.step < steps.length - 1) {
         state.step++;
-        renderStep();
-      }else{
-        el("quiz").classList.add("hidden");
-        el("done").classList.remove("hidden");
-        buildSummary();
+        render();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        els.quiz.classList.add("hidden");
+        els.done.classList.remove("hidden");
+        els.summaryBox.innerHTML = buildSummary(state.answers);
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
-    };
+    });
 
-    // Submit
-    el("submitBtn").onclick = async () => {
-      const name = el("fullName").value.trim();
-      const phone = el("phone").value.trim();
+    els.submitBtn.addEventListener("click", async () => {
+      const name = (els.fullName.value || "").trim();
+      const phone = (els.phone.value || "").trim();
 
-      if(!name || phone.length < 9){
-        alert("נא למלא שם וטלפון תקינים 🙂");
-        return;
-      }
+      if (!name) return alert("בבקשה כתבי שם מלא");
+      if (phone.replace(/\D/g, "").length < 9) return alert("בבקשה כתבי מספר טלפון תקין");
 
-      el("submitBtn").innerText = "שולח…";
-      el("submitBtn").disabled = true;
+      els.submitBtn.disabled = true;
+      els.submitBtn.textContent = "שולח…";
 
       const payload = {
         name,
         phone,
         answers: state.answers,
-        source: "work_rights_quiz",
+        source: "zchut_barur",
+        page: location.href,
         ts: new Date().toISOString()
       };
 
-      try{
-        await fetch(WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
+      const ok = await postLead(payload);
 
-        alert("נשלח בהצלחה! נחזור אלייך בהקדם.");
+      if (ok) {
+        alert("נשלח בהצלחה ✅ נחזור אלייך בהקדם.");
         location.reload();
-      }catch(e){
-        alert("הייתה תקלה בשליחה. נסי שוב בעוד רגע.");
-        el("submitBtn").innerText = "רוצה שיחזרו אליי";
-        el("submitBtn").disabled = false;
+      } else {
+        alert("משהו לא עבר. נסי שוב בעוד דקה (או בדקי חיבור אינטרנט).");
+        els.submitBtn.disabled = false;
+        els.submitBtn.textContent = "רוצה שיחזרו אליי";
       }
-    };
+    });
   });
 </script>
 </body>

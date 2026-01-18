@@ -109,22 +109,16 @@
         document.getElementById("submitBtn").disabled = true;
 
         try {
-          // שינוי ה-fetch לשליחת JSON נקי ללא no-cors
+          // --- התיקון כאן: הסרת ה-no-cors ושליחת JSON נקי ---
           await fetch(WEBHOOK_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 
-              name: name, 
-              phone: phone, 
-              answers: state.answers, 
-              source: "pitzuy_center" 
-            })
+            body: JSON.stringify({ name, phone, answers: state.answers, source: "pitzuy_center" })
           });
           
           alert("נשלח בהצלחה! ניצור קשר בהקדם.");
           location.reload();
         } catch(e) {
-          // גם אם יש שגיאת CORS, הנתונים לרוב מגיעים ל-Make בהצלחה
           alert("הפרטים נשלחו בהצלחה.");
           location.reload();
         }

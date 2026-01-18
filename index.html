@@ -109,7 +109,7 @@
         document.getElementById("submitBtn").disabled = true;
 
         try {
-          // --- התיקון כאן: הסרת ה-no-cors ושליחת JSON נקי ---
+          // תיקון השליחה ל-JSON תקין ללא mode: no-cors
           await fetch(WEBHOOK_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },

@@ -4,126 +4,428 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>בדיקה קצרה לזכויות אחרי פגיעה בעבודה</title>
+  <meta name="description" content="בדיקה קצרה ולא מחייבת שעושה סדר אחרי פגיעה בעבודה. דיסקרטי, אנושי, בערך 2 דקות." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    :root{ --bgTop:#0b1220; --bg:#f3f6fb; --card:#ffffff; --text:#0f172a; --muted:#475569; --line:#e2e8f0; --primary:#2563eb; --primary2:#0ea5e9; --r:18px; --shadow: 0 18px 55px rgba(2,6,23,.20); --shadow2: 0 10px 26px rgba(2,6,23,.10); }
+    :root{
+      --bgTop:#0b1220;
+      --bg:#f3f6fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --line:#e2e8f0;
+      --primary:#2563eb;
+      --primary2:#0ea5e9;
+      --good:#16a34a;
+      --r:18px;
+      --shadow: 0 18px 55px rgba(2,6,23,.20);
+      --shadow2: 0 10px 26px rgba(2,6,23,.10);
+    }
     *{ box-sizing:border-box; }
-    body{ margin:0; font-family: 'Assistant', system-ui, sans-serif; color: var(--text); background: radial-gradient(1100px 680px at 80% -10%, rgba(14,165,233,.28), transparent 55%), linear-gradient(180deg, var(--bgTop) 0%, var(--bgTop) 28%, var(--bg) 28%, var(--bg) 100%); line-height: 1.65; }
-    .wrap{ max-width: 1040px; margin: 0 auto; padding: 22px 16px 90px; }
-    .header{ color:#fff; display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px; }
-    .brand{ display:flex; align-items:center; gap:10px; font-weight: 950; }
-    .logo{ width:40px; height:40px; border-radius: 14px; background: #fff; display:grid; place-items:center; color:#0b1220; font-weight: 1000; }
-    .shell{ margin-top: 8px; background: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.55); border-radius: 26px; padding: 16px; box-shadow: var(--shadow); backdrop-filter: blur(10px); }
-    .grid{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 14px; }
+    body{
+      margin:0;
+      font-family:'Assistant', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1100px 680px at 80% -10%, rgba(14,165,233,.28), transparent 55%),
+        radial-gradient(900px 650px at 10% 0%, rgba(34,197,94,.16), transparent 55%),
+        linear-gradient(180deg, var(--bgTop) 0%, var(--bgTop) 30%, var(--bg) 30%, var(--bg) 100%);
+      line-height:1.65;
+    }
+    .wrap{ max-width: 1080px; margin: 0 auto; padding: 22px 16px 90px; }
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      color:#fff; flex-wrap:wrap; margin-bottom: 14px;
+    }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight: 900; letter-spacing:-.2px; }
+    .logo{
+      width:40px; height:40px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.65));
+      box-shadow: 0 18px 40px rgba(0,0,0,.18);
+      display:grid; place-items:center;
+      color:#0b1220; font-weight: 900;
+    }
+    .chips{ display:flex; gap:10px; flex-wrap:wrap; }
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.92);
+      font-size: 12px; font-weight: 800;
+      backdrop-filter: blur(8px);
+    }
+    .dot{ width:8px; height:8px; border-radius:99px; background:#86efac; }
+
+    .shell{
+      margin-top: 8px;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 26px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .grid{ display:grid; grid-template-columns: 1.25fr .75fr; gap: 14px; }
     @media (max-width: 940px){ .grid{ grid-template-columns: 1fr; } }
-    .card{ background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; box-shadow: var(--shadow2); }
-    h1{ margin: 0 0 10px; font-size: 34px; font-weight: 800; line-height: 1.1; }
-    .btn{ border:0; cursor:pointer; border-radius: 16px; padding: 14px 18px; font-weight: 800; font-size: 16px; color:#fff; background: linear-gradient(135deg, var(--primary), var(--primary2)); width: 100%; font-family: inherit; }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      padding: 22px;
+      box-shadow: var(--shadow2);
+    }
+    h1{ margin: 0 0 10px; font-size: 34px; line-height: 1.15; letter-spacing: -.5px; font-weight: 800; }
+    .lead{ margin: 0 0 16px; color: var(--muted); font-size: 16.5px; max-width: 62ch; }
+
+    .ctaRow{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .btn{
+      border:0; cursor:pointer; border-radius: 16px;
+      padding: 14px 18px;
+      font-weight: 800; font-size: 16px;
+      color:#fff;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      box-shadow: 0 16px 30px rgba(37,99,235,.20);
+      transition: transform .15s ease, filter .15s ease;
+      font-family: inherit;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+    .btnGhost{
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-weight: 800; font-size: 16px;
+      background: #fff; color: var(--text);
+      border: 1px solid rgba(203,213,225,.95);
+      cursor:pointer;
+      font-family: inherit;
+    }
+
     .trustStrip{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
     @media (max-width: 940px){ .trustStrip{ grid-template-columns: 1fr; } }
-    .trust{ border-radius: 16px; padding: 12px; border: 1px solid var(--line); background: #fff; display:flex; gap:10px; }
-    .ico{ width:34px; height:34px; border-radius: 10px; background: #f1f5ff; display:grid; place-items:center; color: #1d4ed8; flex-shrink: 0; }
-    .option{ display:flex; align-items:center; padding: 14px; margin: 10px 0; border-radius: 16px; border: 1px solid var(--line); background: #fff; cursor:pointer; font-weight: 700; }
-    .option.active{ border-color: var(--primary); background: #f0f7ff; }
+    .trust{
+      border-radius: 16px; padding: 12px;
+      border: 1px solid rgba(226,232,240,.95);
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+      display:flex; gap:10px; align-items:flex-start;
+    }
+    .ico{
+      width:34px; height:34px; border-radius: 14px;
+      background: #f1f5ff; display:grid; place-items:center;
+      color: #1d4ed8; font-weight: 900; flex: 0 0 auto;
+    }
+    .trust b{ display:block; margin-bottom: 2px; font-weight: 800; }
+    .trust span{ color: var(--muted); font-size: 13px; }
+
+    .stepsList{ list-style:none; padding:0; margin:0; display:grid; gap:10px; }
+    .stepItem{ display:flex; gap:12px; align-items:flex-start; }
+    .num{
+      width:28px;height:28px;border-radius: 11px;
+      display:flex;align-items:center;justify-content:center;
+      background: rgba(14,165,233,.10);
+      color: #0369a1; font-weight: 900; flex: 0 0 auto;
+    }
+
+    details{
+      border:1px solid rgba(226,232,240,.95);
+      border-radius: 16px; background: #fff;
+      padding: 12px 14px; margin: 10px 0 0;
+    }
+    summary{ cursor:pointer; font-weight: 800; color: var(--text); list-style:none; }
+    details p{ margin:10px 0 0; color: var(--muted); }
+
     .hidden{ display:none !important; }
-    input[type="text"], input[type="tel"]{ width:100%; padding: 14px; border-radius: 16px; border: 1px solid var(--line); margin-bottom: 10px; font-family: inherit; font-size: 16px; }
-    .bar{ height: 10px; background: var(--line); border-radius: 999px; overflow:hidden; margin: 10px 0 20px; }
-    .fill{ height:100%; width:0%; background: var(--primary); transition: width .3s; }
+
+    /* QUIZ */
+    .progressText{ font-size: 12px; color: var(--muted); font-weight: 800; }
+    .bar{
+      height: 10px; background: rgba(226,232,240,.95);
+      border-radius: 999px; overflow:hidden; margin: 10px 0 16px;
+    }
+    .fill{
+      height:100%; width:0%;
+      background: linear-gradient(90deg, var(--primary), var(--primary2), #22c55e);
+      transition: width .25s ease;
+    }
+    .qTitle{ margin:0 0 8px; font-size: 20px; font-weight: 900; }
+    .option{
+      display:flex; align-items:flex-start; gap: 12px;
+      padding: 14px; margin: 10px 0;
+      border-radius: 16px;
+      border: 1px solid rgba(203,213,225,.95);
+      background: #fff;
+      cursor:pointer;
+      transition: 0.12s ease;
+    }
+    .option:hover{ transform: translateY(-1px); border-color: rgba(37,99,235,.35); background: #f8fbff; }
+    .option.active{ border-color: var(--primary); background: #f0f7ff; }
+    .option label{ cursor:pointer; font-weight: 800; flex:1; }
+
+    input[type="text"], input[type="tel"]{
+      width:100%;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(203,213,225,.95);
+      background: #fff;
+      font-size: 16px;
+      outline:none;
+      font-family: inherit;
+    }
+    .note{ font-size: 12.5px; color: var(--muted); margin-top: 10px; }
+    .ok{ display:inline-flex; align-items:center; gap:8px; font-weight: 800; color: var(--good); }
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <div class="header"><div class="brand"><div class="logo">✓</div><div>פיצוי סנטר</div></div></div>
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">✓</div>
+        <div id="brandName">עושים סדר בזכויות</div>
+      </div>
+      <div class="chips">
+        <span class="chip"><span class="dot"></span> ללא התחייבות</span>
+        <span class="chip">🔒 דיסקרטי</span>
+        <span class="chip">⏱ ~2 דקות</span>
+      </div>
+    </div>
+
     <div class="shell">
+      <!-- LANDING -->
       <div id="landing" class="grid">
         <div class="card">
           <h1>נפגעת בעבודה? בואי נעשה סדר רגע.</h1>
-          <p>בדיקה קצרה ולא מחייבת שמסדרת את התמונה. בערך 2 דקות.</p>
-          <button class="btn" id="startBtn">מתחילים בדיקה</button>
+          <p class="lead">זה לא טופס “משפטי”. רק כמה שאלות קצרות שמסדרות את התמונה ומראות אם יש היתכנות לפיצוי.</p>
+
+          <div class="ctaRow">
+            <button class="btn" id="startBtn" type="button">מתחילים בדיקה</button>
+            <span class="progressText">דיסקרטי • לא מחייב • 5 שאלות</span>
+          </div>
+
           <div class="trustStrip">
             <div class="trust"><div class="ico">🧠</div><div><b>ברור ופשוט</b><span>בלי מילים מסובכות.</span></div></div>
-            <div class="trust"><div class="ico">👂</div><div><b>אוזן קשבת</b><span>אנחנו כאן כדי להבין.</span></div></div>
-            <div class="trust"><div class="ico">🛡️</div><div><b>דיסקרטי</b><span>המידע שלך מוגן.</span></div></div>
+            <div class="trust"><div class="ico">👂</div><div><b>אנושי</b><span>מבינים את הבלבול אחרי פגיעה.</span></div></div>
+            <div class="trust"><div class="ico">🛡️</div><div><b>דיסקרטי</b><span>את בוחרת אם להשאיר פרטים.</span></div></div>
           </div>
+
+          <details>
+            <summary>זה מחייב אותי לפנות לעו״ד?</summary>
+            <p>לא. זו בדיקה ראשונית בלבד. בסוף את מחליטה אם להשאיר פרטים לשיחה קצרה.</p>
+          </details>
+          <details>
+            <summary>כמה זמן זה לוקח?</summary>
+            <p>בדרך כלל כשתי דקות.</p>
+          </details>
         </div>
-        <div class="card"><b>איך זה עובד?</b><p>עונים על שאלות ומקבלים ניתוח ראשוני.</p></div>
+
+        <div class="card">
+          <ul class="stepsList">
+            <li class="stepItem"><div class="num">1</div><div><b>עונים על 5 שאלות</b><div class="note">פשוט וקצר — בלי פרטים אישיים באמצע.</div></div></li>
+            <li class="stepItem"><div class="num">2</div><div><b>מקבלים סיכום קצר</b><div class="note">האם יש היתכנות לבדיקה.</div></div></li>
+            <li class="stepItem"><div class="num">3</div><div><b>אם רוצים — משאירים פרטים</b><div class="note">לחזרה מסודרת.</div></div></li>
+          </ul>
+
+          <details>
+            <summary>למה אתם שואלים על תיעוד?</summary>
+            <p>כי תיעוד רפואי/דיווח למעסיק עוזר להבין אם יש בסיס לתביעה.</p>
+          </details>
+        </div>
       </div>
+
+      <!-- QUIZ -->
       <div id="quiz" class="card hidden">
-        <div class="bar"><div id="progressFill" class="fill"></div></div>
-        <h2 id="qTitle"></h2>
-        <div id="qForm"></div>
-        <div style="display:flex; gap:10px; margin-top:20px;">
-          <button id="backBtn" style="background:none; border:1px solid var(--line); border-radius:16px; padding:10px; cursor:pointer; flex:1;">אחורה</button>
-          <button class="btn" id="nextBtn" style="flex:2;">המשך</button>
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+          <span id="progressTxt" class="progressText">שאלה 1 מתוך 5</span>
+          <span class="progressText">בדיקה קצרה</span>
         </div>
+        <div class="bar"><div id="progressFill" class="fill"></div></div>
+
+        <h2 id="qTitle" class="qTitle"></h2>
+        <div id="qForm"></div>
+
+        <div style="display:flex; gap:10px; margin-top:20px;">
+          <button class="btnGhost" id="backBtn" type="button" style="flex:1;">אחורה</button>
+          <button class="btn" id="nextBtn" type="button" style="flex:2;">המשך</button>
+        </div>
+        <div class="note">הבדיקה לא מחליפה ייעוץ משפטי; היא רק עוזרת לעשות סדר ראשוני.</div>
       </div>
+
+      <!-- DONE -->
       <div id="done" class="card hidden">
-        <h2>סיימנו! שלחי פרטים ונחזור אלייך ✅</h2>
-        <input type="text" id="fullName" placeholder="שם מלא" />
-        <input type="tel" id="phone" placeholder="מספר טלפון" />
-        <button class="btn" id="submitBtn">רוצה שיחזרו אליי</button>
+        <h2 style="margin:0 0 8px; font-size: 24px; font-weight: 900;">סיכום קצר ✅</h2>
+        <div id="summaryBox" style="background:#f8fafc; padding:15px; border-radius:15px; margin: 10px 0 18px; color: var(--muted);"></div>
+
+        <div style="display:grid; gap:10px;">
+          <input type="text" id="fullName" placeholder="שם מלא" autocomplete="name" />
+          <input type="tel" id="phone" placeholder="טלפון" autocomplete="tel" />
+          <button class="btn" id="submitBtn" type="button">רוצה שיחזרו אליי</button>
+        </div>
+
+        <div class="note"><span class="ok">✓</span> שליחה דיסקרטית. נחזור לפי סדר פניות.</div>
       </div>
     </div>
   </div>
 
-  <script>
-    const WEBHOOK_URL = "https://hook.eu1.make.com/zodd6hyaiagfivgofyy1h6jjamyymm23";
+<script>
+  // ✅ ה-Webhook שלך
+  const WEBHOOK_URL = "https://hook.eu1.make.com/zodd6hyaiagfivgofyy1h6jjamyymm23";
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const state = { step: 0, answers: { q1:null, q2:null, q3:null, q4:null, q5:null } };
-      const steps = [
-        { key:"q1", title:"האם זה קרה בזמן העבודה, בדרך או בחזרה?", options:[{l:"כן", v:"yes"},{l:"לא", v:"no"},{l:"לא בטוחה", v:"maybe"}] },
-        { key:"q2", title:"מתי זה קרה?", options:[{l:"השבוע", v:"week"},{l:"השנה", v:"year"},{l:"לפני שנה+", v:"old"}] },
-        { key:"q3", title:"חומרת הפציעה?", options:[{l:"אשפוז/ניתוח", v:"severe"},{l:"מיון/בדיקות", v:"med"},{l:"ימי מחלה", v:"light"}] },
-        { key:"q4", title:"יש לך תיעוד רפואי?", options:[{l:"כן", v:"yes"},{l:"חלקית", v:"partial"},{l:"אין", v:"no"}] },
-        { key:"q5", title:"פנית לביטוח לאומי?", options:[{l:"לא", v:"no"},{l:"כן", v:"yes"}] }
-      ];
+  document.addEventListener("DOMContentLoaded", () => {
+    const state = { step: 0, answers: { q1: null, q2: null, q3: null, q4: [], q5: null } };
 
-      function render() {
-        const s = steps[state.step];
-        document.getElementById("qTitle").innerText = s.title;
-        document.getElementById("progressFill").style.width = ((state.step+1)/steps.length)*100 + "%";
-        const form = document.getElementById("qForm");
-        form.innerHTML = "";
-        s.options.forEach(o => {
-          const d = document.createElement("div");
-          d.className = "option" + (state.answers[s.key] === o.v ? " active" : "");
-          d.innerText = o.l;
-          d.onclick = () => { state.answers[s.key] = o.v; render(); };
-          form.appendChild(d);
-        });
-        document.getElementById("nextBtn").disabled = !state.answers[s.key];
-        document.getElementById("backBtn").style.visibility = state.step === 0 ? "hidden" : "visible";
+    const steps = [
+      { key: "q1", title: "האם זה קרה בזמן העבודה, בדרך אליה או בחזרה ממנה?", options: [
+        { label:"כן", value:"yes" },
+        { label:"לא", value:"no" },
+        { label:"אני לא בטוח/ה", value:"maybe" }
+      ]},
+      { key: "q2", title: "מתי בערך זה קרה?", options: [
+        { label:"ב־7 הימים האחרונים", value:"week" },
+        { label:"בחודשים האחרונים", value:"months" },
+        { label:"לפני שנה או יותר", value:"year_plus" }
+      ]},
+      { key: "q3", title: "איך היית מתאר/ת את חומרת הפגיעה?", options: [
+        { label:"היה אשפוז / ניתוח / שיקום", value:"severe" },
+        { label:"נדרש טיפול במיון / בדיקות", value:"er" },
+        { label:"ימי מחלה / מרפאה", value:"sick_leave" },
+        { label:"פגיעה קלה וחזרתי מהר לשגרה", value:"minor" }
+      ]},
+      { key: "q4", title: "איזה תיעוד יש לך כרגע? (אפשר לבחור כמה)", type: "multi", options: [
+        { label:"מסמך רפואי / מיון / ביקור רופא", value:"medical" },
+        { label:"דיווח למעסיק / טופס מהמעסיק", value:"employer" },
+        { label:"תמונות / עדים / מסמכים נוספים", value:"evidence" },
+        { label:"עדיין אין לי תיעוד", value:"none" }
+      ]},
+      { key: "q5", title: "פנית כבר לביטוח לאומי?", options: [
+        { label:"עדיין לא", value:"no" },
+        { label:"כן, פניתי אבל אני לא בטוח/ה שעשיתי נכון", value:"partial" },
+        { label:"כן, אני כבר בתהליך מתקדם", value:"advanced" }
+      ]}
+    ];
+
+    const elLanding = document.getElementById("landing");
+    const elQuiz = document.getElementById("quiz");
+    const elDone = document.getElementById("done");
+
+    function canContinue(){
+      const s = steps[state.step];
+      const v = state.answers[s.key];
+      return Array.isArray(v) ? v.length > 0 : !!v;
+    }
+
+    function renderStep(){
+      const s = steps[state.step];
+      document.getElementById("qTitle").innerText = s.title;
+      document.getElementById("progressTxt").innerText = `שאלה ${state.step + 1} מתוך ${steps.length}`;
+      document.getElementById("progressFill").style.width = ((state.step + 1) / steps.length) * 100 + "%";
+
+      const form = document.getElementById("qForm");
+      form.innerHTML = "";
+
+      s.options.forEach(opt => {
+        const div = document.createElement("div");
+        const isActive = Array.isArray(state.answers[s.key])
+          ? state.answers[s.key].includes(opt.value)
+          : state.answers[s.key] === opt.value;
+
+        div.className = "option" + (isActive ? " active" : "");
+        div.innerHTML = `<label>${opt.label}</label>`;
+
+        div.onclick = () => {
+          if (s.type === "multi") {
+            if (opt.value === "none") {
+              state.answers[s.key] = ["none"];
+            } else {
+              state.answers[s.key] = state.answers[s.key].filter(v => v !== "none");
+              const idx = state.answers[s.key].indexOf(opt.value);
+              if (idx > -1) state.answers[s.key].splice(idx, 1);
+              else state.answers[s.key].push(opt.value);
+            }
+          } else {
+            state.answers[s.key] = opt.value;
+          }
+          renderStep();
+        };
+
+        form.appendChild(div);
+      });
+
+      document.getElementById("nextBtn").disabled = !canContinue();
+      document.getElementById("backBtn").disabled = state.step === 0;
+    }
+
+    function summaryText(){
+      const a = state.answers;
+      if (a.q3 === "severe" || a.q3 === "er") {
+        return "על סמך התשובות נראה שיש בסיס טוב לבדוק זכאות לפיצוי. כדי לעשות סדר ולהבין מה נכון לעשות עכשיו — אפשר להשאיר פרטים לשיחה קצרה.";
       }
+      if (a.q3 === "minor") {
+        return "נראה שמדובר בפגיעה קלה יחסית. אם עדיין יש ספק או שאלות — אפשר להשאיר פרטים ונבדוק יחד אם יש משהו שכדאי לעשות כדי לא לפספס זכויות.";
+      }
+      return "תודה על המענה. נראה שיש מקום לבדוק זכאות, במיוחד כדי לא לפספס זכויות מול המעסיק/ביטוח לאומי.";
+    }
 
-      document.getElementById("startBtn").onclick = () => { document.getElementById("landing").classList.add("hidden"); document.getElementById("quiz").classList.remove("hidden"); render(); };
-      document.getElementById("backBtn").onclick = () => { if(state.step > 0) { state.step--; render(); } };
-      document.getElementById("nextBtn").onclick = () => { if(state.step < steps.length - 1) { state.step++; render(); } else { document.getElementById("quiz").classList.add("hidden"); document.getElementById("done").classList.remove("hidden"); } };
+    document.getElementById("startBtn").onclick = () => {
+      elLanding.classList.add("hidden");
+      elQuiz.classList.remove("hidden");
+      state.step = 0;
+      renderStep();
+    };
 
-      document.getElementById("submitBtn").onclick = async () => {
-        const name = document.getElementById("fullName").value;
-        const phone = document.getElementById("phone").value;
-        if(!name || phone.length < 9) return alert("נא למלא פרטים תקינים");
-        
-        document.getElementById("submitBtn").innerText = "שולח...";
-        document.getElementById("submitBtn").disabled = true;
+    document.getElementById("backBtn").onclick = () => {
+      if (state.step > 0) { state.step--; renderStep(); }
+    };
 
-        try {
-          // --- התיקון היחיד: שליחה נקייה ללא mode: no-cors ---
-          await fetch(WEBHOOK_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, phone, answers: state.answers, source: "pitzuy_center" })
-          });
-          
-          alert("נשלח בהצלחה! ניצור קשר בהקדם.");
-          location.reload();
-        } catch(e) {
-          alert("הפרטים נשלחו בהצלחה.");
-          location.reload();
-        }
+    document.getElementById("nextBtn").onclick = () => {
+      if (!canContinue()) return;
+      if (state.step < steps.length - 1) { state.step++; renderStep(); }
+      else {
+        elQuiz.classList.add("hidden");
+        elDone.classList.remove("hidden");
+        document.getElementById("summaryBox").innerText = summaryText();
+      }
+    };
+
+    document.getElementById("submitBtn").onclick = async () => {
+      const name = document.getElementById("fullName").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      if (!name || phone.length < 9) return alert("נא למלא שם וטלפון תקינים");
+
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.textContent = "שולח...";
+
+      const payload = {
+        name,
+        phone,
+        answers: state.answers,
+        source: "o-sim-seder",
+        ts: new Date().toISOString(),
+        page: location.href
       };
-    });
-  </script>
+
+      try {
+        await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        alert("נשלח בהצלחה! נחזור אלייך בהקדם.");
+        location.reload();
+      } catch (e) {
+        alert("תודה! הפרטים התקבלו. נחזור אלייך בהקדם.");
+        location.reload();
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "רוצה שיחזרו אליי";
+      }
+    };
+  });
+</script>
 </body>
 </html>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>סדר זכויות | בדיקה קצרה אחרי פגיעה בעבודה</title>
-  <meta name="description" content="בדיקה קצרה ולא מחייבת שמסדרת את התמונה אחרי פגיעה הקשורה לעבודה. דיסקרטי ואנושי. בערך 2 דקות." />
+  <meta name="description" content="בדיקה קצרה ולא מחייבת שמסדרת תמונה ראשונית אחרי פגיעה שקשורה לעבודה. דיסקרטי. בערך 2 דקות." />
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
@@ -58,6 +58,7 @@
       color:rgba(255,255,255,.92);
       font-size:12.5px; font-weight:800;
       backdrop-filter: blur(10px);
+      white-space:nowrap;
     }
     .dot{ width:8px; height:8px; border-radius:99px; background:#86efac; }
 
@@ -80,6 +81,7 @@
       border-radius: 24px;
       padding: 22px;
       box-shadow: var(--shadow2);
+      min-width:0;
     }
 
     h1{
@@ -120,12 +122,8 @@
       margin-top: 18px;
       align-items: stretch;
     }
-    @media (max-width: 980px){
-      .features{ grid-template-columns: repeat(2, minmax(200px, 1fr)); }
-    }
-    @media (max-width: 560px){
-      .features{ grid-template-columns: 1fr; }
-    }
+    @media (max-width: 980px){ .features{ grid-template-columns: repeat(2, minmax(200px, 1fr)); } }
+    @media (max-width: 560px){ .features{ grid-template-columns: 1fr; } }
 
     .feat{
       border-radius: 20px;
@@ -147,17 +145,8 @@
       font-weight: 900;
       font-size: 20px;
     }
-    .feat b{
-      display:block; margin:0 0 6px;
-      font-size: 16px; line-height:1.2; font-weight:900;
-    }
-    .feat span{
-      display:block;
-      font-size: 13.5px;
-      line-height: 1.45;
-      color: var(--muted);
-      max-width: 40ch;
-    }
+    .feat b{ display:block; margin:0 0 6px; font-size: 16px; line-height:1.2; font-weight:900; }
+    .feat span{ display:block; font-size: 13.5px; line-height: 1.45; color: var(--muted); max-width: 40ch; }
 
     details{
       border:1px solid rgba(148,163,184,.28);
@@ -170,6 +159,32 @@
     details p{ color:var(--muted); margin:10px 0 0; }
 
     .hidden{ display:none !important; }
+
+    /* ✅ "איך זה עובד" - תיקון הבעיה של ריבועים צרים */
+    .howWrap{
+      display:grid;
+      gap:10px;
+      align-items:stretch;
+    }
+    .howItem{
+      width:100%;
+      align-self:stretch;
+      border:1px solid rgba(148,163,184,.25);
+      border-radius:18px;
+      padding:14px;
+      background:#fff;
+      display:flex;
+      gap:12px;
+      min-width:0;
+    }
+    .howNum{
+      width:30px;height:30px;border-radius:12px;
+      display:grid;place-items:center;
+      background:rgba(14,165,233,.10);
+      color:#0369a1;
+      font-weight:900;
+      flex:0 0 auto;
+    }
 
     /* QUIZ */
     .quizHead{ display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap; }
@@ -276,15 +291,15 @@
           <div class="features">
             <div class="feat">
               <div class="ico">🧠</div>
-              <div><b>ברור ופשוט</b><span>שאלה אחת בכל מסך — בלי מילים מסובכות.</span></div>
+              <div><b>ברור ופשוט</b><span>שאלה אחת בכל מסך — בלי סיבוכים.</span></div>
             </div>
             <div class="feat">
               <div class="ico">🛡️</div>
-              <div><b>דיסקרטי</b><span>אתה בוחר אם להשאיר פרטים בסוף. בלי התחייבות.</span></div>
+              <div><b>דיסקרטי</b><span>אתה מחליט אם להשאיר פרטים בסוף.</span></div>
             </div>
             <div class="feat">
               <div class="ico">⚡</div>
-              <div><b>מותאם למובייל</b><span>נוח לאגודל, מהיר, ואפקטיבי.</span></div>
+              <div><b>מהיר ונוח</b><span>מתאים גם מהטלפון — בלי להתברבר.</span></div>
             </div>
           </div>
 
@@ -302,18 +317,21 @@
 
         <div class="card">
           <div style="font-weight:900; font-size:18px; margin-bottom:10px;">איך זה עובד?</div>
-          <div style="display:grid; gap:10px;">
-            <div style="border:1px solid rgba(148,163,184,.25); border-radius:18px; padding:14px; background:#fff; display:flex; gap:12px;">
-              <div style="width:30px;height:30px;border-radius:12px;display:grid;place-items:center;background:rgba(14,165,233,.10);color:#0369a1;font-weight:900;">1</div>
-              <div><b style="font-weight:900">עונה על כמה שאלות</b><div style="color:var(--muted)">טריות, חומרה, תיעוד, סטטוס.</div></div>
+
+          <div class="howWrap">
+            <div class="howItem">
+              <div class="howNum">1</div>
+              <div><b style="font-weight:900">עונה על כמה שאלות קצרות</b><div style="color:var(--muted)">טריות, חומרה, תיעוד וסטטוס.</div></div>
             </div>
-            <div style="border:1px solid rgba(148,163,184,.25); border-radius:18px; padding:14px; background:#fff; display:flex; gap:12px;">
-              <div style="width:30px;height:30px;border-radius:12px;display:grid;place-items:center;background:rgba(14,165,233,.10);color:#0369a1;font-weight:900;">2</div>
-              <div><b style="font-weight:900">מקבל סיכום קצר</b><div style="color:var(--muted)">תמונה ראשונית (לא ייעוץ).</div></div>
+
+            <div class="howItem">
+              <div class="howNum">2</div>
+              <div><b style="font-weight:900">מקבל סיכום ראשוני</b><div style="color:var(--muted)">תמונה כללית (לא ייעוץ).</div></div>
             </div>
-            <div style="border:1px solid rgba(148,163,184,.25); border-radius:18px; padding:14px; background:#fff; display:flex; gap:12px;">
-              <div style="width:30px;height:30px;border-radius:12px;display:grid;place-items:center;background:rgba(14,165,233,.10);color:#0369a1;font-weight:900;">3</div>
-              <div><b style="font-weight:900">אם רוצה — משאיר פרטים</b><div style="color:var(--muted)">לבדיקה והפניה לגורם מקצועי מתאים.</div></div>
+
+            <div class="howItem">
+              <div class="howNum">3</div>
+              <div><b style="font-weight:900">בסוף — אם תרצה, תוכל להשאיר פרטים</b><div style="color:var(--muted)">לבדיקה והפניה לגורם מקצועי מתאים.</div></div>
             </div>
           </div>
 
@@ -372,7 +390,6 @@
   </div>
 
 <script>
-  // Make Webhook
   const WEBHOOK_URL = "https://hook.eu1.make.com/zodd6hyaiagfivgofyy1h6jjamyymm23";
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -423,7 +440,7 @@
           {l:"שכיר", v:"employee", pts:0},
           {l:"עצמאי", v:"self", pts:0},
           {l:"פנסיונר / לא עובד", v:"not_working", kill:true, killReason:"הבדיקה מיועדת כרגע למי שנפגע במהלך עבודתו."},
-          {l:"חייל / כוחות הביטחון", v:"security", kill:true, killReason:"במקרה זה לרוב פונים לקצין תגמולים/משרד הביטחון."}
+          {l:"חייל / כוחות הביטחון", v:"security", kill:true, killReason:"במקרה הזה לרוב פונים לקצין תגמולים/משרד הביטחון."}
         ]
       },
       {
@@ -561,7 +578,7 @@
     function buildSummary() {
       calcScoreAndMeta();
 
-      const pills = (state.reasons.length ? state.reasons : ["יש נתונים ראשוניים לבדיקה"])
+      const bullets = (state.reasons.length ? state.reasons : ["יש נתונים ראשוניים לבדיקה"])
         .map(t => `• ${t}`).join("<br>");
 
       const warn = state.flags.length
@@ -570,7 +587,7 @@
 
       return `
         <div style="font-weight:900; color:var(--text); margin-bottom:6px;">מה התקבל מהבדיקה:</div>
-        <div>${pills}</div>
+        <div>${bullets}</div>
         <div style="margin-top:10px;">אם תרצה — השאר פרטים לצורך בדיקה והפניה לגורם מקצועי מתאים.</div>
         ${warn}
       `;
@@ -618,7 +635,6 @@
         return true;
       } catch (e) {
         console.error("Webhook error:", e);
-        // בסביבות מסוימות עדיין יכול להגיע למרות שאין תשובה תקינה
         return true;
       }
     }
@@ -646,7 +662,7 @@
         els.summaryBox.innerHTML = `
           <div style="font-weight:900; margin-bottom:6px;">רגע קטן 🙏</div>
           <div style="color:var(--muted)">${state.killReason}</div>
-          <div style="margin-top:10px; color:var(--muted)">אם תרצה, אפשר עדיין להשאיר פרטים לצורך בדיקה והפניה.</div>
+          <div style="margin-top:10px; color:var(--muted)">אם תרצה, תוכל עדיין להשאיר פרטים לצורך בדיקה והפניה.</div>
         `;
         window.scrollTo({top:0, behavior:"smooth"});
         return;
@@ -668,7 +684,6 @@
       const name = (els.fullName.value||"").trim();
       const phone = (els.phone.value||"").trim();
 
-      // honeypot anti-bot
       const hp = (els.website.value||"").trim();
       if (hp) return;
 

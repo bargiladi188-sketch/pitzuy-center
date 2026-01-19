@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>סדר זכויות | בדיקה קצרה אחרי פגיעה בעבודה</title>
-  <meta name="description" content="בדיקה קצרה ולא מחייבת שעושה סדר אחרי פגיעה בעבודה. דיסקרטי ואנושי. בערך 2 דקות." />
+  <title>סדר זכויות | בדיקת היתכנות לפיצוי כספי לנפגעי עבודה</title>
+  <meta name="description" content="בדיקה דיסקרטית ב-2 דקות כדי להבין אם יש היתכנות לפיצוי כספי (כולל מענקים) — בלי בירוקרטיה ובלי לערב את המעסיק בשלב זה." />
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
@@ -22,7 +22,9 @@
       --r:22px;
       --ok:#22c55e;
       --warn:#f59e0b;
+      --bad:#ef4444;
     }
+
     *{ box-sizing:border-box; }
     body{
       margin:0;
@@ -72,7 +74,7 @@
       backdrop-filter: blur(10px);
     }
 
-    .grid{ display:grid; grid-template-columns: 1.35fr .65fr; gap:14px; align-items:stretch; }
+    .grid{ display:grid; grid-template-columns: 1.25fr .75fr; gap:14px; align-items:stretch; }
     @media (max-width: 980px){ .grid{ grid-template-columns:1fr; } }
 
     .card{
@@ -81,7 +83,7 @@
       border-radius: 24px;
       padding: 22px;
       box-shadow: var(--shadow2);
-      height:100%;
+      min-width: 0;
     }
 
     h1{
@@ -95,23 +97,20 @@
       margin:0 0 14px;
       color:var(--muted);
       font-size: 17px;
-      max-width: 70ch;
+      max-width: 62ch;
     }
 
     .socialProof{
-      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-      margin: 10px 0 14px;
-      color: rgba(15,23,42,.85);
-      font-weight:900;
-    }
-    .badge{
-      display:inline-flex; gap:8px; align-items:center;
-      padding:8px 12px; border-radius:999px;
+      display:inline-flex; align-items:center; gap:8px;
       background: rgba(34,197,94,.10);
-      border:1px solid rgba(34,197,94,.25);
-      font-size:13.5px;
+      border: 1px solid rgba(34,197,94,.22);
+      color:#14532d;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight:900;
+      font-size: 13px;
+      margin: 2px 0 12px;
     }
-    .badge .miniDot{ width:8px; height:8px; border-radius:99px; background: var(--ok); }
 
     .ctaRow{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top: 8px; }
     .btn{
@@ -125,13 +124,18 @@
       box-shadow: 0 18px 30px rgba(37,99,235,.22);
       transition: transform .15s ease, filter .15s ease;
       font-family: inherit;
-      width:auto;
     }
     .btn:hover{ transform: translateY(-1px); filter: brightness(1.03); }
     .btn:disabled{ opacity:.65; cursor:not-allowed; transform:none; }
     .btnGhost{ background:#fff; color:var(--text); border:1px solid rgba(148,163,184,.35); box-shadow:none; }
 
-    /* FEATURES */
+    .microUnderCta{
+      margin-top:10px;
+      color: rgba(15,23,42,.72);
+      font-size: 13px;
+      font-weight:800;
+    }
+
     .features{
       display:grid;
       grid-template-columns: repeat(3, minmax(220px, 1fr));
@@ -175,47 +179,7 @@
       font-size: 13.5px;
       line-height: 1.45;
       color: var(--muted);
-      max-width: 44ch;
-    }
-
-    /* Testimonials (Process-based social proof) */
-    .testimonials{
-      margin-top: 14px;
-      display:grid;
-      gap:10px;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      align-items:stretch;
-    }
-    @media (max-width: 980px){
-      .testimonials{ grid-template-columns: 1fr; }
-    }
-    .testimonial{
-      border:1px solid rgba(148,163,184,.25);
-      background: linear-gradient(180deg, #ffffff, #fbfdff);
-      border-radius: 20px;
-      padding: 14px 14px 12px;
-      color: rgba(15,23,42,.88);
-      font-weight:800;
-      font-size: 13.5px;
-      line-height:1.5;
-      position:relative;
-      min-height: 92px;
-    }
-    .testimonial:before{
-      content:"“";
-      position:absolute;
-      top:6px; inset-inline-start: 10px;
-      font-size: 34px;
-      color: rgba(37,99,235,.18);
-      font-weight:900;
-      line-height:1;
-    }
-    .testimonial span{
-      display:block;
-      margin-top: 8px;
-      color: var(--muted);
-      font-weight:900;
-      font-size: 12.5px;
+      max-width: 40ch;
     }
 
     details{
@@ -230,26 +194,68 @@
 
     .hidden{ display:none !important; }
 
+    /* RIGHT CARD - steps (fix inner narrow look) */
+    .steps{ display:grid; gap:10px; }
+    .step{
+      width:100%;
+      border:1px solid rgba(148,163,184,.25);
+      border-radius:18px;
+      padding:14px;
+      background:#fff;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .stepNum{
+      width:30px;height:30px;border-radius:12px;display:grid;place-items:center;
+      background:rgba(14,165,233,.10);color:#0369a1;font-weight:900; flex:0 0 auto;
+    }
+    .stepText b{ font-weight:900; display:block; margin-bottom:2px; }
+    .stepText div{ color:var(--muted); }
+
+    .trustBox{
+      margin-top:12px;
+      padding:14px;
+      border-radius:18px;
+      border:1px solid rgba(148,163,184,.25);
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .facts{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+    }
+    .fact{
+      width:100%;
+      border-radius:18px;
+      padding:14px;
+      border:1px solid rgba(148,163,184,.25);
+      background:#fff;
+    }
+    .fact b{ display:block; font-weight:900; margin-bottom:4px; color:var(--text); }
+    .fact span{ display:block; color:var(--muted); font-size:13.5px; }
+
     /* QUIZ */
     .quizHead{ display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap; }
     .progressText{ font-size: 13px; color:var(--muted); font-weight:800; }
     .bar{ height: 10px; background: rgba(148,163,184,.25); border-radius: 999px; overflow:hidden; margin: 10px 0 16px; }
     .fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--primary), var(--primary2), #22c55e); transition: width .25s ease; }
+
     .qTitle{ margin: 0 0 8px; font-size: 22px; font-weight: 900; letter-spacing:-.2px; }
     .qHint{ margin: 0 0 10px; color: var(--muted); font-size: 14px; }
-    .micro{
-      margin: 10px 0 0;
-      padding: 12px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(148,163,184,.25);
-      background: rgba(14,165,233,.06);
-      color: rgba(15,23,42,.82);
-      font-weight:800;
+    .microAfter{
+      margin-top:10px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,.22);
+      background: rgba(37,99,235,.04);
+      color: rgba(15,23,42,.78);
       font-size: 13.5px;
-      line-height:1.5;
+      font-weight: 800;
     }
 
-    /* Options */
     .option{
       display:flex; gap:12px; align-items:flex-start;
       padding: 18px;
@@ -318,33 +324,19 @@
       font-size: 12.5px;
     }
 
+    .checklist{
+      margin-top:12px;
+      border-radius:18px;
+      border:1px solid rgba(148,163,184,.25);
+      background:#fff;
+      padding:14px;
+    }
+    .checklist b{ display:block; font-weight:900; margin-bottom:6px; }
+    .checklist ul{ margin:8px 0 0; padding:0 18px 0 0; color: var(--muted); }
+    .checklist li{ margin:6px 0; }
+
     .legal{ margin-top: 14px; color: rgba(15,23,42,.65); font-size: 12.5px; line-height:1.6; }
     footer{ margin-top: 18px; color: rgba(255,255,255,.78); font-size: 12.5px; text-align: center; }
-
-    /* Right card: "How it works" boxes - fix narrow inner boxes */
-    .stepsList{ display:grid; gap:10px; }
-    .stepItem{
-      border:1px solid rgba(148,163,184,.25);
-      border-radius:18px;
-      padding:14px;
-      background:#fff;
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      width:100%;
-    }
-    .stepNum{
-      width:30px; height:30px;
-      border-radius:12px;
-      display:grid; place-items:center;
-      background:rgba(14,165,233,.10);
-      color:#0369a1;
-      font-weight:900;
-      flex: 0 0 auto;
-    }
-    .stepText{ flex: 1 1 auto; min-width: 0; }
-    .stepText b{ font-weight:900; display:block; }
-    .stepText div{ color:var(--muted); }
   </style>
 </head>
 
@@ -355,7 +347,7 @@
         <div class="mark">✓</div>
         <div>
           <div class="brandTitle">סדר זכויות</div>
-          <div style="font-size:12.5px; color:rgba(255,255,255,.78); font-weight:700">בדיקה קצרה אחרי פגיעה בעבודה</div>
+          <div style="font-size:12.5px; color:rgba(255,255,255,.78); font-weight:700">בדיקת היתכנות לפיצוי כספי לנפגעי עבודה</div>
         </div>
       </div>
       <div class="chips">
@@ -369,97 +361,91 @@
       <!-- LANDING -->
       <div id="landing" class="grid">
         <div class="card">
-          <h1>נפגעת בעבודה? בוא נעשה סדר רגע.</h1>
+          <h1>נפגעת בעבודה? בדוק היתכנות לפיצוי כספי.</h1>
+
+          <div class="socialProof" id="socialProof">
+            ✅ אנשים משתמשים בזה עכשיו כדי לעשות סדר (בדיקה קצרה, בלי התחייבות)
+          </div>
 
           <p class="lead">
-            בדיקה חכמה לאיתור זכויות רפואיות ו<strong>פוטנציאל לפיצוי כספי</strong>.
+            בדיקה חכמה שמסדרת את התמונה ועוזרת להבין אם יש היתכנות למענק חד־פעמי או קצבה.
             בלי בירוקרטיה, בלי מילים מסובכות, ובלי לערב את המעסיק בשלב זה.
           </p>
 
-          <div class="socialProof" aria-label="הוכחה חברתית">
-            <span class="badge"><span class="miniDot"></span> מאות אנשים כבר בדקו זכאות לאחרונה</span>
-            <span style="color:var(--muted); font-weight:800; font-size:13px;">*המספרים באתר מוצגים לצורך חיזוק ביטחון — בלי הבטחות לתוצאה.</span>
+          <div class="ctaRow">
+            <button class="btn" id="startBtn" type="button">חשבו פוטנציאל פיצוי משוער ›</button>
+            <button class="btn btnGhost" id="scrollFaqBtn" type="button">שאלות נפוצות</button>
           </div>
 
-          <div class="ctaRow">
-            <button class="btn" id="startBtn" type="button">התחל בדיקת זכאות (2 דקות)</button>
-            <button class="btn btnGhost" id="scrollFaqBtn" type="button">שאלות נפוצות</button>
+          <div class="microUnderCta">
+            🔎 זו בדיקה ראשונית בלבד. בסוף אתה מחליט אם להשאיר פרטים לקבלת תוצאות הבדיקה.
           </div>
 
           <div class="features">
             <div class="feat">
               <div class="ico">🧠</div>
-              <div><b>פשוט וברור</b><span>כמה שאלות קצרות — מקבל תמונה מסודרת בלי עומס.</span></div>
+              <div><b>פשוט וברור</b><span>5 שאלות קצרות — כדי להבין מהר איפה אתה עומד.</span></div>
             </div>
             <div class="feat">
               <div class="ico">🛡️</div>
-              <div><b>בטוח מול המעסיק</b><span>100% דיסקרטי. המעסיק לא מקבל הודעה ולא מעורב בשלב זה.</span></div>
+              <div><b>בטוח מול המעסיק</b><span>הבדיקה דיסקרטית. המעסיק לא מקבל הודעה ולא מעורב בשלב זה.</span></div>
             </div>
             <div class="feat">
-              <div class="ico">📱</div>
-              <div><b>מותאם לנייד</b><span>תהליך פשוט וברור מכל מכשיר — בלי להסתבך ובלי לבזבז זמן.</span></div>
-            </div>
-          </div>
-
-          <!-- Process-based testimonials -->
-          <div class="testimonials" aria-label="אנשים שבדקו">
-            <div class="testimonial">
-              לא ידעתי בכלל אם יש מה לבדוק. השאלון עשה לי סדר תוך שתי דקות.
-              <span>— אבי, בן 41</span>
-            </div>
-            <div class="testimonial">
-              אהבתי שזה לא מלחיץ ולא “משפטי”. רק להבין מה הצעד הנכון עכשיו.
-              <span>— דניאל, בן 29</span>
-            </div>
-            <div class="testimonial">
-              חשבתי שזה “כלום”. הבדיקה נתנה לי כיוון ברור למה כדאי לתעד.
-              <span>— שירה, בת 36</span>
+              <div class="ico">💰</div>
+              <div><b>מזהה “כסף שנשאר על הרצפה”</b><span>גם נכות נמוכה יכולה להוביל למענק משמעותי — הרבה לא יודעים את זה.</span></div>
             </div>
           </div>
 
           <div id="faq" style="margin-top:18px;">
             <div style="font-weight:900; margin-bottom:8px;">שאלות נפוצות</div>
-            <details><summary>זה מחייב אותי לדבר עם עורך דין?</summary><p>לא. זו בדיקה ראשונית בלבד. בסוף אתה מחליט אם להשאיר פרטים לקבלת תוצאות והכוונה.</p></details>
-            <details><summary>למה אתם שואלים על תיעוד?</summary><p>תיעוד עוזר להבין מהר אם יש בסיס ומה הצעד הנכון, בלי להסתבך בטפסים.</p></details>
-            <details><summary>האם זה בתשלום?</summary><p>הבדיקה עצמה ללא עלות. אין התחייבות להמשך.</p></details>
+            <details><summary>זה ייעוץ משפטי?</summary><p>לא. זו בדיקה ראשונית שמטרתה לעשות סדר ולהכווין. אין כאן התחייבות לפיצוי או הבטחה לתוצאה.</p></details>
+            <details><summary>האם זה מערב את המעסיק?</summary><p>לא. הבדיקה דיסקרטית והמידע נשאר אצלך. המעסיק לא מקבל הודעה ולא מעורב בשלב זה.</p></details>
+            <details><summary>זה בתשלום?</summary><p>הבדיקה באתר ללא עלות וללא התחייבות. בסוף אתה מחליט אם להשאיר פרטים לקבלת תוצאות הבדיקה.</p></details>
           </div>
 
           <div class="legal" style="margin-top: 14px;">
-            *האתר אינו אתר רשמי של הביטוח הלאומי ואינו מספק ייעוץ משפטי. מטרתו מידע ראשוני בלבד.
+            *האתר אינו גוף ממשלתי ואינו מספק ייעוץ משפטי. המידע באתר הוא ראשוני ואינפורמטיבי בלבד.
           </div>
         </div>
 
         <div class="card">
           <div style="font-weight:900; font-size:18px; margin-bottom:10px;">איך זה עובד?</div>
 
-          <div class="stepsList">
-            <div class="stepItem">
+          <div class="steps">
+            <div class="step">
               <div class="stepNum">1</div>
-              <div class="stepText">
-                <b>עונה על 5 שאלות</b>
-                <div>מועד, סוג פגיעה, חומרה, תיעוד וסטטוס ייצוג.</div>
-              </div>
+              <div class="stepText"><b>עונים על 5 שאלות</b><div>מתי זה קרה, סוג פגיעה, חומרה, מסמכים, ייצוג.</div></div>
             </div>
-
-            <div class="stepItem">
+            <div class="step">
               <div class="stepNum">2</div>
-              <div class="stepText">
-                <b>מקבל סיכום קצר</b>
-                <div>מה כדאי לעשות עכשיו כדי לא לפספס זכויות.</div>
-              </div>
+              <div class="stepText"><b>מקבלים סיכום ותמונה ברורה</b><div>מה כדאי לעשות עכשיו כדי לא לפספס זכויות.</div></div>
             </div>
-
-            <div class="stepItem">
+            <div class="step">
               <div class="stepNum">3</div>
-              <div class="stepText">
-                <b>רק אם תרצה — משאיר פרטים</b>
-                <div>כדי לקבל את תוצאות הבדיקה והכוונה לצעד הבא.</div>
+              <div class="stepText"><b>אם תרצה — תקבל את תוצאות הבדיקה</b><div>משאירים שם וטלפון רק בסוף, אם מתאים לך.</div></div>
+            </div>
+          </div>
+
+          <div class="trustBox">
+            <b style="display:block; font-weight:900; color:var(--text); margin-bottom:6px;">3 דברים שאנשים מגלים מאוחר מדי</b>
+            <div class="facts">
+              <div class="fact">
+                <b>“10% נכות” זה לא תמיד כסף קטן</b>
+                <span>במקרים מסוימים, גם נכות נמוכה עשויה לזכות במענק חד־פעמי משמעותי (תלוי נתונים ונסיבות).</span>
+              </div>
+              <div class="fact">
+                <b>תאונת דרכים בדרך לעבודה = לעיתים זכאות כפולה</b>
+                <span>במקרים מסוימים יש זכאות גם מול ביטוח לאומי וגם מול ביטוח החובה (אין כאן הבטחה — רק כיוון לבדיקה).</span>
+              </div>
+              <div class="fact">
+                <b>כאב מצטבר יכול להיות “פגיעה בעבודה”</b>
+                <span>גם בלי אירוע חד — עומס מתמשך (מיקרוטראומה) יכול להיות רלוונטי, בהתאם לנסיבות ותיעוד.</span>
               </div>
             </div>
           </div>
 
           <div style="margin-top:14px;">
-            <button class="btn" type="button" id="startBtn2" style="width:100%;">יאללה, מתחילים</button>
+            <button class="btn" type="button" id="startBtn2" style="width:100%;">מתחילים בדיקה ›</button>
           </div>
         </div>
       </div>
@@ -475,8 +461,7 @@
         <h2 id="qTitle" class="qTitle"></h2>
         <p id="qHint" class="qHint"></p>
         <div id="qForm"></div>
-
-        <div id="microCopy" class="micro hidden"></div>
+        <div id="microAfter" class="microAfter hidden"></div>
 
         <div class="navRow">
           <button class="btn btnGhost" id="backBtn" type="button">אחורה</button>
@@ -489,25 +474,37 @@
         <h2 style="margin:0 0 8px; font-weight:900; letter-spacing:-.2px;">סיכום קצר ✅</h2>
         <div id="summaryBox" class="summaryBox"></div>
 
+        <div class="checklist" id="checklistBox">
+          <b>כדי לחסוך זמן אחר כך — כדאי להכין (אם יש):</b>
+          <ul>
+            <li>מסמך רפואי ראשון / סיכום ביקור / מיון</li>
+            <li>אישור ימי מחלה (אם היה)</li>
+            <li>פרטי האירוע: תאריך, מקום, מי היה איתך</li>
+            <li>אם הייתה מעורבות של רכב — פרטי התאונה (בקצרה)</li>
+          </ul>
+        </div>
+
         <div class="formGrid">
           <input type="text" id="fullName" placeholder="שם מלא" autocomplete="name" />
           <input type="tel" id="phone" placeholder="מספר טלפון" autocomplete="tel" inputmode="tel" />
           <button class="btn" id="submitBtn" type="button">קבל את תוצאות הבדיקה</button>
-          <div class="legal">
-            🔒 <b>דיסקרטי:</b> המספר משמש רק לשליחת תוצאות הבדיקה והכוונה לצעד הבא. המעסיק לא מעורב ולא מקבל הודעה.
+
+          <div class="legal" id="phoneMicro">
+            🔒 <b>100% דיסקרטי:</b> המספר משמש רק לשליחת תוצאות הבדיקה. המעסיק לא מעורב ולא מקבל הודעה.
           </div>
+
           <div class="legal">
-            בלחיצה אתה מאשר יצירת קשר לגבי הבדיקה שביצעת.
+            *בלחיצה אתה מאשר יצירת קשר לגבי תוצאות הבדיקה שביצעת. אין התחייבות ואין ייעוץ משפטי.
           </div>
         </div>
       </div>
     </div>
 
-    <footer style="margin-top: 30px;">סדר זכויות · בדיקה קצרה אחרי פגיעה בעבודה</footer>
+    <footer style="margin-top: 30px;">סדר זכויות · בדיקת היתכנות לפיצוי כספי לנפגעי עבודה</footer>
   </div>
 
 <script>
-  // Make (Webhook) - נשאר בדיוק הקישור שלך
+  // ✅ Webhook של Make
   const WEBHOOK_URL = "https://hook.eu1.make.com/zodd6hyaiagfivgofyy1h6jjamyymm23";
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -523,7 +520,7 @@
       qTitle: document.getElementById("qTitle"),
       qHint: document.getElementById("qHint"),
       qForm: document.getElementById("qForm"),
-      microCopy: document.getElementById("microCopy"),
+      microAfter: document.getElementById("microAfter"),
       backBtn: document.getElementById("backBtn"),
       nextBtn: document.getElementById("nextBtn"),
       summaryBox: document.getElementById("summaryBox"),
@@ -532,64 +529,57 @@
       submitBtn: document.getElementById("submitBtn"),
     };
 
-    const state = { step: 0, answers: { q1:null, q2:null, q3:null, q4:null, q5:null } };
+    // state
+    const state = {
+      step: 0,
+      answers: { q1:null, q2:null, q3:null, q4:null, q5:null },
+      score: 0,
+      tier: "BRONZE",
+      disqualify: false,
+      disqualifyReason: ""
+    };
 
-    // 5 שאלות לפי המודל: טריות -> סוג -> חומרה/VIP -> תיעוד -> ייצוג (Kill switch)
+    // שאלון אופטימלי לפי הנוטבוק:
+    // 1) מתי זה קרה
+    // 2) סוג פגיעה (תפריט)
+    // 3) VIP: רכב/אשפוז/ניתוח
+    // 4) מסמכים רפואיים
+    // 5) ייצוג (Kill Switch)
     const steps = [
-      {
-        key:"q1",
-        title:"מתי בערך קרתה הפגיעה?",
-        hint:"ככל שזה טרי יותר — קל יותר לתעד ולא לאבד זכויות.",
-        options:[
-          {l:"ב-30 הימים האחרונים",v:"30d"},
-          {l:"בחודשים האחרונים",v:"months"},
-          {l:"לפני שנה או יותר",v:"1y"},
-          {l:"לפני יותר מ-3 שנים",v:"3y"}
-        ]
-      },
-      {
-        key:"q2",
-        title:"מה סוג הפגיעה?",
-        hint:"בחר את האפשרות שהכי מתאימה.",
-        options:[
-          {l:"תאונת דרכים בדרך/מהעבודה",v:"car_work"},
-          {l:"נפילה/החלקה/חבלה במקום העבודה",v:"fall"},
-          {l:"הרמת משא / מאמץ חריג",v:"lift"},
-          {l:"כאב מצטבר לאורך זמן (מיקרוטראומה)",v:"chronic"}
-        ]
-      },
-      {
-        key:"q3",
-        title:"איך היית מתאר את חומרת הפגיעה?",
-        hint:"זה לא קובע תוצאה — רק עוזר להבין כיוון.",
-        options:[
-          {l:"אשפוז / ניתוח / שיקום ארוך",v:"severe"},
-          {l:"מיון / בדיקות רפואיות",v:"er"},
-          {l:"ימי מחלה בלבד",v:"sick"},
-          {l:"פגיעה קלה וחזרה מהירה לשגרה",v:"minor"}
-        ]
-      },
-      {
-        key:"q4",
-        title:"יש תיעוד מהימים הראשונים?",
-        hint:"תיעוד רפואי הוא כלי חשוב בבדיקה.",
-        options:[
-          {l:"כן, יש תיעוד רפואי",v:"med_yes"},
-          {l:"יש, אבל לא זמין לי כרגע",v:"med_later"},
-          {l:"דיווחתי למעסיק / יש תיעוד חלקי",v:"partial"},
-          {l:"אין עדיין",v:"none"}
-        ]
-      },
-      {
-        key:"q5",
-        title:"האם אתה כבר מיוצג ע\"י עורך דין בנושא?",
-        hint:"חשוב לדעת כדי לא לייצר כפילות.",
-        options:[
-          {l:"לא",v:"no"},
-          {l:"כן",v:"yes"},
-          {l:"לא בטוח",v:"unsure"}
-        ]
-      }
+      { key:"q1", title:"מתי בערך קרתה הפגיעה?", hint:"ככל שזה טרי יותר — קל יותר לתעד ולבדוק זכויות.", options:[
+        {l:"ב־7 הימים האחרונים",v:"7d"},
+        {l:"בחודש–שלושה חודשים",v:"3m"},
+        {l:"לפני 3–12 חודשים",v:"12m"},
+        {l:"לפני יותר משנה",v:"1y"},
+        {l:"לפני יותר מ־3 שנים",v:"3y"}
+      ]},
+
+      { key:"q2", title:"מה סוג הפגיעה העיקרי?", hint:"בחר את האפשרות הכי קרובה. זה רק לצורך סיווג ראשוני.", options:[
+        {l:"נפילה / החלקה / מכה בעבודה",v:"fall"},
+        {l:"הרמת משא / מאמץ פיזי (גב/ברך/כתף)",v:"strain"},
+        {l:"פגיעה ביד/אצבע (כולל חתך/מעיכה)",v:"hand"},
+        {l:"פגיעה בראש/עין/פנים",v:"head"},
+        {l:"כאב מצטבר לאורך זמן (מיקרוטראומה)",v:"micro"}
+      ]},
+
+      { key:"q3", title:"האם הייתה מעורבות של רכב או אשפוז/ניתוח?", hint:"זו אחת האינדיקציות החזקות ביותר למקרה “בעל משמעות” — ועדיין צריך בדיקה.", options:[
+        {l:"כן — תאונת דרכים בדרך/בזמן עבודה",v:"car"},
+        {l:"כן — היה אשפוז / ניתוח / שבר",v:"severe"},
+        {l:"לא — טיפול רגיל בקהילה (רופא/מיון בלי אשפוז)",v:"regular"}
+      ]},
+
+      { key:"q4", title:"האם יש מסמכים רפואיים ראשוניים?", hint:"זה עוזר מאוד, אבל גם אם אין לך עכשיו — אפשר להוציא בקלות בהמשך.", options:[
+        {l:"כן — יש לי מסמך רפואי",v:"med_yes"},
+        {l:"יש לי, אבל לא זמין לי כרגע",v:"med_later"},
+        {l:"עדיין לא, אבל הייתי אצל רופא/מיון",v:"visited"},
+        {l:"עדיין לא פניתי לטיפול רפואי",v:"none"}
+      ]},
+
+      { key:"q5", title:"האם אתה כבר מיוצג על ידי עורך דין במקרה הזה?", hint:"רק כדי להבין אם יש טעם להתקדם. זה לא מחייב כלום.", options:[
+        {l:"לא",v:"no"},
+        {l:"לא בטוח / רק התייעצתי",v:"unsure"},
+        {l:"כן, אני מיוצג",v:"yes"}
+      ]},
     ];
 
     function goQuiz(){
@@ -600,16 +590,6 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    function setMicroCopy(html){
-      if(!html){
-        els.microCopy.classList.add("hidden");
-        els.microCopy.innerHTML = "";
-        return;
-      }
-      els.microCopy.classList.remove("hidden");
-      els.microCopy.innerHTML = html;
-    }
-
     function render(){
       const s = steps[state.step];
       els.qTitle.textContent = s.title;
@@ -617,107 +597,117 @@
       els.progressTxt.textContent = `שאלה ${state.step+1} מתוך ${steps.length}`;
       els.progressFill.style.width = ((state.step+1)/steps.length)*100 + "%";
 
-      // Micro-copy לפי נקודות נטישה
-      setMicroCopy(null);
-
-      // אחרי בחירת חומרה (שאלה 3) - חיזוק רגשי/סמכות
-      if(s.key === "q3" && state.answers.q3 === "severe"){
-        setMicroCopy(
-          `מצטערים לשמוע. במקרים שכוללים אשפוז או ניתוח, לעיתים יש היתכנות למענק/קצבה על בסיס אחוזי נכות — חשוב במיוחד לתעד את ההליך הרפואי.`
-        );
-      }
-
-      // רגע לפני תיעוד (שאלה 4) - מניעת נטישה
-      if(s.key === "q4"){
-        setMicroCopy(
-          `אין לך מסמכים זמינים כרגע? זה בסדר. אפשר לבחור "יש, אבל לא זמין לי כרגע" ולהמשיך — נוכל להסביר אחר כך איך להשיג אותם בקלות.`
-        );
-      }
-
-      // Kill switch info (שאלה 5)
-      if(s.key === "q5"){
-        setMicroCopy(
-          `אם אתה כבר מיוצג, עדיף לא לעשות פעולות כפולות. זה רק כדי להבין את הסטטוס הנוכחי.`
-        );
-      }
-
       els.qForm.innerHTML = "";
       s.options.forEach(opt=>{
         const div = document.createElement("div");
         div.className = "option" + (state.answers[s.key] === opt.v ? " active" : "");
-        div.innerHTML = `<div class="bullet" aria-hidden="true"></div>
-          <div style="font-weight:900; font-size:16px; line-height:1.25">${opt.l}</div>`;
-        div.onclick = ()=>{ state.answers[s.key]=opt.v; render(); };
+        div.innerHTML = `<div class="bullet" aria-hidden="true"></div><div style="font-weight:900; font-size:16px; line-height:1.25">${opt.l}</div>`;
+        div.onclick = ()=>{
+          state.answers[s.key]=opt.v;
+          render();
+        };
         els.qForm.appendChild(div);
       });
+
+      // Micro-copy לפי נקודות נטישה
+      const micro = getMicroAfter(state.step, state.answers);
+      if(micro){
+        els.microAfter.textContent = micro;
+        els.microAfter.classList.remove("hidden");
+      } else {
+        els.microAfter.classList.add("hidden");
+        els.microAfter.textContent = "";
+      }
 
       els.nextBtn.disabled = !state.answers[s.key];
       els.backBtn.disabled = state.step === 0;
     }
 
-    function scoreAndTier(a){
-      // ניקוד פשוט (אפשר לשכלל בהמשך)
+    function getMicroAfter(stepIndex, a){
+      // (א) אחרי חומרה/רכב/אשפוז (שאלה 3)
+      if(stepIndex === 2 && (a.q3 === "severe" || a.q3 === "car")){
+        return "מצטער לשמוע. במקרים עם אשפוז/ניתוח או תאונת דרכים בדרך לעבודה יש לעיתים זכאויות משמעותיות — חשוב לתעד ולבדוק את זה בזמן.";
+      }
+      // (ב) לפני/סביב מסמכים (שאלה 4)
+      if(stepIndex === 3){
+        return "אין לך מסמכים זמינים עכשיו? זה בסדר. אפשר להשיג אותם בהמשך בקלות — אל תעצור בגלל זה.";
+      }
+      return "";
+    }
+
+    function calcScore(a){
       let score = 0;
 
       // טריות
-      if(a.q1==="30d") score += 35;
-      else if(a.q1==="months") score += 25;
-      else if(a.q1==="1y") score += 12;
-      else if(a.q1==="3y") score += 3;
+      if(a.q1 === "7d") score += 40;
+      if(a.q1 === "3m") score += 35;
+      if(a.q1 === "12m") score += 20;
+      if(a.q1 === "1y") score += 5;
+      if(a.q1 === "3y") score -= 50;
 
-      // סוג פגיעה - VIP: תאונת דרכים בדרך/מהעבודה
-      if(a.q2==="car_work") score += 35;
-      else if(a.q2==="fall") score += 18;
-      else if(a.q2==="lift") score += 14;
-      else if(a.q2==="chronic") score += 10;
+      // סוג פגיעה (רק עדינות — לא להבטיח)
+      if(a.q2 === "hand") score += 10;
+      if(a.q2 === "head") score += 10;
+      if(a.q2 === "strain") score += 8;
+      if(a.q2 === "fall") score += 6;
+      if(a.q2 === "micro") score -= 10;
 
-      // חומרה
-      if(a.q3==="severe") score += 30;
-      else if(a.q3==="er") score += 18;
-      else if(a.q3==="sick") score += 10;
-      else if(a.q3==="minor") score += 4;
+      // VIP
+      if(a.q3 === "car") score += 25;
+      if(a.q3 === "severe") score += 30;
 
-      // תיעוד
-      if(a.q4==="med_yes") score += 18;
-      else if(a.q4==="med_later") score += 14;
-      else if(a.q4==="partial") score += 10;
-      else if(a.q4==="none") score += 2;
+      // מסמכים
+      if(a.q4 === "med_yes") score += 15;
+      if(a.q4 === "med_later") score += 10;
+      if(a.q4 === "visited") score += 6;
+      if(a.q4 === "none") score -= 25;
 
-      // ייצוג (Kill switch)
-      const represented = (a.q5==="yes");
-      if(represented) score = Math.max(0, score - 45);
+      // ייצוג (Kill Switch)
+      if(a.q5 === "yes"){
+        return { score, disqualify:true, reason:"כבר מיוצג על ידי עורך דין" };
+      }
 
-      let tier = "Bronze";
-      if(represented) tier = "NotForSale";
-      else if(score >= 85) tier = "Platinum";
-      else if(score >= 60) tier = "Gold";
-      else if(score >= 40) tier = "Silver";
-      else tier = "Bronze";
+      return { score, disqualify:false, reason:"" };
+    }
 
-      return { score, tier, represented };
+    function tierFromScore(score){
+      if(score >= 80) return "PLATINUM";
+      if(score >= 50) return "GOLD";
+      if(score >= 20) return "SILVER";
+      return "BRONZE";
     }
 
     function buildSummary(a){
-      const res = scoreAndTier(a);
+      const { score, disqualify, reason } = calcScore(a);
+      const tier = tierFromScore(score);
 
-      const chips=[];
-      if(a.q2==="car_work") chips.push("תאונת דרכים בדרך/מהעבודה (לעיתים זכאות כפולה)");
-      if(a.q1==="30d") chips.push("מקרה טרי");
-      if(a.q3==="severe") chips.push("פגיעה משמעותית");
-      if(a.q4==="med_yes" || a.q4==="med_later") chips.push("יש/קיים תיעוד רפואי");
+      state.score = score;
+      state.tier = tier;
+      state.disqualify = disqualify;
+      state.disqualifyReason = reason;
+
+      const chips = [];
+      if(a.q1 === "7d" || a.q1 === "3m") chips.push("מקרה טרי");
+      if(a.q3 === "severe") chips.push("כולל אשפוז/ניתוח/שבר");
+      if(a.q3 === "car") chips.push("מעורבות של רכב בדרך/בזמן עבודה");
+      if(a.q4 === "med_yes" || a.q4 === "med_later") chips.push("יש מסמכים רפואיים");
+      if(a.q4 === "none") chips.push("כדאי לפנות לבדיקה רפואית בהקדם");
+      if(a.q2 === "micro") chips.push("ייתכן עומס מצטבר (מיקרוטראומה)");
 
       const pills = chips.length
         ? chips.map(t=>`<span class="pill">✓ ${t}</span>`).join(" ")
-        : `<span class="pill">✓ יש נתונים לבדיקת היתכנות</span>`;
+        : `<span class="pill">✓ יש נתונים לבדיקה ראשונית</span>`;
 
-      const note = res.represented
-        ? `<div style="margin-top:10px; font-weight:900; color:#b45309;">שים לב: סימנת שאתה כבר מיוצג. במקרה כזה עדיף לא לבצע צעדים כפולים.</div>`
-        : `<div style="margin-top:10px;">אם תרצה לקבל את תוצאות הבדיקה והכוונה לצעד הבא — השאר שם וטלפון.</div>`;
+      // לא מציגים Tier למשתמש (כדי לא להעליב Silver וכו')
+      // רק מסגרת: "הבדיקה התקבלה" + פעולה להמשך.
+      const tierLine = disqualify
+        ? `<div style="margin-top:10px; font-weight:900; color:var(--bad);">הערה: נראה שכבר יש ייצוג. במקרה כזה לפעמים אין טעם להתקדם דרך האתר.</div>`
+        : `<div style="margin-top:10px;">כדי לקבל את תוצאות הבדיקה ולהבין מה נכון לעשות עכשיו — השאר פרטים בסוף (אם מתאים לך).</div>`;
 
       return `
         <div style="font-weight:900; color:var(--text); margin-bottom:6px;">מה עולה מהתשובות שלך:</div>
         <div>${pills}</div>
-        ${note}
+        ${tierLine}
       `;
     }
 
@@ -731,11 +721,12 @@
         return true;
       } catch (e) {
         console.error("Webhook error:", e);
-        // לפעמים דפדפן חוסם תשובה (CORS), אבל זה עדיין יכול להגיע ל-Make
+        // גם אם הדפדפן חוסם תשובה, לפעמים זה עדיין מגיע ל-Make.
         return true;
       }
     }
 
+    // events
     els.startBtn.onclick = goQuiz;
     els.startBtn2.onclick = goQuiz;
 
@@ -761,23 +752,23 @@
     els.submitBtn.onclick = async ()=>{
       const name = (els.fullName.value||"").trim();
       const phone = (els.phone.value||"").trim();
+      const digits = phone.replace(/\D/g,"");
 
       if(!name) return alert("בבקשה כתוב שם מלא");
-      if(phone.replace(/\D/g,"").length < 9) return alert("בבקשה כתוב מספר טלפון תקין");
+      if(digits.length < 9) return alert("בבקשה כתוב מספר טלפון תקין");
 
       const oldText = els.submitBtn.textContent;
       els.submitBtn.disabled = true;
       els.submitBtn.textContent = "שולח…";
 
-      const s = scoreAndTier(state.answers);
-
       const payload = {
         name,
-        phone,
+        phone: digits,
         answers: state.answers,
-        score: s.score,
-        tier: s.tier,
-        represented: s.represented,
+        score: state.score,
+        tier: state.tier,
+        disqualified: state.disqualify,
+        disqualifyReason: state.disqualifyReason,
         source: "seder_zchuyot",
         page: location.href,
         ts: new Date().toISOString()
@@ -788,9 +779,9 @@
       if(ok){
         els.submitBtn.textContent = "נשלח ✓";
         setTimeout(()=>{
-          alert("נשלח בהצלחה ✅");
+          alert("התקבל ✅ תוצאות הבדיקה יישלחו אליך. (דיסקרטי וללא התחייבות)");
           location.reload();
-        }, 500);
+        }, 450);
       } else {
         alert("משהו לא עבר. נסה שוב בעוד דקה.");
         els.submitBtn.disabled = false;

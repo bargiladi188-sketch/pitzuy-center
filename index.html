@@ -23,6 +23,7 @@
       --ok:#22c55e;
       --warn:#f59e0b;
     }
+
     *{ box-sizing:border-box; }
     body{
       margin:0;
@@ -82,11 +83,6 @@
       padding: 22px;
       box-shadow: var(--shadow2);
       height:100%;
-    }
-
-    /* (תוספת לפי ההנחיה שלך) */
-    .card{
-      overflow: visible;
     }
 
     h1{
@@ -350,31 +346,6 @@
     .stepText{ flex: 1 1 auto; min-width: 0; }
     .stepText b{ font-weight:900; display:block; }
     .stepText div{ color:var(--muted); }
-
-    /* --- FIX: הכרטיס הצדדי ("איך זה עובד") לא יחתוך טקסט --- */
-    .stepsList { 
-      width: 100%;
-    }
-
-    .stepItem{
-      width: 100%;
-      height: auto !important;
-      min-height: unset !important;
-      overflow: visible !important;
-      align-items: flex-start;
-    }
-
-    .stepText{
-      flex: 1 1 auto;
-      min-width: 0;            /* חשוב כדי לאפשר שבירת שורות בתוך flex */
-    }
-
-    .stepText div{
-      white-space: normal;
-      overflow-wrap: anywhere; /* שוברת גם מילים/ביטויים ארוכים */
-      word-break: break-word;
-      line-height: 1.45;
-    }
   </style>
 </head>
 

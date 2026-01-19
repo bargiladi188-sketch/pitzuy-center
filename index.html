@@ -2,1083 +2,698 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>סדר זכויות | בדיקת היתכנות לפיצוי</title>
-  <meta name="description" content="בדיקה דיסקרטית ב-2 דקות כדי להבין אם קיימת היתכנות לפיצוי כספי בעקבות פגיעה בעבודה. ללא התחייבות. בלי לערב את המעסיק בשלב זה." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>סדר זכויות | בדיקה קצרה אחרי פגיעה בעבודה</title>
+  <meta name="description" content="בדיקה קצרה ולא מחייבת שעושה סדר אחרי פגיעה בעבודה. דיסקרטי ואנושי. בערך 2 דקות." />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg1:#0b1b2b;
-      --bg2:#0a1320;
+      --bg1:#0b1220;
+      --paper:#f6f8ff;
       --card:#ffffff;
-      --muted:#667085;
       --text:#0f172a;
-      --line:#e5e7eb;
-      --pill:#eef2ff;
+      --muted:#475569;
+      --line:rgba(148,163,184,.35);
+      --primary:#2563eb;
+      --primary2:#0ea5e9;
+      --shadow: 0 18px 55px rgba(2,6,23,.22);
+      --shadow2: 0 12px 30px rgba(2,6,23,.12);
+      --r:22px;
       --ok:#22c55e;
       --warn:#f59e0b;
-      --bad:#ef4444;
-      --accent:#2563eb;
-      --shadow: 0 18px 50px rgba(2, 6, 23, .18);
-      --radius: 22px;
     }
 
     *{ box-sizing:border-box; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans Hebrew", "Heebo", sans-serif;
-      color: var(--text);
-      background: radial-gradient(900px 500px at 70% -10%, rgba(37,99,235,.35), transparent 60%),
-                  radial-gradient(800px 400px at 10% 0%, rgba(34,197,94,.20), transparent 55%),
-                  linear-gradient(180deg, var(--bg1), var(--bg2));
-      min-height:100vh;
-      padding: 26px 14px 50px;
+      font-family:'Assistant', system-ui, -apple-system, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 650px at 80% -10%, rgba(14,165,233,.26), transparent 55%),
+        radial-gradient(900px 620px at 10% 0%, rgba(34,197,94,.14), transparent 55%),
+        radial-gradient(900px 620px at 50% 115%, rgba(249,115,22,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg1) 34%, var(--paper) 34%, var(--paper) 100%);
+      line-height:1.65;
     }
+
+    .wrap{ max-width:1100px; margin:0 auto; padding:20px 16px 90px; }
 
     .topbar{
-      max-width: 1080px;
-      margin: 0 auto 18px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      color:#e5e7eb;
+      color:#fff; display:flex; align-items:center; justify-content:space-between;
+      gap:12px; flex-wrap:wrap; margin-bottom:14px;
     }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:800; letter-spacing:.2px;
+    .brand{ display:flex; align-items:center; gap:10px; }
+    .mark{
+      width:42px; height:42px; border-radius:16px;
+      background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.65));
+      display:grid; place-items:center; color:#0b1220; font-weight:900;
+      box-shadow: 0 20px 40px rgba(0,0,0,.18);
     }
-    .brandBadge{
-      width:36px; height:36px; border-radius:12px;
-      background: linear-gradient(135deg, rgba(37,99,235,.95), rgba(34,197,94,.85));
-      box-shadow: 0 10px 25px rgba(37,99,235,.25);
-      display:grid; place-items:center;
-      font-weight:900; color:white;
-    }
-    .chips{
-      display:flex; gap:8px; flex-wrap:wrap;
-      justify-content:flex-start;
-    }
+    .brandTitle{ font-weight:900; letter-spacing:-.2px; }
+    .chips{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
     .chip{
-      background: rgba(255,255,255,.10);
-      border: 1px solid rgba(255,255,255,.14);
-      color:#e5e7eb;
-      padding:8px 10px;
-      border-radius:999px;
-      font-size:13px;
-      display:flex; align-items:center; gap:7px;
-      backdrop-filter: blur(8px);
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px;
+      background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      color:rgba(255,255,255,.92);
+      font-size:12.5px; font-weight:800;
+      backdrop-filter: blur(10px);
     }
-    .dot{
-      width:8px; height:8px; border-radius:50%;
-      background: #9ca3af;
-      box-shadow: 0 0 0 3px rgba(255,255,255,.08);
-    }
-    .dot.ok{ background: var(--ok); }
-    .dot.lock{ background: #fbbf24; }
+    .dot{ width:8px; height:8px; border-radius:99px; background:#86efac; }
 
     .shell{
-      max-width: 1080px;
-      margin: 0 auto;
-      background: rgba(255,255,255,.14);
-      border: 1px solid rgba(255,255,255,.18);
+      margin-top:8px;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.55);
       border-radius: 28px;
-      box-shadow: var(--shadow);
-      padding: 14px;
-      backdrop-filter: blur(12px);
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 340px 1fr;
-      gap: 14px;
-      align-items: stretch;
-    }
-
-    @media (max-width: 980px){
-      .grid{ grid-template-columns: 1fr; }
-    }
-
-    .panel{
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, .06);
-    }
-
-    /* Left column */
-    .leftWrap{
       padding: 16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
     }
 
-    .leftTitle{
-      font-size:18px;
-      font-weight:800;
-      margin: 2px 0 14px;
+    .grid{ display:grid; grid-template-columns: 1.35fr .65fr; gap:14px; align-items:stretch; }
+    @media (max-width: 980px){ .grid{ grid-template-columns:1fr; } }
+
+    .card{
+      background:var(--card);
+      border:1px solid rgba(148,163,184,.28);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: var(--shadow2);
+      height:100%;
+      overflow: visible;
     }
 
-    /* FIX: לא חותכים טקסט בצד שמאל */
-    .stepsList{ width:100%; display:flex; flex-direction:column; gap:10px; }
-    .stepItem{
-      width:100%;
-      height:auto !important;
-      min-height: unset !important;
-      overflow: visible !important;
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: #fbfdff;
-    }
-    .stepNum{
-      width:26px; height:26px;
-      border-radius: 999px;
-      background: #eef6ff;
-      border: 1px solid #dbeafe;
-      display:grid; place-items:center;
-      font-weight:800;
-      color:#1d4ed8;
-      flex: 0 0 26px;
-      margin-top:2px;
-    }
-    .stepText{
-      flex: 1 1 auto;
-      min-width: 0;            /* קריטי לפלקס */
-    }
-    .stepText .h{
-      font-weight:800;
-      margin: 0 0 6px;
-      font-size:14px;
-    }
-    .stepText .p{
-      margin:0;
-      color: var(--muted);
-      font-size:13px;
-      line-height:1.45;
-      white-space: normal;
-      overflow-wrap: anywhere;
-      word-break: break-word;
-    }
-
-    .facts{
-      margin-top:12px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background: #fff;
-      padding: 12px;
-    }
-    .factsTitle{
+    h1{
+      margin:0 0 10px;
+      font-size: 38px;
+      line-height:1.1;
+      letter-spacing:-.6px;
       font-weight:900;
-      font-size:13px;
-      color:#0f172a;
-      margin: 0 0 8px;
-      display:flex; align-items:center; gap:8px;
     }
-    .fact{
-      border:1px solid #eef2f7;
-      background:#fbfbfd;
-      border-radius: 14px;
-      padding: 10px 10px;
-      margin: 8px 0;
-      font-size:13px;
-      color:#0f172a;
-      line-height:1.45;
-    }
-    .fact b{ font-weight:900; }
-
-    .startBtn{
-      width:100%;
-      margin-top:12px;
-      background: linear-gradient(135deg, var(--accent), #1d4ed8);
-      color:white;
-      border:none;
-      padding: 12px 14px;
-      border-radius: 16px;
-      font-weight:900;
-      cursor:pointer;
-      box-shadow: 0 12px 28px rgba(37,99,235,.25);
-      font-size:15px;
-    }
-    .startBtn:active{ transform: translateY(1px); }
-
-    /* Right column */
-    .rightWrap{
-      padding: 18px 18px 16px;
-    }
-
-    .heroH1{
-      font-size: 34px;
-      line-height: 1.1;
-      margin: 6px 0 10px;
-      font-weight: 900;
-      letter-spacing: -0.3px;
-    }
-
-    @media (max-width: 520px){
-      .heroH1{ font-size: 28px; }
+    .lead{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size: 17px;
+      max-width: 70ch;
     }
 
     .socialProof{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      background: #ecfdf5;
-      border: 1px solid #bbf7d0;
-      color: #065f46;
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .heroSub{
-      margin: 0 0 14px;
-      color: #334155;
-      line-height: 1.6;
-      font-size: 15px;
-      max-width: 720px;
-    }
-
-    .ctaRow{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      margin: 10px 0 12px;
-    }
-    .ctaPrimary{
-      background: linear-gradient(135deg, var(--accent), #1d4ed8);
-      color:#fff;
-      border:none;
-      padding: 12px 16px;
-      border-radius: 16px;
-      font-weight: 900;
-      cursor:pointer;
-      font-size: 15px;
-      box-shadow: 0 12px 28px rgba(37,99,235,.22);
-    }
-    .ctaSecondary{
-      background: #fff;
-      color:#0f172a;
-      border: 1px solid var(--line);
-      padding: 12px 16px;
-      border-radius: 16px;
-      font-weight: 800;
-      cursor:pointer;
-      font-size: 15px;
-    }
-
-    .trustGrid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin: 14px 0 8px;
-    }
-    @media (max-width: 820px){
-      .trustGrid{ grid-template-columns: 1fr; }
-    }
-    .trustCard{
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 12px 12px;
-      background: #fff;
-      display:flex;
-      gap: 10px;
-      align-items:flex-start;
-    }
-    .trustIcon{
-      width: 34px; height: 34px;
-      border-radius: 14px;
-      background:#eef2ff;
-      display:grid; place-items:center;
-      font-size: 18px;
-      flex:0 0 34px;
-    }
-    .trustText .t{
-      font-weight: 900;
-      margin: 0 0 5px;
-      font-size: 14px;
-    }
-    .trustText .d{
-      margin:0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .quizWrap{
-      margin-top: 14px;
-      border-top: 1px dashed #e5e7eb;
-      padding-top: 14px;
-    }
-
-    .sectionTitle{
-      font-size: 14px;
-      font-weight: 900;
-      margin: 0 0 10px;
-      color:#0f172a;
-      display:flex; align-items:center; gap:8px;
-    }
-
-    .progress{
-      width: 100%;
-      height: 10px;
-      background: #eef2f7;
-      border-radius: 999px;
-      overflow:hidden;
-      border: 1px solid #e5e7eb;
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
       margin: 10px 0 14px;
-    }
-    .bar{
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #22c55e, #2563eb);
-      transition: width .35s ease;
-    }
-
-    .qCard{
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: #fff;
-      padding: 14px;
-    }
-    .qTitle{
-      margin: 0 0 6px;
-      font-weight: 900;
-      font-size: 16px;
-    }
-    .qHint{
-      margin: 0 0 12px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .options{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-    .opt{
-      width:100%;
-      text-align:right;
-      border: 1px solid #e5e7eb;
-      background:#fbfdff;
-      padding: 12px 12px;
-      border-radius: 16px;
-      cursor:pointer;
-      font-weight: 800;
-      color:#0f172a;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .opt:hover{ border-color:#cbd5e1; background:#f8fbff; }
-    .opt .tag{
-      font-size:12px;
+      color: rgba(15,23,42,.85);
       font-weight:900;
-      padding: 6px 8px;
-      border-radius: 999px;
-      border: 1px solid #e5e7eb;
-      background:#fff;
-      color:#334155;
-      flex: 0 0 auto;
     }
+    .badge{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 12px; border-radius:999px;
+      background: rgba(34,197,94,.10);
+      border:1px solid rgba(34,197,94,.25);
+      font-size:13.5px;
+    }
+    .badge .miniDot{ width:8px; height:8px; border-radius:99px; background: var(--ok); }
 
-    .navRow{
-      display:flex;
-      gap:10px;
-      margin-top: 12px;
-      flex-wrap:wrap;
-    }
+    .ctaRow{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top: 8px; }
     .btn{
-      border-radius: 16px;
-      padding: 11px 14px;
-      font-weight: 900;
-      cursor:pointer;
-      border: 1px solid var(--line);
-      background:#fff;
-      color:#0f172a;
-      font-size: 14px;
-    }
-    .btn.primary{
-      background: linear-gradient(135deg, var(--accent), #1d4ed8);
+      border:0; cursor:pointer;
+      border-radius: 18px;
+      padding: 14px 18px;
+      font-weight:900;
+      font-size: 16.5px;
       color:#fff;
-      border:none;
-      box-shadow: 0 12px 28px rgba(37,99,235,.22);
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      box-shadow: 0 18px 30px rgba(37,99,235,.22);
+      transition: transform .15s ease, filter .15s ease;
+      font-family: inherit;
+      width:auto;
     }
-    .btn:disabled{
-      opacity:.55;
-      cursor:not-allowed;
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+    .btn:disabled{ opacity:.65; cursor:not-allowed; transform:none; }
+    .btnGhost{ background:#fff; color:var(--text); border:1px solid rgba(148,163,184,.35); box-shadow:none; }
+
+    .features{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+      align-items: stretch;
+    }
+    @media (max-width: 980px){
+      .features{ grid-template-columns: repeat(2, minmax(200px, 1fr)); }
+    }
+    @media (max-width: 560px){
+      .features{ grid-template-columns: 1fr; }
     }
 
-    .formRow{
+    .feat{
+      border-radius: 20px;
+      padding: 16px;
+      border:1px solid rgba(148,163,184,.25);
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
       display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-top: 10px;
+      grid-template-columns: 44px 1fr;
+      gap: 12px;
+      min-height: 118px;
+      align-content: center;
     }
-    .field{
-      border: 1px solid #e5e7eb;
+    .ico{
+      width: 44px; height: 44px;
       border-radius: 16px;
-      padding: 12px 12px;
-      font-size: 15px;
-      outline:none;
-      width:100%;
-      background:#fff;
+      background: rgba(37,99,235,.09);
+      display:grid; place-items:center;
+      color: #1d4ed8;
+      font-weight: 900;
+      font-size: 20px;
     }
-    .field:focus{ border-color:#93c5fd; box-shadow: 0 0 0 4px rgba(59,130,246,.12); }
-    .miniNote{
-      font-size: 12.5px;
+    .feat b{
+      display:block; margin:0 0 6px;
+      font-size: 16px; line-height:1.2; font-weight:900;
+    }
+    .feat span{
+      display:block;
+      font-size: 13.5px;
+      line-height: 1.45;
       color: var(--muted);
-      line-height: 1.45;
-      margin-top: 2px;
+      max-width: 44ch;
     }
 
-    .consent{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      margin-top: 8px;
-      font-size: 13px;
-      color:#334155;
-      line-height: 1.45;
-    }
-    .consent input{ margin-top:3px; }
-
-    .alert{
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid #fee2e2;
-      background: #fff1f2;
-      color: #991b1b;
-      font-weight: 800;
-      font-size: 13px;
-      display:none;
-    }
-
-    .fineprint{
+    .testimonials{
       margin-top: 14px;
-      font-size: 12px;
-      color: #64748b;
-      line-height: 1.5;
-    }
-
-    .testimonialWrap{
-      margin-top: 12px;
       display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 10px;
+      gap:10px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items:stretch;
     }
-    @media (max-width: 900px){
-      .testimonialWrap{ grid-template-columns: 1fr; }
+    @media (max-width: 980px){
+      .testimonials{ grid-template-columns: 1fr; }
     }
     .testimonial{
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 12px;
-      background:#fff;
-      font-size: 13px;
-      color:#0f172a;
-      line-height: 1.55;
+      border:1px solid rgba(148,163,184,.25);
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+      border-radius: 20px;
+      padding: 14px 14px 12px;
+      color: rgba(15,23,42,.88);
+      font-weight:800;
+      font-size: 13.5px;
+      line-height:1.5;
+      position:relative;
+      min-height: 92px;
+    }
+    .testimonial:before{
+      content:"“";
+      position:absolute;
+      top:6px; inset-inline-start: 10px;
+      font-size: 34px;
+      color: rgba(37,99,235,.18);
+      font-weight:900;
+      line-height:1;
     }
     .testimonial span{
       display:block;
       margin-top: 8px;
       color: var(--muted);
-      font-weight: 800;
+      font-weight:900;
       font-size: 12.5px;
     }
 
-    /* Thank you overlay */
-    .overlay{
-      position: fixed;
-      inset: 0;
-      background: rgba(2,6,23,.55);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 18px;
-      z-index: 50;
-    }
-    .overlay .modal{
-      width: min(720px, 100%);
-      background: #fff;
-      border-radius: 22px;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 30px 80px rgba(2,6,23,.30);
-      padding: 16px;
-    }
-    .modal h2{
-      margin: 6px 0 6px;
-      font-size: 20px;
-      font-weight: 900;
-    }
-    .modal p{
-      margin: 0 0 12px;
-      color:#334155;
-      line-height: 1.6;
-      font-size: 14px;
-    }
-    .modal .box{
-      border: 1px solid #e5e7eb;
-      background:#fbfbfd;
+    details{
+      border:1px solid rgba(148,163,184,.28);
       border-radius: 18px;
-      padding: 12px;
+      background:#fff;
+      padding: 12px 14px;
+      margin: 10px 0;
     }
-    .modal .box ul{ margin: 8px 0 0; padding: 0 18px 0 0; color:#0f172a; }
-    .modal .box li{ margin: 6px 0; line-height:1.5; }
-    .modal .row{
-      display:flex; gap:10px; flex-wrap:wrap;
-      justify-content:flex-start;
-      margin-top: 12px;
+    summary{ cursor:pointer; font-weight:900; list-style:none; }
+    details p{ color:var(--muted); margin:10px 0 0; }
+
+    .hidden{ display:none !important; }
+
+    .quizHead{ display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap; }
+    .progressText{ font-size: 13px; color:var(--muted); font-weight:800; }
+    .bar{ height: 10px; background: rgba(148,163,184,.25); border-radius: 999px; overflow:hidden; margin: 10px 0 16px; }
+    .fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--primary), var(--primary2), #22c55e); transition: width .25s ease; }
+    .qTitle{ margin: 0 0 8px; font-size: 22px; font-weight: 900; letter-spacing:-.2px; }
+    .qHint{ margin: 0 0 10px; color: var(--muted); font-size: 14px; }
+    .micro{
+      margin: 10px 0 0;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(148,163,184,.25);
+      background: rgba(14,165,233,.06);
+      color: rgba(15,23,42,.82);
+      font-weight:800;
+      font-size: 13.5px;
+      line-height:1.5;
     }
 
+    .option{
+      display:flex; gap:12px; align-items:flex-start;
+      padding: 18px;
+      margin: 14px 0;
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,.28);
+      background: #fff;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .option:hover{ transform: translateY(-1px); border-color: rgba(37,99,235,.35); background: #f8fbff; }
+    .option:active{ transform: scale(.99); background: rgba(37,99,235,.07); }
+    .option.active{ border-color: rgba(37,99,235,.9); background: rgba(37,99,235,.06); }
+
+    .bullet{
+      width: 24px; height: 24px;
+      border-radius: 10px;
+      border: 2px solid rgba(148,163,184,.5);
+      margin-top: 2px;
+      flex: 0 0 auto;
+      position: relative;
+    }
+    .option.active .bullet{ border-color: rgba(37,99,235,.9); background: rgba(37,99,235,.12); }
+    .option.active .bullet:after{
+      content:"";
+      position:absolute; inset:5px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+    }
+
+    .navRow{ display:flex; gap:10px; margin-top:16px; }
+    .navRow .btn{ flex: 2; }
+    .navRow .btnGhost{ flex: 1; }
+
+    input[type="text"], input[type="tel"]{
+      width:100%;
+      padding: 14px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,.35);
+      background:#fff;
+      font-size: 16px;
+      outline:none;
+      font-family: inherit;
+    }
+    .formGrid{ display:grid; gap:10px; margin-top: 12px; }
+
+    .summaryBox{
+      border-radius: 18px;
+      padding: 14px;
+      border:1px solid rgba(148,163,184,.25);
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(148,163,184,.25);
+      background:#fff;
+      margin: 6px 6px 0 0;
+      color: var(--text);
+      font-weight:800;
+      font-size: 12.5px;
+    }
+
+    .legal{ margin-top: 14px; color: rgba(15,23,42,.65); font-size: 12.5px; line-height:1.6; }
+    footer{ margin-top: 18px; color: rgba(255,255,255,.78); font-size: 12.5px; text-align: center; }
+
+    /* --- FIX: הכרטיס הצדדי ("איך זה עובד") לא יחתוך טקסט --- */
+    .stepsList{ display:grid; gap:10px; width: 100%; }
+    .stepItem{
+      border:1px solid rgba(148,163,184,.25);
+      border-radius:18px;
+      padding:14px;
+      background:#fff;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      width: 100%;
+      height: auto !important;
+      min-height: unset !important;
+      overflow: visible !important;
+    }
+    .stepNum{
+      width:30px; height:30px;
+      border-radius:12px;
+      display:grid; place-items:center;
+      background:rgba(14,165,233,.10);
+      color:#0369a1;
+      font-weight:900;
+      flex: 0 0 auto;
+    }
+    .stepText{ flex: 1 1 auto; min-width: 0; }
+    .stepText b{ font-weight:900; display:block; }
+    .stepText div{ 
+      color:var(--muted); 
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      line-height: 1.45;
+    }
   </style>
 </head>
 
 <body>
-  <div class="topbar">
-    <div class="brand">
-      <div class="brandBadge">SZ</div>
-      <div>סדר זכויות</div>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="mark">✓</div>
+        <div>
+          <div class="brandTitle">סדר זכויות</div>
+          <div style="font-size:12.5px; color:rgba(255,255,255,.78); font-weight:700">בדיקה קצרה אחרי פגיעה בעבודה</div>
+        </div>
+      </div>
+      <div class="chips">
+        <span class="chip"><span class="dot"></span> ללא התחייבות</span>
+        <span class="chip">🔒 דיסקרטי</span>
+        <span class="chip">⏱ בערך 2 דקות</span>
+      </div>
     </div>
-    <div class="chips">
-      <div class="chip"><span class="dot ok"></span>ללא התחייבות</div>
-      <div class="chip"><span class="dot lock"></span>דיסקרטי</div>
-      <div class="chip"><span class="dot ok"></span>בערך 2 דקות</div>
-    </div>
-  </div>
 
-  <div class="shell">
-    <div class="grid">
+    <div class="shell">
+      <div id="landing" class="grid">
+        <div class="card">
+          <h1>נפגעת בעבודה? בוא נעשה סדר רגע.</h1>
 
-      <!-- LEFT -->
-      <div class="panel">
-        <div class="leftWrap">
-          <div class="leftTitle">איך זה עובד?</div>
+          <p class="lead">
+            בדיקה חכמה לאיתור זכויות רפואיות ו<strong>פוטנציאל לפיצוי כספי</strong>.
+            בלי בירוקרטיה, בלי מילים מסובכות, ובלי לערב את המעסיק בשלב זה.
+          </p>
 
-          <div class="stepsList" id="stepsList">
+          <div class="socialProof" aria-label="הוכחה חברתית">
+            <span class="badge"><span class="miniDot"></span> מאות אנשים כבר בדקו זכאות לאחרונה</span>
+            <span style="color:var(--muted); font-weight:800; font-size:13px;">*המספרים באתר מוצגים לצורך חיזוק ביטחון — בלי הבטחות לתוצאה.</span>
+          </div>
+
+          <div class="ctaRow">
+            <button class="btn" id="startBtn" type="button">התחל בדיקת זכאות (2 דקות)</button>
+            <button class="btn btnGhost" id="scrollFaqBtn" type="button">שאלות נפוצות</button>
+          </div>
+
+          <div class="features">
+            <div class="feat">
+              <div class="ico">🧠</div>
+              <div><b>פשוט וברור</b><span>כמה שאלות קצרות — מקבל תמונה מסודרת בלי עומס.</span></div>
+            </div>
+            <div class="feat">
+              <div class="ico">🛡️</div>
+              <div><b>בטוח מול המעסיק</b><span>100% דיסקרטי. המעסיק לא מקבל הודעה ולא מעורב בשלב זה.</span></div>
+            </div>
+            <div class="feat">
+              <div class="ico">📱</div>
+              <div><b>מותאם לנייד</b><span>תהליך פשוט וברור מכל מכשיר — בלי להסתבך ובלי לבזבז זמן.</span></div>
+            </div>
+          </div>
+
+          <div class="testimonials" aria-label="אנשים שבדקו">
+            <div class="testimonial">
+              לא ידעתי בכלל אם יש מה לבדוק. השאלון עשה לי סדר תוך שתי דקות.
+              <span>— אבי, בן 41</span>
+            </div>
+            <div class="testimonial">
+              אהבתי שזה לא מלחיץ ולא “משפטי”. רק להבין מה הצעד הנכון עכשיו.
+              <span>— דניאל, בן 29</span>
+            </div>
+            <div class="testimonial">
+              חשבתי שזה “כלום”. הבדיקה נתנה לי כיוון ברור למה כדאי לתעד.
+              <span>— שירה, בת 36</span>
+            </div>
+          </div>
+
+          <div id="faq" style="margin-top:18px;">
+            <div style="font-weight:900; margin-bottom:8px;">שאלות נפוצות</div>
+            <details><summary>זה מחייב אותי לדבר עם עורך דין?</summary><p>לא. זו בדיקה ראשונית בלבד. בסוף אתה מחליט אם להשאיר פרטים לקבלת תוצאות והכוונה.</p></details>
+            <details><summary>למה אתם שואלים על תיעוד?</summary><p>תיעוד עוזר להבין מהר אם יש בסיס ומה הצעד הנכון, בלי להסתבך בטפסים.</p></details>
+            <details><summary>האם זה בתשלום?</summary><p>הבדיקה עצמה ללא עלות. אין התחייבות להמשך.</p></details>
+          </div>
+
+          <div class="legal" style="margin-top: 14px;">
+            *האתר אינו אתר רשמי של הביטוח הלאומי ואינו מספק ייעוץ משפטי. מטרתו מידע ראשוני בלבד.
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="font-weight:900; font-size:18px; margin-bottom:10px;">איך זה עובד?</div>
+
+          <div class="stepsList">
             <div class="stepItem">
               <div class="stepNum">1</div>
               <div class="stepText">
-                <div class="h">עונים על כמה שאלות</div>
-                <p class="p">מתי זה קרה, סוג הפגיעה, תיעוד רפואי ועוד — כדי לקבל תמונה ראשונית.</p>
+                <b>עונה על 5 שאלות</b>
+                <div>מועד, סוג פגיעה, חומרה, תיעוד וסטטוס ייצוג.</div>
               </div>
             </div>
 
             <div class="stepItem">
               <div class="stepNum">2</div>
               <div class="stepText">
-                <div class="h">מקבל סיכום קצר</div>
-                <p class="p">בדיקה ראשונית שמסדרת לך את התמונה, בלי מילים מסובכות.</p>
+                <b>מקבל סיכום קצר</b>
+                <div>מה כדאי לעשות עכשיו כדי לא לפספס זכויות.</div>
               </div>
             </div>
 
             <div class="stepItem">
               <div class="stepNum">3</div>
               <div class="stepText">
-                <div class="h">אם זה רלוונטי — משאיר פרטים</div>
-                <p class="p">בסוף הבדיקה אתה מחליט אם להשאיר שם וטלפון כדי לקבל הכוונה להמשך.</p>
+                <b>רק אם תרצה — משאיר פרטים</b>
+                <div>כדי לקבל את תוצאות הבדיקה והכוונה לצעד הבא.</div>
               </div>
             </div>
           </div>
 
-          <div class="facts">
-            <div class="factsTitle">🧠 3 דברים שאנשים מגלים מהר מאוד</div>
-
-            <div class="fact">
-              <b>10% נכות זה לא “כסף קטן”.</b><br>
-              במקרים מסוימים זה עשוי להיות מענק חד-פעמי משמעותי (תלוי שכר ונתונים).
-            </div>
-
-            <div class="fact">
-              <b>תאונה בדרך/חזרה מהעבודה יכולה להיות “כפל זכויות”.</b><br>
-              לפעמים יש זכאות גם מול ביטוח לאומי וגם מול ביטוח החובה (תלוי מקרה).
-            </div>
-
-            <div class="fact">
-              <b>גם כאב מצטבר יכול להיות פגיעה בעבודה.</b><br>
-              עומס מתמשך (מיקרוטראומה) לפעמים מוכר — גם בלי “אירוע אחד” ברור.
-            </div>
-          </div>
-
-          <button class="startBtn" id="startBtn">יאללה, מתחילים</button>
-        </div>
-      </div>
-
-      <!-- RIGHT -->
-      <div class="panel">
-        <div class="rightWrap">
-          <div class="socialProof">✅ כמו מאות אנשים שבדקו זכאות החודש (נתון לדוגמה)</div>
-
-          <h1 class="heroH1">נפגעת בעבודה? בדיקת היתכנות לפיצוי כספי.</h1>
-          <p class="heroSub">
-            בדיקה חכמה לאיתור <b>זכויות רפואיות</b> ו<b>פוטנציאל לפיצוי כספי</b>.
-            בלי בירוקרטיה, בלי מילים מסובכות, ו<b>בלי לערב את המעסיק בשלב זה</b>.
-          </p>
-
-          <div class="ctaRow">
-            <button class="ctaPrimary" id="ctaTop">חשב פוטנציאל פיצוי משוער &larr;</button>
-            <button class="ctaSecondary" id="ctaQuestions">שאלות נפוצות</button>
-          </div>
-
-          <div class="trustGrid">
-            <div class="trustCard">
-              <div class="trustIcon">🛡️</div>
-              <div class="trustText">
-                <p class="t">בטוח מול המעסיק</p>
-                <p class="d">100% דיסקרטי. המעסיק לא מקבל שום הודעה בשלב זה.</p>
-              </div>
-            </div>
-            <div class="trustCard">
-              <div class="trustIcon">🔒</div>
-              <div class="trustText">
-                <p class="t">דיסקרטי ומכבד</p>
-                <p class="d">אתה שולט בקצב. אין התחייבות ואין “דיבור משפטי”.</p>
-              </div>
-            </div>
-            <div class="trustCard">
-              <div class="trustIcon">⚡</div>
-              <div class="trustText">
-                <p class="t">תהליך פשוט וברור</p>
-                <p class="d">מותאם למובייל — תהליך קצר וברור מכל מכשיר.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="testimonialWrap">
-            <div class="testimonial">
-              “לא ידעתי בכלל אם יש לי קייס. הבדיקה עשתה לי סדר תוך 2 דקות.”
-              <span>— אבי, בן 41, שכיר</span>
-            </div>
-            <div class="testimonial">
-              “אהבתי שזה לא מלחיץ ולא משפטי. פשוט להבין אם יש מה לבדוק.”
-              <span>— דניאל, בן 29</span>
-            </div>
-            <div class="testimonial">
-              “חשבתי שזה לא שווה כלום. פתאום הבנתי שיש כאן משהו אמיתי לבדוק.”
-              <span>— מאור, בן 38</span>
-            </div>
-          </div>
-
-          <div class="quizWrap" id="quiz">
-            <div class="sectionTitle">שאלון קצר</div>
-
-            <div class="progress" aria-label="progress">
-              <div class="bar" id="bar"></div>
-            </div>
-
-            <div class="qCard" id="qCard">
-              <!-- injected by JS -->
-            </div>
-
-            <p class="fineprint">
-              * האתר אינו אתר רשמי של הביטוח הלאומי ואינו מספק ייעוץ משפטי. מטרתו מידע ראשוני בלבד.
-            </p>
+          <div style="margin-top:14px;">
+            <button class="btn" type="button" id="startBtn2" style="width:100%;">יאללה, מתחילים</button>
           </div>
         </div>
       </div>
 
+      <div id="quiz" class="card hidden">
+        <div class="quizHead">
+          <div class="progressText" id="progressTxt">שאלה 1 מתוך 5</div>
+          <div class="progressText">⏱ בערך 2 דקות</div>
+        </div>
+        <div class="bar"><div id="progressFill" class="fill"></div></div>
+
+        <h2 id="qTitle" class="qTitle"></h2>
+        <p id="qHint" class="qHint"></p>
+        <div id="qForm"></div>
+
+        <div id="microCopy" class="micro hidden"></div>
+
+        <div class="navRow">
+          <button class="btn btnGhost" id="backBtn" type="button">אחורה</button>
+          <button class="btn" id="nextBtn" type="button">המשך</button>
+        </div>
+      </div>
+
+      <div id="done" class="card hidden">
+        <h2 style="margin:0 0 8px; font-weight:900; letter-spacing:-.2px;">סיכום קצר ✅</h2>
+        <div id="summaryBox" class="summaryBox"></div>
+
+        <div class="formGrid">
+          <input type="text" id="fullName" placeholder="שם מלא" autocomplete="name" />
+          <input type="tel" id="phone" placeholder="מספר טלפון" autocomplete="tel" inputmode="tel" />
+          <button class="btn" id="submitBtn" type="button">קבל את תוצאות הבדיקה</button>
+          <div class="legal">
+            🔒 <b>דיסקרטי:</b> המספר משמש רק לשליחת תוצאות הבדיקה והכוונה לצעד הבא. המעסיק לא מעורב ולא מקבל הודעה.
+          </div>
+          <div class="legal">
+            בלחיצה אתה מאשר יצירת קשר לגבי הבדיקה שביצעת.
+          </div>
+        </div>
+      </div>
     </div>
+
+    <footer style="margin-top: 30px;">סדר זכויות · בדיקה קצרה אחרי פגיעה בעבודה</footer>
   </div>
 
-  <!-- Thank you overlay -->
-  <div class="overlay" id="overlay" role="dialog" aria-modal="true">
-    <div class="modal">
-      <h2>הבדיקה התקבלה ✅</h2>
-      <p>
-        קיבלנו את הפרטים והנתונים מהבדיקה. כדי לחסוך זמן בשיחה, מומלץ להכין מראש כמה דברים.
-      </p>
-      <div class="box">
-        <b>מה כדאי להכין כבר עכשיו:</b>
-        <ul>
-          <li>תאריך הפגיעה (בערך).</li>
-          <li>שם מקום העבודה ותפקיד.</li>
-          <li>מסמך רפואי ראשון (מיון/רופא/קופת חולים) — אם יש.</li>
-        </ul>
-      </div>
-      <div class="row">
-        <button class="btn primary" id="closeOverlay">סגור</button>
-      </div>
-      <p class="fineprint" style="margin-top:10px">
-        * אין כאן התחייבות לפיצוי. מטרת הכלי היא בדיקה ראשונית והכוונה בלבד.
-      </p>
-    </div>
-  </div>
+<script>
+  const WEBHOOK_URL = "https://hook.eu1.make.com/zodd6hyaiagfivgofyy1h6jjamyymm23";
 
-  <script>
-    // ====== Make.com Webhook (כבר שמור אצלך) ======
-    const WEBHOOK_URL = "https://hook.eu1.make.com/zodd6hyaiagfivgofyy1h6jjamyymm23";
+  document.addEventListener("DOMContentLoaded", () => {
+    const els = {
+      landing: document.getElementById("landing"),
+      quiz: document.getElementById("quiz"),
+      done: document.getElementById("done"),
+      startBtn: document.getElementById("startBtn"),
+      startBtn2: document.getElementById("startBtn2"),
+      scrollFaqBtn: document.getElementById("scrollFaqBtn"),
+      progressFill: document.getElementById("progressFill"),
+      progressTxt: document.getElementById("progressTxt"),
+      qTitle: document.getElementById("qTitle"),
+      qHint: document.getElementById("qHint"),
+      qForm: document.getElementById("qForm"),
+      microCopy: document.getElementById("microCopy"),
+      backBtn: document.getElementById("backBtn"),
+      nextBtn: document.getElementById("nextBtn"),
+      summaryBox: document.getElementById("summaryBox"),
+      fullName: document.getElementById("fullName"),
+      phone: document.getElementById("phone"),
+      submitBtn: document.getElementById("submitBtn"),
+    };
 
-    // ====== Quiz definition ======
+    const state = { step: 0, answers: { q1:null, q2:null, q3:null, q4:null, q5:null } };
+
     const steps = [
       {
-        id: "when",
-        title: "מתי הפגיעה קרתה?",
-        hint: "הטריות משפיעה מאוד על ההיתכנות. בחר את האפשרות הכי קרובה.",
-        options: [
-          { label: "בשבועיים–חודש האחרון", score: 40, tag:"טרי מאוד" },
-          { label: "בחצי השנה האחרונה", score: 25, tag:"טרי" },
-          { label: "בשנה–שלוש שנים", score: 10, tag:"ישן" },
-          { label: "מעל 3 שנים", score: -50, tag:"חלש" }
+        key:"q1",
+        title:"מתי בערך קרתה הפגיעה?",
+        hint:"ככל שזה טרי יותר — קל יותר לתעד ולא לאבד זכויות.",
+        options:[
+          {l:"ב-30 הימים האחרונים",v:"30d"},
+          {l:"בחודשים האחרונים",v:"months"},
+          {l:"לפני שנה או יותר",v:"1y"},
+          {l:"לפני יותר מ-3 שנים",v:"3y"}
         ]
       },
       {
-        id: "type",
-        title: "מה הכי קרוב לסוג הפגיעה?",
-        hint: "לא צריך להיכנס לפרטים — רק לבחור את הכיוון הכללי.",
-        options: [
-          { label: "תאונת דרכים בדרך/חזרה מהעבודה", score: 25, tag:"חזק" },
-          { label: "נפילה / חבלה במהלך העבודה", score: 15, tag:"טיפוסי" },
-          { label: "הרמת משא / תנועה חדה / מאמץ", score: 10, tag:"בינוני" },
-          { label: "כאב מצטבר / מחלת מקצוע (מיקרוטראומה)", score: 5, tag:"מורכב" }
+        key:"q2",
+        title:"מה סוג הפגיעה?",
+        hint:"בחר את האפשרות שהכי מתאימה.",
+        options:[
+          {l:"תאונת דרכים בדרך/מהעבודה",v:"car_work"},
+          {l:"נפילה/החלקה/חבלה במקום העבודה",v:"fall"},
+          {l:"הרמת משא / מאמץ חריג",v:"lift"},
+          {l:"כאב מצטבר לאורך זמן (מיקרוטראומה)",v:"chronic"}
         ]
       },
       {
-        id: "severity",
-        title: "האם היה אשפוז / ניתוח / שבר?",
-        hint: "מצטער לשמוע. במקרים של אשפוז/ניתוח לרוב יש אינדיקציה לנזק משמעותי — חשוב לתעד.",
-        options: [
-          { label: "כן — אשפוז / ניתוח / שבר", score: 30, tag:"Platinum" },
-          { label: "לא — טיפול רגיל (מיון/קופה)", score: 10, tag:"Gold" },
-          { label: "עדיין לא נבדקתי רפואית", score: -10, tag:"סיכון נטישה" }
+        key:"q3",
+        title:"איך היית מתאר את חומרת הפגיעה?",
+        hint:"זה לא קובע תוצאה — רק עוזר להבין כיוון.",
+        options:[
+          {l:"אשפוז / ניתוח / שיקום ארוך",v:"severe"},
+          {l:"מיון / בדיקות רפואיות",v:"er"},
+          {l:"ימי מחלה בלבד",v:"sick"},
+          {l:"פגיעה קלה וחזרה מהירה לשגרה",v:"minor"}
         ]
       },
       {
-        id: "docs",
-        title: "האם יש תיעוד רפואי ראשוני?",
-        hint: "אין עליך מסמכים כרגע? זה בסדר. אפשר להמשיך גם אם לא זמין עכשיו.",
-        options: [
-          { label: "כן — יש מסמך/סיכום", score: 15, tag:"חזק" },
-          { label: "יש לי, אבל לא זמין כרגע", score: 10, tag:"בסדר" },
-          { label: "אין עדיין תיעוד", score: -30, tag:"חלש" }
+        key:"q4",
+        title:"יש תיעוד מהימים הראשונים?",
+        hint:"תיעוד רפואי הוא כלי חשוב בבדיקה.",
+        options:[
+          {l:"כן, יש תיעוד רפואי",v:"med_yes"},
+          {l:"יש, אבל לא זמין לי כרגע",v:"med_later"},
+          {l:"דיווחתי למעסיק / יש תיעוד חלקי",v:"partial"},
+          {l:"אין עדיין",v:"none"}
         ]
       },
       {
-        id: "represented",
-        title: "האם אתה כבר מיוצג על ידי עורך דין?",
-        hint: "שקיפות: אם אתה כבר מיוצג, לא נוכל לעזור בבדיקה הזו.",
-        options: [
-          { label: "לא", score: 20, tag:"מעולה" },
-          { label: "כן", score: -999, tag:"פסילה" }
+        key:"q5",
+        title:"האם אתה כבר מיוצג ע\"י עורך דין בנושא?",
+        hint:"חשוב לדעת כדי לא לייצר כפילות.",
+        options:[
+          {l:"לא",v:"no"},
+          {l:"כן",v:"yes"},
+          {l:"לא בטוח",v:"unsure"}
         ]
-      },
-      {
-        id: "lead",
-        title: "כדי לקבל את תוצאות הבדיקה — השאר פרטים",
-        hint: "🔒 100% דיסקרטי: הפרטים משמשים רק לשליחת תוצאות הבדיקה והכוונה להמשך. המעסיק לא מעורב בשלב זה."
       }
     ];
 
-    const state = {
-      stepIndex: 0,
-      answers: {},
-      score: 0,
-      tier: "BRONZE"
+    function goQuiz(){
+      els.landing.classList.add("hidden");
+      els.quiz.classList.remove("hidden");
+      els.done.classList.add("hidden");
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function setMicroCopy(html){
+      if(!html){
+        els.microCopy.classList.add("hidden");
+        return;
+      }
+      els.microCopy.classList.remove("hidden");
+      els.microCopy.innerHTML = html;
+    }
+
+    function render(){
+      const s = steps[state.step];
+      els.qTitle.textContent = s.title;
+      els.qHint.textContent = s.hint || "";
+      els.progressTxt.textContent = `שאלה ${state.step+1} מתוך ${steps.length}`;
+      els.progressFill.style.width = ((state.step+1)/steps.length)*100 + "%";
+
+      setMicroCopy(null);
+      if(s.key === "q3" && state.answers.q3 === "severe"){
+        setMicroCopy(`מצטערים לשמוע. במקרים שכוללים אשפוז או ניתוח, לעיתים יש היתכנות למענק/קצבה על בסיס אחוזי נכות.`);
+      }
+      if(s.key === "q4"){
+        setMicroCopy(`אין לך מסמכים זמינים כרגע? זה בסדר. אפשר לבחור "לא זמין לי כרגע" ולהמשיך.`);
+      }
+
+      els.qForm.innerHTML = "";
+      s.options.forEach(opt=>{
+        const div = document.createElement("div");
+        div.className = "option" + (state.answers[s.key] === opt.v ? " active" : "");
+        div.innerHTML = `<div class="bullet"></div><div style="font-weight:900;">${opt.l}</div>`;
+        div.onclick = ()=>{ state.answers[s.key]=opt.v; render(); };
+        els.qForm.appendChild(div);
+      });
+
+      els.nextBtn.disabled = !state.answers[s.key];
+      els.backBtn.disabled = state.step === 0;
+    }
+
+    function scoreAndTier(a){
+      let score = 0;
+      if(a.q1==="30d") score += 35;
+      if(a.q2==="car_work") score += 35;
+      if(a.q3==="severe") score += 30;
+      if(a.q4==="med_yes") score += 18;
+      const represented = (a.q5==="yes");
+      let tier = score >= 85 ? "Platinum" : (score >= 60 ? "Gold" : "Silver");
+      if(represented) tier = "NotForSale";
+      return { score, tier, represented };
+    }
+
+    function buildSummary(a){
+      const res = scoreAndTier(a);
+      const chips=[];
+      if(a.q2==="car_work") chips.push("זכאות כפולה פוטנציאלית");
+      if(a.q1==="30d") chips.push("מקרה טרי");
+      if(a.q3==="severe") chips.push("פגיעה משמעותית");
+      
+      const pills = chips.map(t=>`<span class="pill">✓ ${t}</span>`).join(" ");
+      return `<div style="font-weight:900;">תוצאות ראשוניות:</div><div>${pills}</div>`;
+    }
+
+    els.startBtn.onclick = goQuiz;
+    els.startBtn2.onclick = goQuiz;
+    els.backBtn.onclick = ()=>{ if(state.step>0){ state.step--; render(); } };
+    els.nextBtn.onclick = ()=>{
+      if(state.step < steps.length-1){ state.step++; render(); }
+      else {
+        els.quiz.classList.add("hidden");
+        els.done.classList.remove("hidden");
+        els.summaryBox.innerHTML = buildSummary(state.answers);
+      }
     };
 
-    // ====== Helpers ======
-    function calcTier(score){
-      if (score < 20) return "BRONZE";
-      if (score < 50) return "SILVER";
-      if (score < 80) return "GOLD";
-      return "PLATINUM";
-    }
-
-    function setProgress(){
-      const total = steps.length;
-      const pct = Math.round((state.stepIndex / (total-1)) * 100);
-      document.getElementById("bar").style.width = pct + "%";
-    }
-
-    function el(tag, attrs={}, children=[]){
-      const node = document.createElement(tag);
-      Object.entries(attrs).forEach(([k,v])=>{
-        if (k === "class") node.className = v;
-        else if (k === "html") node.innerHTML = v;
-        else node.setAttribute(k,v);
+    els.submitBtn.onclick = async ()=>{
+      const name = els.fullName.value.trim();
+      const phone = els.phone.value.trim();
+      if(!name || phone.length < 9) return alert("נא למלא פרטים תקינים");
+      
+      els.submitBtn.disabled = true;
+      els.submitBtn.textContent = "שולח...";
+      
+      const s = scoreAndTier(state.answers);
+      const ok = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, answers: state.answers, score: s.score, tier: s.tier })
       });
-      children.forEach(c => node.appendChild(c));
-      return node;
-    }
 
-    function showAlert(msg){
-      const a = document.getElementById("alert");
-      if (!a) return;
-      a.textContent = msg;
-      a.style.display = "block";
-    }
-    function hideAlert(){
-      const a = document.getElementById("alert");
-      if (!a) return;
-      a.style.display = "none";
-      a.textContent = "";
-    }
-
-    // ====== Render ======
-    function render(){
-      setProgress();
-      hideAlert();
-
-      const card = document.getElementById("qCard");
-      card.innerHTML = "";
-
-      const step = steps[state.stepIndex];
-
-      card.appendChild(el("div",{class:"qTitle", html: step.title}));
-      if(step.hint){
-        card.appendChild(el("div",{class:"qHint", html: step.hint}));
+      if(ok){
+        alert("נשלח בהצלחה ✅");
+        location.reload();
       }
-
-      if(step.id !== "lead"){
-        const opts = el("div",{class:"options"});
-        step.options.forEach((o, idx)=>{
-          const btn = el("button",{class:"opt", type:"button"});
-          btn.appendChild(el("span",{html:o.label}));
-          btn.appendChild(el("span",{class:"tag", html:o.tag || ""}));
-          btn.addEventListener("click", ()=>{
-            // save answer
-            state.answers[step.id] = o.label;
-
-            // kill switch
-            if (o.score <= -999){
-              state.score = 0;
-              state.tier = "BRONZE";
-              // jump to lead screen but show message
-              state.stepIndex = steps.findIndex(s=>s.id==="lead");
-              state.answers["represented"] = "כן";
-              render();
-              showInlineMessage("נראה שאתה כבר מיוצג. במקרה כזה אנחנו לא ממשיכים. אם תרצה, אפשר להתחיל מחדש.");
-              return;
-            }
-
-            state.score += o.score;
-            state.tier = calcTier(state.score);
-
-            next();
-          });
-          opts.appendChild(btn);
-        });
-        card.appendChild(opts);
-
-      } else {
-        // Lead form
-        const form = el("div",{class:"formRow"});
-
-        const name = el("input",{class:"field", id:"name", placeholder:"שם מלא", inputmode:"text", autocomplete:"name"});
-        const phone = el("input",{class:"field", id:"phone", placeholder:"מספר טלפון", inputmode:"tel", autocomplete:"tel"});
-        form.appendChild(name);
-        form.appendChild(phone);
-
-        const note = el("div",{class:"miniNote", html: "🔒 <b>דיסקרטי לחלוטין:</b> המספר משמש רק לשליחת תוצאות הבדיקה והכוונה להמשך. המעסיק לא מעורב ולא מקבל הודעה."});
-        form.appendChild(note);
-
-        const consent = el("label",{class:"consent"});
-        const cb = el("input",{type:"checkbox", id:"consent"});
-        const txt = el("span",{html:"אני מאשר יצירת קשר לצורך שליחת תוצאות הבדיקה והכוונה להמשך."});
-        consent.appendChild(cb); consent.appendChild(txt);
-
-        card.appendChild(form);
-        card.appendChild(consent);
-
-        const alert = el("div",{class:"alert", id:"alert"});
-        card.appendChild(alert);
-
-        const nav = el("div",{class:"navRow"});
-        const backBtn = el("button",{class:"btn", type:"button", html:"חזרה"});
-        backBtn.addEventListener("click", prev);
-
-        const sendBtn = el("button",{class:"btn primary", type:"button", html:"שלח תוצאות"});
-        sendBtn.addEventListener("click", submitLead);
-
-        nav.appendChild(backBtn);
-        nav.appendChild(sendBtn);
-        card.appendChild(nav);
-
-        // show score summary (internal feel, without insulting tiers)
-        const summary = el("div",{class:"miniNote", html:`<b>תוצאות פנימיות:</b> ציון ${state.score} • דירוג ${state.tier}`});
-        card.appendChild(summary);
-      }
-
-      // Navigation for normal steps
-      if(step.id !== "lead"){
-        const nav = el("div",{class:"navRow"});
-        const backBtn = el("button",{class:"btn", type:"button", html:"חזרה"});
-        backBtn.disabled = state.stepIndex === 0;
-        backBtn.addEventListener("click", prev);
-
-        const restartBtn = el("button",{class:"btn", type:"button", html:"התחל מחדש"});
-        restartBtn.addEventListener("click", reset);
-
-        nav.appendChild(backBtn);
-        nav.appendChild(restartBtn);
-        card.appendChild(nav);
-
-        const alert = el("div",{class:"alert", id:"alert"});
-        card.appendChild(alert);
-      }
-    }
-
-    function showInlineMessage(msg){
-      const a = document.getElementById("alert");
-      if (!a) return;
-      a.textContent = msg;
-      a.style.display = "block";
-    }
-
-    function next(){
-      if (state.stepIndex < steps.length - 1){
-        state.stepIndex++;
-        render();
-      }
-    }
-    function prev(){
-      if (state.stepIndex > 0){
-        // going back: remove last step score effect is complex; keep simple:
-        // reset and replay based on previous answers for accuracy
-        const target = state.stepIndex - 1;
-        replayTo(target);
-      }
-    }
-
-    function replayTo(targetIndex){
-      const saved = { ...state.answers };
-      state.stepIndex = 0;
-      state.answers = {};
-      state.score = 0;
-      state.tier = "BRONZE";
-
-      // Re-apply answers up to targetIndex
-      for(let i=0;i<=targetIndex;i++){
-        const s = steps[i];
-        if (!saved[s.id]) break;
-        const picked = s.options?.find(o => o.label === saved[s.id]);
-        if (!picked) break;
-        state.answers[s.id] = picked.label;
-        if (picked.score <= -999){
-          break;
-        } else {
-          state.score += picked.score;
-          state.tier = calcTier(state.score);
-        }
-        state.stepIndex = i;
-      }
-      render();
-    }
-
-    function reset(){
-      state.stepIndex = 0;
-      state.answers = {};
-      state.score = 0;
-      state.tier = "BRONZE";
-      render();
-      document.getElementById("quiz").scrollIntoView({behavior:"smooth", block:"start"});
-    }
-
-    function validatePhoneIL(phone){
-      const p = (phone || "").replace(/\D/g, "");
-      // ישראל: בדרך כלל 10 ספרות, מתחיל ב-05
-      if (p.length !== 10) return false;
-      if (!p.startsWith("05")) return false;
-      return true;
-    }
-
-    async function submitLead(){
-      const name = (document.getElementById("name").value || "").trim();
-      const phone = (document.getElementById("phone").value || "").trim();
-      const consent = document.getElementById("consent").checked;
-
-      if (state.answers["represented"] === "כן"){
-        showInlineMessage("לא ניתן להשלים בדיקה אם אתה כבר מיוצג. אפשר להתחיל מחדש.");
-        return;
-      }
-
-      if (name.length < 2){
-        showInlineMessage("בבקשה כתוב שם מלא.");
-        return;
-      }
-      if (!validatePhoneIL(phone)){
-        showInlineMessage("בבקשה כתוב מספר נייד ישראלי תקין (10 ספרות, מתחיל ב-05).");
-        return;
-      }
-      if (!consent){
-        showInlineMessage("בבקשה סמן אישור יצירת קשר.");
-        return;
-      }
-
-      // payload
-      const payload = {
-        source: "seder_zchuyot",
-        page: location.href,
-        ts: new Date().toISOString(),
-        name,
-        phone,
-        score: state.score,
-        tier: state.tier,
-        answers: state.answers
-      };
-
-      // UI lock
-      const btns = Array.from(document.querySelectorAll("button"));
-      btns.forEach(b => b.disabled = true);
-
-      try{
-        const res = await fetch(WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-
-        if (!res.ok){
-          throw new Error("Bad status " + res.status);
-        }
-
-        // success
-        btns.forEach(b => b.disabled = false);
-        openThankYou();
-
-        // reset for next visitor
-        setTimeout(()=> reset(), 600);
-
-      }catch(err){
-        console.error(err);
-        btns.forEach(b => b.disabled = false);
-        showInlineMessage("הייתה בעיה בשליחה. נסה שוב בעוד רגע.");
-      }
-    }
-
-    function openThankYou(){
-      const ov = document.getElementById("overlay");
-      ov.style.display = "flex";
-    }
-    function closeThankYou(){
-      const ov = document.getElementById("overlay");
-      ov.style.display = "none";
-    }
-
-    // ====== Wire buttons ======
-    document.getElementById("startBtn").addEventListener("click", ()=>{
-      document.getElementById("quiz").scrollIntoView({behavior:"smooth", block:"start"});
-    });
-    document.getElementById("ctaTop").addEventListener("click", ()=>{
-      document.getElementById("quiz").scrollIntoView({behavior:"smooth", block:"start"});
-    });
-    document.getElementById("ctaQuestions").addEventListener("click", ()=>{
-      alert("שאלות נפוצות: בשלב הזה נעלה בהמשך. כרגע המטרה היא בדיקה קצרה שמייצרת תוצאות.");
-    });
-    document.getElementById("closeOverlay").addEventListener("click", closeThankYou);
-    document.getElementById("overlay").addEventListener("click", (e)=>{
-      if(e.target.id === "overlay") closeThankYou();
-    });
-
-    // init
-    render();
-  </script>
+    };
+  });
+</script>
 </body>
 </html>

@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>סדר זכויות | הפרטים התקבלו</title>
+  <meta name="description" content="הפרטים התקבלו. גורם מקצועי מתאים עשוי ליצור איתך קשר. בינתיים—כך תתכונן כדי לחסוך זמן." />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#0b1220;
+      --paper:#f6f8ff;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --primary:#2563eb;
+      --primary2:#0ea5e9;
+      --shadow: 0 18px 55px rgba(2,6,23,.22);
+      --shadow2: 0 12px 30px rgba(2,6,23,.12);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:'Assistant', system-ui, -apple-system, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 650px at 80% -10%, rgba(14,165,233,.26), transparent 55%),
+        radial-gradient(900px 620px at 10% 0%, rgba(34,197,94,.14), transparent 55%),
+        radial-gradient(900px 620px at 50% 115%, rgba(249,115,22,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg1) 34%, var(--paper) 34%, var(--paper) 100%);
+      line-height:1.65;
+      min-height:100vh;
+    }
+    .wrap{ max-width:980px; margin:0 auto; padding:20px 16px 90px; }
+
+    .topbar{
+      color:#fff; display:flex; align-items:center; justify-content:space-between;
+      gap:12px; flex-wrap:wrap; margin-bottom:14px;
+    }
+    .brand{ display:flex; align-items:center; gap:10px; }
+    .mark{
+      width:42px; height:42px; border-radius:16px;
+      background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.65));
+      display:grid; place-items:center; color:#0b1220; font-weight:900;
+      box-shadow: 0 20px 40px rgba(0,0,0,.18);
+    }
+    .brandTitle{ font-weight:900; letter-spacing:-.2px; }
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px;
+      background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      color:rgba(255,255,255,.92);
+      font-size:12.5px; font-weight:800;
+      backdrop-filter: blur(10px);
+    }
+
+    .shell{
+      margin-top:8px;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 28px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid rgba(148,163,184,.28);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: var(--shadow2);
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size: 34px;
+      line-height:1.12;
+      letter-spacing:-.6px;
+      font-weight:900;
+    }
+
+    .lead{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size: 16.5px;
+      max-width: 70ch;
+    }
+
+    .box{
+      border-radius: 18px;
+      padding: 14px;
+      border:1px solid rgba(148,163,184,.25);
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+      margin-top:12px;
+    }
+
+    .steps{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .item{
+      border:1px solid rgba(148,163,184,.25);
+      border-radius:18px;
+      padding:14px;
+      background:#fff;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+
+    .num{
+      width:32px;height:32px;border-radius:12px;
+      display:grid;place-items:center;
+      background:rgba(14,165,233,.10);
+      color:#0369a1;
+      font-weight:900;
+      flex:0 0 auto;
+      margin-top:2px;
+    }
+
+    .item b{ font-weight:900; }
+    .item div{ color:var(--muted); }
+
+    .btnRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+
+    .btn{
+      border:0; cursor:pointer;
+      border-radius: 18px;
+      padding: 14px 18px;
+      font-weight:900;
+      font-size: 16px;
+      color:#fff;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      box-shadow: 0 18px 30px rgba(37,99,235,.22);
+      transition: transform .15s ease, filter .15s ease;
+      font-family: inherit;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+    .btnGhost{
+      background:#fff;
+      color:var(--text);
+      border:1px solid rgba(148,163,184,.35);
+      box-shadow:none;
+    }
+
+    .legal{
+      margin-top: 14px;
+      color: rgba(15,23,42,.65);
+      font-size: 12.5px;
+      line-height:1.6;
+    }
+
+    footer{
+      margin-top: 18px;
+      color: rgba(255,255,255,.78);
+      font-size: 12.5px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="mark">✓</div>
+        <div>
+          <div class="brandTitle">סדר זכויות</div>
+          <div style="font-size:12.5px; color:rgba(255,255,255,.78); font-weight:700">הפרטים התקבלו</div>
+        </div>
+      </div>
+      <span class="chip">🔒 דיסקרטי · ללא התחייבות</span>
+    </div>
+
+    <div class="shell">
+      <div class="card">
+        <h1>קיבלנו את הפרטים ✅</h1>
+        <p class="lead">
+          תודה. הפרטים נבדקים לצורך התאמה והפניה לגורם מקצועי מתאים.
+          <b>גורם מקצועי מתאים עשוי ליצור איתך קשר</b> בהמשך, בהתאם לנתונים שהזנת.
+        </p>
+
+        <div class="box">
+          <b style="font-weight:900;">בינתיים — כדי לחסוך זמן בשיחה</b>
+          <div style="color:var(--muted); margin-top:6px;">
+            3 פעולות קצרות שמומלץ לעשות עכשיו:
+          </div>
+
+          <div class="steps">
+            <div class="item">
+              <div class="num">1</div>
+              <div>
+                <b>תאסוף מסמכים מהימים הראשונים</b><br>
+                <div>סיכום מיון/מוקד, אישור מחלה, הפניות, תוצאות בדיקות — אפילו צילום מהטלפון מספיק.</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="num">2</div>
+              <div>
+                <b>תרשום תאריך ושעה של האירוע</b><br>
+                <div>וגם איפה זה קרה ומי היה בסביבה (עדים/מנהל/קולגה).</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="num">3</div>
+              <div>
+                <b>תסכם בשתי שורות מה השתנה מאז</b><br>
+                <div>כאב, תפקוד, עבודה, טיפולים — זה עוזר להבין מהר את התמונה.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="btnRow">
+          <a class="btn" href="./">חזרה לדף הראשי</a>
+          <a class="btn btnGhost" href="./#faq">שאלות נפוצות</a>
+        </div>
+
+        <div class="legal">
+          *אין באמור ייעוץ משפטי, חוות דעת רפואית או הבטחת תוצאה. האתר אינו קשור לביטוח הלאומי או לכל גוף ממשלתי.
+          הפרטים נמסרים לצורך בדיקה ראשונית והפניה לגורם מקצועי מתאים בלבד.
+        </div>
+      </div>
+    </div>
+
+    <footer>סדר זכויות · בדיקה קצרה אחרי פגיעה בעבודה</footer>
+  </div>
+
+<script>
+  // אופציונלי: אם מגיעים לדף תודה בלי שליחה, נוודא שאין "קישורים מוזרים" שמציגים מידע
+  // (אנחנו לא מציגים tier/score בכלל, בכוונה)
+</script>
+</body>
+</html>

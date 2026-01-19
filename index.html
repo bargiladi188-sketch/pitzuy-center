@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>סדר זכויות | בדיקה קצרה אחרי פגיעה בעבודה</title>
-  <meta name="description" content="בדיקה קצרה ולא מחייבת שמסדרת תמונה ראשונית אחרי פגיעה שקשורה לעבודה. דיסקרטי. בערך 2 דקות." />
+  <title>סדר זכויות | בדיקת היתכנות לפיצוי כספי לנפגעי עבודה</title>
+  <meta name="description" content="בדיקה דיסקרטית ב-2 דקות כדי להבין אם יש היתכנות לפיצוי כספי (כולל מענקים) — בלי בירוקרטיה ובלי לערב את המעסיק בשלב זה." />
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
@@ -20,6 +20,9 @@
       --shadow: 0 18px 55px rgba(2,6,23,.22);
       --shadow2: 0 12px 30px rgba(2,6,23,.12);
       --r:22px;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --bad:#ef4444;
     }
 
     *{ box-sizing:border-box; }
@@ -58,7 +61,6 @@
       color:rgba(255,255,255,.92);
       font-size:12.5px; font-weight:800;
       backdrop-filter: blur(10px);
-      white-space:nowrap;
     }
     .dot{ width:8px; height:8px; border-radius:99px; background:#86efac; }
 
@@ -72,7 +74,7 @@
       backdrop-filter: blur(10px);
     }
 
-    .grid{ display:grid; grid-template-columns: 1.3fr .7fr; gap:14px; }
+    .grid{ display:grid; grid-template-columns: 1.25fr .75fr; gap:14px; align-items:stretch; }
     @media (max-width: 980px){ .grid{ grid-template-columns:1fr; } }
 
     .card{
@@ -81,7 +83,7 @@
       border-radius: 24px;
       padding: 22px;
       box-shadow: var(--shadow2);
-      min-width:0;
+      min-width: 0;
     }
 
     h1{
@@ -92,10 +94,22 @@
       font-weight:900;
     }
     .lead{
-      margin:0 0 16px;
+      margin:0 0 14px;
       color:var(--muted);
       font-size: 17px;
       max-width: 62ch;
+    }
+
+    .socialProof{
+      display:inline-flex; align-items:center; gap:8px;
+      background: rgba(34,197,94,.10);
+      border: 1px solid rgba(34,197,94,.22);
+      color:#14532d;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight:900;
+      font-size: 13px;
+      margin: 2px 0 12px;
     }
 
     .ctaRow{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top: 8px; }
@@ -115,6 +129,13 @@
     .btn:disabled{ opacity:.65; cursor:not-allowed; transform:none; }
     .btnGhost{ background:#fff; color:var(--text); border:1px solid rgba(148,163,184,.35); box-shadow:none; }
 
+    .microUnderCta{
+      margin-top:10px;
+      color: rgba(15,23,42,.72);
+      font-size: 13px;
+      font-weight:800;
+    }
+
     .features{
       display:grid;
       grid-template-columns: repeat(3, minmax(220px, 1fr));
@@ -122,8 +143,12 @@
       margin-top: 18px;
       align-items: stretch;
     }
-    @media (max-width: 980px){ .features{ grid-template-columns: repeat(2, minmax(200px, 1fr)); } }
-    @media (max-width: 560px){ .features{ grid-template-columns: 1fr; } }
+    @media (max-width: 980px){
+      .features{ grid-template-columns: repeat(2, minmax(200px, 1fr)); }
+    }
+    @media (max-width: 560px){
+      .features{ grid-template-columns: 1fr; }
+    }
 
     .feat{
       border-radius: 20px;
@@ -145,8 +170,17 @@
       font-weight: 900;
       font-size: 20px;
     }
-    .feat b{ display:block; margin:0 0 6px; font-size: 16px; line-height:1.2; font-weight:900; }
-    .feat span{ display:block; font-size: 13.5px; line-height: 1.45; color: var(--muted); max-width: 40ch; }
+    .feat b{
+      display:block; margin:0 0 6px;
+      font-size: 16px; line-height:1.2; font-weight:900;
+    }
+    .feat span{
+      display:block;
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: var(--muted);
+      max-width: 40ch;
+    }
 
     details{
       border:1px solid rgba(148,163,184,.28);
@@ -160,39 +194,67 @@
 
     .hidden{ display:none !important; }
 
-    /* ✅ "איך זה עובד" - תיקון הבעיה של ריבועים צרים */
-    .howWrap{
-      display:grid;
-      gap:10px;
-      align-items:stretch;
-    }
-    .howItem{
+    /* RIGHT CARD - steps (fix inner narrow look) */
+    .steps{ display:grid; gap:10px; }
+    .step{
       width:100%;
-      align-self:stretch;
       border:1px solid rgba(148,163,184,.25);
       border-radius:18px;
       padding:14px;
       background:#fff;
       display:flex;
       gap:12px;
-      min-width:0;
+      align-items:flex-start;
     }
-    .howNum{
-      width:30px;height:30px;border-radius:12px;
-      display:grid;place-items:center;
-      background:rgba(14,165,233,.10);
-      color:#0369a1;
-      font-weight:900;
-      flex:0 0 auto;
+    .stepNum{
+      width:30px;height:30px;border-radius:12px;display:grid;place-items:center;
+      background:rgba(14,165,233,.10);color:#0369a1;font-weight:900; flex:0 0 auto;
     }
+    .stepText b{ font-weight:900; display:block; margin-bottom:2px; }
+    .stepText div{ color:var(--muted); }
+
+    .trustBox{
+      margin-top:12px;
+      padding:14px;
+      border-radius:18px;
+      border:1px solid rgba(148,163,184,.25);
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .facts{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+    }
+    .fact{
+      width:100%;
+      border-radius:18px;
+      padding:14px;
+      border:1px solid rgba(148,163,184,.25);
+      background:#fff;
+    }
+    .fact b{ display:block; font-weight:900; margin-bottom:4px; color:var(--text); }
+    .fact span{ display:block; color:var(--muted); font-size:13.5px; }
 
     /* QUIZ */
     .quizHead{ display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap; }
     .progressText{ font-size: 13px; color:var(--muted); font-weight:800; }
     .bar{ height: 10px; background: rgba(148,163,184,.25); border-radius: 999px; overflow:hidden; margin: 10px 0 16px; }
     .fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--primary), var(--primary2), #22c55e); transition: width .25s ease; }
+
     .qTitle{ margin: 0 0 8px; font-size: 22px; font-weight: 900; letter-spacing:-.2px; }
     .qHint{ margin: 0 0 10px; color: var(--muted); font-size: 14px; }
+    .microAfter{
+      margin-top:10px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,.22);
+      background: rgba(37,99,235,.04);
+      color: rgba(15,23,42,.78);
+      font-size: 13.5px;
+      font-weight: 800;
+    }
 
     .option{
       display:flex; gap:12px; align-items:flex-start;
@@ -250,6 +312,28 @@
       color: var(--muted);
       font-size: 14px;
     }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(148,163,184,.25);
+      background:#fff;
+      margin: 6px 6px 0 0;
+      color: var(--text);
+      font-weight:800;
+      font-size: 12.5px;
+    }
+
+    .checklist{
+      margin-top:12px;
+      border-radius:18px;
+      border:1px solid rgba(148,163,184,.25);
+      background:#fff;
+      padding:14px;
+    }
+    .checklist b{ display:block; font-weight:900; margin-bottom:6px; }
+    .checklist ul{ margin:8px 0 0; padding:0 18px 0 0; color: var(--muted); }
+    .checklist li{ margin:6px 0; }
 
     .legal{ margin-top: 14px; color: rgba(15,23,42,.65); font-size: 12.5px; line-height:1.6; }
     footer{ margin-top: 18px; color: rgba(255,255,255,.78); font-size: 12.5px; text-align: center; }
@@ -263,7 +347,7 @@
         <div class="mark">✓</div>
         <div>
           <div class="brandTitle">סדר זכויות</div>
-          <div style="font-size:12.5px; color:rgba(255,255,255,.78); font-weight:700">בדיקה קצרה אחרי פגיעה בעבודה</div>
+          <div style="font-size:12.5px; color:rgba(255,255,255,.78); font-weight:700">בדיקת היתכנות לפיצוי כספי לנפגעי עבודה</div>
         </div>
       </div>
       <div class="chips">
@@ -277,66 +361,91 @@
       <!-- LANDING -->
       <div id="landing" class="grid">
         <div class="card">
-          <h1>נפגעת בעבודה? בוא נעשה סדר רגע.</h1>
+          <h1>נפגעת בעבודה? בדוק היתכנות לפיצוי כספי.</h1>
+
+          <div class="socialProof" id="socialProof">
+            ✅ אנשים משתמשים בזה עכשיו כדי לעשות סדר (בדיקה קצרה, בלי התחייבות)
+          </div>
+
           <p class="lead">
-            זו בדיקה קצרה שמסדרת תמונה ראשונית אחרי פגיעה שקשורה לעבודה.
-            אין כאן ייעוץ משפטי ואין התחייבות לתוצאה.
+            בדיקה חכמה שמסדרת את התמונה ועוזרת להבין אם יש היתכנות למענק חד־פעמי או קצבה.
+            בלי בירוקרטיה, בלי מילים מסובכות, ובלי לערב את המעסיק בשלב זה.
           </p>
 
           <div class="ctaRow">
-            <button class="btn" id="startBtn" type="button">מתחילים בדיקה</button>
+            <button class="btn" id="startBtn" type="button">חשבו פוטנציאל פיצוי משוער ›</button>
             <button class="btn btnGhost" id="scrollFaqBtn" type="button">שאלות נפוצות</button>
+          </div>
+
+          <div class="microUnderCta">
+            🔎 זו בדיקה ראשונית בלבד. בסוף אתה מחליט אם להשאיר פרטים לקבלת תוצאות הבדיקה.
           </div>
 
           <div class="features">
             <div class="feat">
               <div class="ico">🧠</div>
-              <div><b>ברור ופשוט</b><span>שאלה אחת בכל מסך — בלי סיבוכים.</span></div>
+              <div><b>פשוט וברור</b><span>5 שאלות קצרות — כדי להבין מהר איפה אתה עומד.</span></div>
             </div>
             <div class="feat">
               <div class="ico">🛡️</div>
-              <div><b>דיסקרטי</b><span>אתה מחליט אם להשאיר פרטים בסוף.</span></div>
+              <div><b>בטוח מול המעסיק</b><span>הבדיקה דיסקרטית. המעסיק לא מקבל הודעה ולא מעורב בשלב זה.</span></div>
             </div>
             <div class="feat">
-              <div class="ico">⚡</div>
-              <div><b>מהיר ונוח</b><span>מתאים גם מהטלפון — בלי להתברבר.</span></div>
+              <div class="ico">💰</div>
+              <div><b>מזהה “כסף שנשאר על הרצפה”</b><span>גם נכות נמוכה יכולה להוביל למענק משמעותי — הרבה לא יודעים את זה.</span></div>
             </div>
           </div>
 
           <div id="faq" style="margin-top:18px;">
             <div style="font-weight:900; margin-bottom:8px;">שאלות נפוצות</div>
-            <details><summary>זה ייעוץ משפטי?</summary><p>לא. זו בדיקה ראשונית בלבד לצורך סדר והכוונה כללית.</p></details>
-            <details><summary>אתם ביטוח לאומי?</summary><p>לא. זה אתר פרטי שאינו קשור לביטוח הלאומי או לכל גוף ממשלתי.</p></details>
-            <details><summary>זה פוגע ביחסים עם המעסיק?</summary><p>לא. הבדיקה דיסקרטית ואין צורך לערב את המעסיק בשלב הזה.</p></details>
+            <details><summary>זה ייעוץ משפטי?</summary><p>לא. זו בדיקה ראשונית שמטרתה לעשות סדר ולהכווין. אין כאן התחייבות לפיצוי או הבטחה לתוצאה.</p></details>
+            <details><summary>האם זה מערב את המעסיק?</summary><p>לא. הבדיקה דיסקרטית והמידע נשאר אצלך. המעסיק לא מקבל הודעה ולא מעורב בשלב זה.</p></details>
+            <details><summary>זה בתשלום?</summary><p>הבדיקה באתר ללא עלות וללא התחייבות. בסוף אתה מחליט אם להשאיר פרטים לקבלת תוצאות הבדיקה.</p></details>
           </div>
 
           <div class="legal" style="margin-top: 14px;">
-            *האתר אינו אתר רשמי של הביטוח הלאומי ואינו מספק ייעוץ משפטי. מטרתו סינון ומידע ראשוני בלבד.
+            *האתר אינו גוף ממשלתי ואינו מספק ייעוץ משפטי. המידע באתר הוא ראשוני ואינפורמטיבי בלבד.
           </div>
         </div>
 
         <div class="card">
           <div style="font-weight:900; font-size:18px; margin-bottom:10px;">איך זה עובד?</div>
 
-          <div class="howWrap">
-            <div class="howItem">
-              <div class="howNum">1</div>
-              <div><b style="font-weight:900">עונה על כמה שאלות קצרות</b><div style="color:var(--muted)">טריות, חומרה, תיעוד וסטטוס.</div></div>
+          <div class="steps">
+            <div class="step">
+              <div class="stepNum">1</div>
+              <div class="stepText"><b>עונים על 5 שאלות</b><div>מתי זה קרה, סוג פגיעה, חומרה, מסמכים, ייצוג.</div></div>
             </div>
-
-            <div class="howItem">
-              <div class="howNum">2</div>
-              <div><b style="font-weight:900">מקבל סיכום ראשוני</b><div style="color:var(--muted)">תמונה כללית (לא ייעוץ).</div></div>
+            <div class="step">
+              <div class="stepNum">2</div>
+              <div class="stepText"><b>מקבלים סיכום ותמונה ברורה</b><div>מה כדאי לעשות עכשיו כדי לא לפספס זכויות.</div></div>
             </div>
+            <div class="step">
+              <div class="stepNum">3</div>
+              <div class="stepText"><b>אם תרצה — תקבל את תוצאות הבדיקה</b><div>משאירים שם וטלפון רק בסוף, אם מתאים לך.</div></div>
+            </div>
+          </div>
 
-            <div class="howItem">
-              <div class="howNum">3</div>
-              <div><b style="font-weight:900">בסוף — אם תרצה, תוכל להשאיר פרטים</b><div style="color:var(--muted)">לבדיקה והפניה לגורם מקצועי מתאים.</div></div>
+          <div class="trustBox">
+            <b style="display:block; font-weight:900; color:var(--text); margin-bottom:6px;">3 דברים שאנשים מגלים מאוחר מדי</b>
+            <div class="facts">
+              <div class="fact">
+                <b>“10% נכות” זה לא תמיד כסף קטן</b>
+                <span>במקרים מסוימים, גם נכות נמוכה עשויה לזכות במענק חד־פעמי משמעותי (תלוי נתונים ונסיבות).</span>
+              </div>
+              <div class="fact">
+                <b>תאונת דרכים בדרך לעבודה = לעיתים זכאות כפולה</b>
+                <span>במקרים מסוימים יש זכאות גם מול ביטוח לאומי וגם מול ביטוח החובה (אין כאן הבטחה — רק כיוון לבדיקה).</span>
+              </div>
+              <div class="fact">
+                <b>כאב מצטבר יכול להיות “פגיעה בעבודה”</b>
+                <span>גם בלי אירוע חד — עומס מתמשך (מיקרוטראומה) יכול להיות רלוונטי, בהתאם לנסיבות ותיעוד.</span>
+              </div>
             </div>
           </div>
 
           <div style="margin-top:14px;">
-            <button class="btn" type="button" id="startBtn2" style="width:100%;">יאללה, מתחילים</button>
+            <button class="btn" type="button" id="startBtn2" style="width:100%;">מתחילים בדיקה ›</button>
           </div>
         </div>
       </div>
@@ -344,7 +453,7 @@
       <!-- QUIZ -->
       <div id="quiz" class="card hidden">
         <div class="quizHead">
-          <div class="progressText" id="progressTxt">שאלה 1 מתוך 8</div>
+          <div class="progressText" id="progressTxt">שאלה 1 מתוך 5</div>
           <div class="progressText">⏱ בערך 2 דקות</div>
         </div>
         <div class="bar"><div id="progressFill" class="fill"></div></div>
@@ -352,6 +461,7 @@
         <h2 id="qTitle" class="qTitle"></h2>
         <p id="qHint" class="qHint"></p>
         <div id="qForm"></div>
+        <div id="microAfter" class="microAfter hidden"></div>
 
         <div class="navRow">
           <button class="btn btnGhost" id="backBtn" type="button">אחורה</button>
@@ -364,32 +474,37 @@
         <h2 style="margin:0 0 8px; font-weight:900; letter-spacing:-.2px;">סיכום קצר ✅</h2>
         <div id="summaryBox" class="summaryBox"></div>
 
-        <div class="formGrid">
-          <input type="text" id="fullName" placeholder="שם מלא" autocomplete="name" />
-          <input type="tel" id="phone" placeholder="מספר נייד" autocomplete="tel" inputmode="tel" />
-
-          <!-- honeypot anti-bot -->
-          <input type="text" id="website" class="hidden" tabindex="-1" autocomplete="off" />
-
-          <label style="display:flex; gap:10px; align-items:flex-start; font-size:13.5px; color:var(--muted);">
-            <input type="checkbox" id="consent" style="margin-top:4px;">
-            <span>אני מאשר יצירת קשר לגבי תוצאות הבדיקה, ומבין שאין כאן ייעוץ משפטי.</span>
-          </label>
-
-          <button class="btn" id="submitBtn" type="button">שליחת פרטים</button>
-          <div class="legal">הפרטים נמסרים לצורך בדיקה והפניה לגורם מקצועי מתאים בלבד.</div>
+        <div class="checklist" id="checklistBox">
+          <b>כדי לחסוך זמן אחר כך — כדאי להכין (אם יש):</b>
+          <ul>
+            <li>מסמך רפואי ראשון / סיכום ביקור / מיון</li>
+            <li>אישור ימי מחלה (אם היה)</li>
+            <li>פרטי האירוע: תאריך, מקום, מי היה איתך</li>
+            <li>אם הייתה מעורבות של רכב — פרטי התאונה (בקצרה)</li>
+          </ul>
         </div>
 
-        <div class="legal" style="margin-top: 10px;">
-          *אין כאן ייעוץ משפטי או הבטחת תוצאה. האתר אינו קשור לביטוח הלאומי או לגוף ממשלתי.
+        <div class="formGrid">
+          <input type="text" id="fullName" placeholder="שם מלא" autocomplete="name" />
+          <input type="tel" id="phone" placeholder="מספר טלפון" autocomplete="tel" inputmode="tel" />
+          <button class="btn" id="submitBtn" type="button">קבל את תוצאות הבדיקה</button>
+
+          <div class="legal" id="phoneMicro">
+            🔒 <b>100% דיסקרטי:</b> המספר משמש רק לשליחת תוצאות הבדיקה. המעסיק לא מעורב ולא מקבל הודעה.
+          </div>
+
+          <div class="legal">
+            *בלחיצה אתה מאשר יצירת קשר לגבי תוצאות הבדיקה שביצעת. אין התחייבות ואין ייעוץ משפטי.
+          </div>
         </div>
       </div>
     </div>
 
-    <footer style="margin-top: 30px;">סדר זכויות · בדיקה קצרה אחרי פגיעה בעבודה</footer>
+    <footer style="margin-top: 30px;">סדר זכויות · בדיקת היתכנות לפיצוי כספי לנפגעי עבודה</footer>
   </div>
 
 <script>
+  // ✅ Webhook של Make
   const WEBHOOK_URL = "https://hook.eu1.make.com/zodd6hyaiagfivgofyy1h6jjamyymm23";
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -405,193 +520,67 @@
       qTitle: document.getElementById("qTitle"),
       qHint: document.getElementById("qHint"),
       qForm: document.getElementById("qForm"),
+      microAfter: document.getElementById("microAfter"),
       backBtn: document.getElementById("backBtn"),
       nextBtn: document.getElementById("nextBtn"),
       summaryBox: document.getElementById("summaryBox"),
       fullName: document.getElementById("fullName"),
       phone: document.getElementById("phone"),
       submitBtn: document.getElementById("submitBtn"),
-      consent: document.getElementById("consent"),
-      website: document.getElementById("website"),
     };
 
-    const startedAt = Date.now();
-
+    // state
     const state = {
       step: 0,
-      killed: false,
-      killReason: null,
-      scoreRaw: 0,
-      scoreNorm: 0,
-      tier: null,
-      reasons: [],
-      flags: [],
-      answers: {
-        status:null, event:null, when:null, care:null, body:null, absent:null, docs:null, represented:null
-      }
+      answers: { q1:null, q2:null, q3:null, q4:null, q5:null },
+      score: 0,
+      tier: "BRONZE",
+      disqualify: false,
+      disqualifyReason: ""
     };
 
+    // שאלון אופטימלי לפי הנוטבוק:
+    // 1) מתי זה קרה
+    // 2) סוג פגיעה (תפריט)
+    // 3) VIP: רכב/אשפוז/ניתוח
+    // 4) מסמכים רפואיים
+    // 5) ייצוג (Kill Switch)
     const steps = [
-      {
-        key:"status",
-        title:"מה הסטטוס שלך כרגע?",
-        hint:"כדי לוודא שהבדיקה מתאימה.",
-        options:[
-          {l:"שכיר", v:"employee", pts:0},
-          {l:"עצמאי", v:"self", pts:0},
-          {l:"פנסיונר / לא עובד", v:"not_working", kill:true, killReason:"הבדיקה מיועדת כרגע למי שנפגע במהלך עבודתו."},
-          {l:"חייל / כוחות הביטחון", v:"security", kill:true, killReason:"במקרה הזה לרוב פונים לקצין תגמולים/משרד הביטחון."}
-        ]
-      },
-      {
-        key:"event",
-        title:"איזה סוג אירוע עברת?",
-        hint:"זה עוזר לזהות מסלול בדיקה נכון.",
-        options:[
-          {l:"תאונה פתאומית בעבודה (נפילה/מכה/הרמה)", v:"sudden", pts:10},
-          {l:"תאונת דרכים בדרך לעבודה/ממנה/במהלך העבודה", v:"rta_work", pts:25},
-          {l:"כאבים שהתפתחו לאורך זמן בגלל העבודה", v:"gradual", pts:5},
-          {l:"פגיעה בבית/בחופשה פרטית", v:"private", kill:true, killReason:"הבדיקה הזו מיועדת לפגיעה שקשורה לעבודה."}
-        ]
-      },
-      {
-        key:"when",
-        title:"מתי קרה המקרה (או מתי התחילו הכאבים)?",
-        hint:"ככל שזה טרי יותר — קל יותר לתעד.",
-        options:[
-          {l:"בחודש האחרון", v:"1m", pts:40},
-          {l:"ב-3 החודשים האחרונים", v:"3m", pts:30},
-          {l:"בשנה האחרונה", v:"1y", pts:15},
-          {l:"בין שנה ל-3 שנים", v:"1to3y", pts:0},
-          {l:"לפני יותר מ-3 שנים", v:"3yplus", pts:-50, flag:"מקרה ישן מאוד (קושי ראייתי)"}
-        ]
-      },
-      {
-        key:"care",
-        title:"האם קיבלת טיפול רפואי בעקבות הפגיעה?",
-        hint:"זה נותן אינדיקציה לחומרה ולתיעוד.",
-        options:[
-          {l:"כן, פוניתי למיון או אושפזתי", v:"er_hosp", pts:30},
-          {l:"כן, שברים/קרעים/צורך בניתוח", v:"fracture_surgery", pts:30},
-          {l:"רופא משפחה / מוקד", v:"gp", pts:10},
-          {l:"עוד לא הלכתי לרופא", v:"no_care", pts:-20, flag:"אין טיפול רפואי עדיין"}
-        ]
-      },
-      {
-        key:"body",
-        title:"איפה בגוף נפגעת בעיקר?",
-        hint:"רק כדי להבין כיוון כללי.",
-        options:[
-          {l:"גב/צוואר/עמוד שדרה", v:"spine", pts:15},
-          {l:"ראש / רב-מערכתי", v:"head_multi", pts:20},
-          {l:"גפיים (יד/רגל/ברך/כתף)", v:"limbs", pts:10},
-          {l:"מכות יבשות/שריטות בלבד", v:"minor_hits", pts:-10}
-        ]
-      },
-      {
-        key:"absent",
-        title:"האם נעדרת מהעבודה בעקבות הפגיעה?",
-        hint:"זה מסמן פגיעה תפקודית.",
-        options:[
-          {l:"כן, מעל 14 יום", v:"gt14", pts:15},
-          {l:"כן, כמה ימים בודדים", v:"few", pts:5},
-          {l:"לא, המשכתי לעבוד כרגיל", v:"none", pts:-10}
-        ]
-      },
-      {
-        key:"docs",
-        title:"האם יש לך מסמכים רפואיים ראשוניים?",
-        hint:"מסמך אחד כבר עושה הבדל.",
-        options:[
-          {l:"כן, סיכום/אישור מחלה/מסמך רפואי", v:"yes", pts:15},
-          {l:"עדיין לא, אבל אשיג", v:"will_get", pts:0},
-          {l:"לא", v:"no", pts:-5}
-        ]
-      },
-      {
-        key:"represented",
-        title:"האם כבר פנית לעורך דין או שאתה מיוצג?",
-        hint:"כדי לא לבזבז זמן.",
-        options:[
-          {l:"לא, טרם טיפלתי בזה", v:"no", pts:20},
-          {l:"ניסיתי לבד/נדחיתי/קיבלתי סכום נמוך", v:"tried", pts:5},
-          {l:"אני כבר מיוצג על ידי עו\"ד", v:"yes", kill:true, killReason:"אם כבר יש ייצוג, בדרך כלל לא נוכל לעזור בהמשך."}
-        ]
-      },
+      { key:"q1", title:"מתי בערך קרתה הפגיעה?", hint:"ככל שזה טרי יותר — קל יותר לתעד ולבדוק זכויות.", options:[
+        {l:"ב־7 הימים האחרונים",v:"7d"},
+        {l:"בחודש–שלושה חודשים",v:"3m"},
+        {l:"לפני 3–12 חודשים",v:"12m"},
+        {l:"לפני יותר משנה",v:"1y"},
+        {l:"לפני יותר מ־3 שנים",v:"3y"}
+      ]},
+
+      { key:"q2", title:"מה סוג הפגיעה העיקרי?", hint:"בחר את האפשרות הכי קרובה. זה רק לצורך סיווג ראשוני.", options:[
+        {l:"נפילה / החלקה / מכה בעבודה",v:"fall"},
+        {l:"הרמת משא / מאמץ פיזי (גב/ברך/כתף)",v:"strain"},
+        {l:"פגיעה ביד/אצבע (כולל חתך/מעיכה)",v:"hand"},
+        {l:"פגיעה בראש/עין/פנים",v:"head"},
+        {l:"כאב מצטבר לאורך זמן (מיקרוטראומה)",v:"micro"}
+      ]},
+
+      { key:"q3", title:"האם הייתה מעורבות של רכב או אשפוז/ניתוח?", hint:"זו אחת האינדיקציות החזקות ביותר למקרה “בעל משמעות” — ועדיין צריך בדיקה.", options:[
+        {l:"כן — תאונת דרכים בדרך/בזמן עבודה",v:"car"},
+        {l:"כן — היה אשפוז / ניתוח / שבר",v:"severe"},
+        {l:"לא — טיפול רגיל בקהילה (רופא/מיון בלי אשפוז)",v:"regular"}
+      ]},
+
+      { key:"q4", title:"האם יש מסמכים רפואיים ראשוניים?", hint:"זה עוזר מאוד, אבל גם אם אין לך עכשיו — אפשר להוציא בקלות בהמשך.", options:[
+        {l:"כן — יש לי מסמך רפואי",v:"med_yes"},
+        {l:"יש לי, אבל לא זמין לי כרגע",v:"med_later"},
+        {l:"עדיין לא, אבל הייתי אצל רופא/מיון",v:"visited"},
+        {l:"עדיין לא פניתי לטיפול רפואי",v:"none"}
+      ]},
+
+      { key:"q5", title:"האם אתה כבר מיוצג על ידי עורך דין במקרה הזה?", hint:"רק כדי להבין אם יש טעם להתקדם. זה לא מחייב כלום.", options:[
+        {l:"לא",v:"no"},
+        {l:"לא בטוח / רק התייעצתי",v:"unsure"},
+        {l:"כן, אני מיוצג",v:"yes"}
+      ]},
     ];
-
-    function applyKillIfNeeded() {
-      const s = steps[state.step];
-      const v = state.answers[s.key];
-      const opt = s.options.find(o => o.v === v);
-      if (opt && opt.kill) {
-        state.killed = true;
-        state.killReason = opt.killReason || "המקרה לא מתאים לבדיקה.";
-      }
-    }
-
-    function calcScoreAndMeta() {
-      let score = 0;
-      const reasons = [];
-      const flags = [];
-
-      for (const s of steps) {
-        const v = state.answers[s.key];
-        const opt = s.options.find(o => o.v === v);
-        if (!opt) continue;
-
-        score += (opt.pts || 0);
-        if (opt.flag) flags.push(opt.flag);
-
-        if (s.key === "event" && v === "rta_work") reasons.push("תאונת דרכים קשורה לעבודה");
-        if (s.key === "when" && (v === "1m" || v === "3m")) reasons.push("מקרה טרי יחסית");
-        if (s.key === "care" && (v === "er_hosp" || v === "fracture_surgery")) reasons.push("טיפול משמעותי/פגיעה קשה");
-        if (s.key === "docs" && v === "yes") reasons.push("יש תיעוד רפואי");
-        if (s.key === "represented" && v === "no") reasons.push("לא מיוצג (ליד בתולי)");
-      }
-
-      const norm = Math.max(0, Math.min(100, Math.round((score / 165) * 100)));
-
-      let tier = "Bronze";
-      if (norm >= 85) tier = "Platinum";
-      else if (norm >= 50) tier = "Gold";
-      else if (norm >= 20) tier = "Silver";
-
-      if ((state.answers.care === "er_hosp" || state.answers.care === "fracture_surgery") && state.answers.absent === "none") {
-        flags.push("סתירה אפשרית: טיפול משמעותי אך ללא היעדרות");
-      }
-
-      const seconds = Math.round((Date.now() - startedAt) / 1000);
-      if (seconds < 40) flags.push("מילוי מהיר מאוד (יתכן בוט/חוסר רצינות)");
-
-      state.scoreRaw = score;
-      state.scoreNorm = norm;
-      state.tier = tier;
-      state.reasons = Array.from(new Set(reasons)).slice(0, 4);
-      state.flags = Array.from(new Set(flags)).slice(0, 6);
-    }
-
-    function saleStatusFromTier(tier) {
-      return (tier === "Platinum" || tier === "Gold" || tier === "Silver") ? "sell" : "no_sell";
-    }
-
-    function buildSummary() {
-      calcScoreAndMeta();
-
-      const bullets = (state.reasons.length ? state.reasons : ["יש נתונים ראשוניים לבדיקה"])
-        .map(t => `• ${t}`).join("<br>");
-
-      const warn = state.flags.length
-        ? `<div style="margin-top:10px; color:#b45309; font-weight:800;">לתשומת לב: ${state.flags.join(" · ")}</div>`
-        : "";
-
-      return `
-        <div style="font-weight:900; color:var(--text); margin-bottom:6px;">מה התקבל מהבדיקה:</div>
-        <div>${bullets}</div>
-        <div style="margin-top:10px;">אם תרצה — השאר פרטים לצורך בדיקה והפניה לגורם מקצועי מתאים.</div>
-        ${warn}
-      `;
-    }
 
     function goQuiz(){
       els.landing.classList.add("hidden");
@@ -615,14 +604,111 @@
         div.innerHTML = `<div class="bullet" aria-hidden="true"></div><div style="font-weight:900; font-size:16px; line-height:1.25">${opt.l}</div>`;
         div.onclick = ()=>{
           state.answers[s.key]=opt.v;
-          applyKillIfNeeded();
           render();
         };
         els.qForm.appendChild(div);
       });
 
+      // Micro-copy לפי נקודות נטישה
+      const micro = getMicroAfter(state.step, state.answers);
+      if(micro){
+        els.microAfter.textContent = micro;
+        els.microAfter.classList.remove("hidden");
+      } else {
+        els.microAfter.classList.add("hidden");
+        els.microAfter.textContent = "";
+      }
+
       els.nextBtn.disabled = !state.answers[s.key];
       els.backBtn.disabled = state.step === 0;
+    }
+
+    function getMicroAfter(stepIndex, a){
+      // (א) אחרי חומרה/רכב/אשפוז (שאלה 3)
+      if(stepIndex === 2 && (a.q3 === "severe" || a.q3 === "car")){
+        return "מצטער לשמוע. במקרים עם אשפוז/ניתוח או תאונת דרכים בדרך לעבודה יש לעיתים זכאויות משמעותיות — חשוב לתעד ולבדוק את זה בזמן.";
+      }
+      // (ב) לפני/סביב מסמכים (שאלה 4)
+      if(stepIndex === 3){
+        return "אין לך מסמכים זמינים עכשיו? זה בסדר. אפשר להשיג אותם בהמשך בקלות — אל תעצור בגלל זה.";
+      }
+      return "";
+    }
+
+    function calcScore(a){
+      let score = 0;
+
+      // טריות
+      if(a.q1 === "7d") score += 40;
+      if(a.q1 === "3m") score += 35;
+      if(a.q1 === "12m") score += 20;
+      if(a.q1 === "1y") score += 5;
+      if(a.q1 === "3y") score -= 50;
+
+      // סוג פגיעה (רק עדינות — לא להבטיח)
+      if(a.q2 === "hand") score += 10;
+      if(a.q2 === "head") score += 10;
+      if(a.q2 === "strain") score += 8;
+      if(a.q2 === "fall") score += 6;
+      if(a.q2 === "micro") score -= 10;
+
+      // VIP
+      if(a.q3 === "car") score += 25;
+      if(a.q3 === "severe") score += 30;
+
+      // מסמכים
+      if(a.q4 === "med_yes") score += 15;
+      if(a.q4 === "med_later") score += 10;
+      if(a.q4 === "visited") score += 6;
+      if(a.q4 === "none") score -= 25;
+
+      // ייצוג (Kill Switch)
+      if(a.q5 === "yes"){
+        return { score, disqualify:true, reason:"כבר מיוצג על ידי עורך דין" };
+      }
+
+      return { score, disqualify:false, reason:"" };
+    }
+
+    function tierFromScore(score){
+      if(score >= 80) return "PLATINUM";
+      if(score >= 50) return "GOLD";
+      if(score >= 20) return "SILVER";
+      return "BRONZE";
+    }
+
+    function buildSummary(a){
+      const { score, disqualify, reason } = calcScore(a);
+      const tier = tierFromScore(score);
+
+      state.score = score;
+      state.tier = tier;
+      state.disqualify = disqualify;
+      state.disqualifyReason = reason;
+
+      const chips = [];
+      if(a.q1 === "7d" || a.q1 === "3m") chips.push("מקרה טרי");
+      if(a.q3 === "severe") chips.push("כולל אשפוז/ניתוח/שבר");
+      if(a.q3 === "car") chips.push("מעורבות של רכב בדרך/בזמן עבודה");
+      if(a.q4 === "med_yes" || a.q4 === "med_later") chips.push("יש מסמכים רפואיים");
+      if(a.q4 === "none") chips.push("כדאי לפנות לבדיקה רפואית בהקדם");
+      if(a.q2 === "micro") chips.push("ייתכן עומס מצטבר (מיקרוטראומה)");
+
+      const pills = chips.length
+        ? chips.map(t=>`<span class="pill">✓ ${t}</span>`).join(" ")
+        : `<span class="pill">✓ יש נתונים לבדיקה ראשונית</span>`;
+
+      // לא מציגים Tier למשתמש (כדי לא להעליב Silver וכו')
+      // רק מסגרת: "הבדיקה התקבלה" + פעולה להמשך.
+      const tierLine = disqualify
+        ? `<div style="margin-top:10px; font-weight:900; color:var(--bad);">הערה: נראה שכבר יש ייצוג. במקרה כזה לפעמים אין טעם להתקדם דרך האתר.</div>`
+        : `<div style="margin-top:10px;">כדי לקבל את תוצאות הבדיקה ולהבין מה נכון לעשות עכשיו — השאר פרטים בסוף (אם מתאים לך).</div>`;
+
+      return `
+        <div style="font-weight:900; color:var(--text); margin-bottom:6px;">מה עולה מהתשובות שלך:</div>
+        <div>${pills}</div>
+        ${tierLine}
+      `;
     }
 
     async function postLead(payload) {
@@ -635,17 +721,12 @@
         return true;
       } catch (e) {
         console.error("Webhook error:", e);
+        // גם אם הדפדפן חוסם תשובה, לפעמים זה עדיין מגיע ל-Make.
         return true;
       }
     }
 
-    function getUTM() {
-      const params = new URLSearchParams(location.search);
-      const obj = {};
-      for (const [k,v] of params.entries()) obj[k] = v;
-      return obj;
-    }
-
+    // events
     els.startBtn.onclick = goQuiz;
     els.startBtn2.onclick = goQuiz;
 
@@ -656,18 +737,6 @@
     els.backBtn.onclick = ()=>{ if(state.step>0){ state.step--; render(); } };
 
     els.nextBtn.onclick = ()=>{
-      if (state.killed) {
-        els.quiz.classList.add("hidden");
-        els.done.classList.remove("hidden");
-        els.summaryBox.innerHTML = `
-          <div style="font-weight:900; margin-bottom:6px;">רגע קטן 🙏</div>
-          <div style="color:var(--muted)">${state.killReason}</div>
-          <div style="margin-top:10px; color:var(--muted)">אם תרצה, תוכל עדיין להשאיר פרטים לצורך בדיקה והפניה.</div>
-        `;
-        window.scrollTo({top:0, behavior:"smooth"});
-        return;
-      }
-
       if(state.step < steps.length-1){
         state.step++;
         render();
@@ -675,7 +744,7 @@
       } else {
         els.quiz.classList.add("hidden");
         els.done.classList.remove("hidden");
-        els.summaryBox.innerHTML = buildSummary();
+        els.summaryBox.innerHTML = buildSummary(state.answers);
         window.scrollTo({top:0, behavior:"smooth"});
       }
     };
@@ -683,51 +752,36 @@
     els.submitBtn.onclick = async ()=>{
       const name = (els.fullName.value||"").trim();
       const phone = (els.phone.value||"").trim();
-
-      const hp = (els.website.value||"").trim();
-      if (hp) return;
-
-      if (!els.consent.checked) return alert("בבקשה סמן אישור יצירת קשר");
-      if(!name) return alert("בבקשה כתוב שם מלא");
-
       const digits = phone.replace(/\D/g,"");
-      const isILMobile = (digits.length === 10 && digits.startsWith("05")) || (digits.length === 9 && digits.startsWith("5"));
-      if(!isILMobile) return alert("בבקשה כתוב מספר נייד ישראלי תקין");
 
-      const ttc = Math.round((Date.now() - startedAt) / 1000);
-      if (ttc < 15) return alert("בבקשה נסה שוב בעוד רגע");
-
-      calcScoreAndMeta();
-
-      const payload = {
-        name,
-        phone: digits,
-        answers: state.answers,
-
-        score_raw: state.scoreRaw,
-        score_norm: state.scoreNorm,
-        tier: state.tier,
-        sale_status: saleStatusFromTier(state.tier),
-
-        reasons: state.reasons,
-        flags: state.flags,
-
-        time_to_complete_sec: ttc,
-        utm: getUTM(),
-
-        source: "seder_zchuyot",
-        page: location.href,
-        ts: new Date().toISOString()
-      };
+      if(!name) return alert("בבקשה כתוב שם מלא");
+      if(digits.length < 9) return alert("בבקשה כתוב מספר טלפון תקין");
 
       const oldText = els.submitBtn.textContent;
       els.submitBtn.disabled = true;
       els.submitBtn.textContent = "שולח…";
 
+      const payload = {
+        name,
+        phone: digits,
+        answers: state.answers,
+        score: state.score,
+        tier: state.tier,
+        disqualified: state.disqualify,
+        disqualifyReason: state.disqualifyReason,
+        source: "seder_zchuyot",
+        page: location.href,
+        ts: new Date().toISOString()
+      };
+
       const ok = await postLead(payload);
 
       if(ok){
-        window.location.href = "thankyou.html";
+        els.submitBtn.textContent = "נשלח ✓";
+        setTimeout(()=>{
+          alert("התקבל ✅ תוצאות הבדיקה יישלחו אליך. (דיסקרטי וללא התחייבות)");
+          location.reload();
+        }, 450);
       } else {
         alert("משהו לא עבר. נסה שוב בעוד דקה.");
         els.submitBtn.disabled = false;
@@ -738,4 +792,3 @@
 </script>
 </body>
 </html>
- 

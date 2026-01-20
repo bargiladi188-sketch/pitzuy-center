@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="he" dir="rtl">
 <head>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-W9WPS449');</script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>סדר זכויות | בדיקת היתכנות לפיצוי כספי לנפגעי עבודה</title>
@@ -84,6 +89,7 @@
       padding: 22px;
       box-shadow: var(--shadow2);
       min-width: 0;
+      overflow: visible;
     }
 
     h1{
@@ -194,8 +200,8 @@
 
     .hidden{ display:none !important; }
 
-    /* RIGHT CARD - steps (fix inner narrow look) */
-    .steps{ display:grid; gap:10px; }
+    /* RIGHT CARD - steps fix */
+    .steps{ display:grid; gap:10px; width: 100%; }
     .step{
       width:100%;
       border:1px solid rgba(148,163,184,.25);
@@ -205,13 +211,23 @@
       display:flex;
       gap:12px;
       align-items:flex-start;
+      height: auto !important;
+      min-height: unset !important;
+      overflow: visible !important;
     }
     .stepNum{
       width:30px;height:30px;border-radius:12px;display:grid;place-items:center;
       background:rgba(14,165,233,.10);color:#0369a1;font-weight:900; flex:0 0 auto;
     }
+    .stepText{ flex: 1 1 auto; min-width: 0; }
     .stepText b{ font-weight:900; display:block; margin-bottom:2px; }
-    .stepText div{ color:var(--muted); }
+    .stepText div{ 
+      color:var(--muted); 
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      line-height: 1.45;
+    }
 
     .trustBox{
       margin-top:12px;
@@ -341,6 +357,8 @@
 </head>
 
 <body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W9WPS449"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
@@ -358,7 +376,6 @@
     </div>
 
     <div class="shell">
-      <!-- LANDING -->
       <div id="landing" class="grid">
         <div class="card">
           <h1>נפגעת בעבודה? בדוק היתכנות לפיצוי כספי.</h1>
@@ -450,7 +467,6 @@
         </div>
       </div>
 
-      <!-- QUIZ -->
       <div id="quiz" class="card hidden">
         <div class="quizHead">
           <div class="progressText" id="progressTxt">שאלה 1 מתוך 5</div>
@@ -469,7 +485,6 @@
         </div>
       </div>
 
-      <!-- DONE -->
       <div id="done" class="card hidden">
         <h2 style="margin:0 0 8px; font-weight:900; letter-spacing:-.2px;">סיכום קצר ✅</h2>
         <div id="summaryBox" class="summaryBox"></div>
@@ -529,7 +544,6 @@
       submitBtn: document.getElementById("submitBtn"),
     };
 
-    // state
     const state = {
       step: 0,
       answers: { q1:null, q2:null, q3:null, q4:null, q5:null },
@@ -539,12 +553,6 @@
       disqualifyReason: ""
     };
 
-    // שאלון אופטימלי לפי הנוטבוק:
-    // 1) מתי זה קרה
-    // 2) סוג פגיעה (תפריט)
-    // 3) VIP: רכב/אשפוז/ניתוח
-    // 4) מסמכים רפואיים
-    // 5) ייצוג (Kill Switch)
     const steps = [
       { key:"q1", title:"מתי בערך קרתה הפגיעה?", hint:"ככל שזה טרי יותר — קל יותר לתעד ולבדוק זכויות.", options:[
         {l:"ב־7 הימים האחרונים",v:"7d"},
@@ -609,7 +617,6 @@
         els.qForm.appendChild(div);
       });
 
-      // Micro-copy לפי נקודות נטישה
       const micro = getMicroAfter(state.step, state.answers);
       if(micro){
         els.microAfter.textContent = micro;
@@ -624,11 +631,9 @@
     }
 
     function getMicroAfter(stepIndex, a){
-      // (א) אחרי חומרה/רכב/אשפוז (שאלה 3)
       if(stepIndex === 2 && (a.q3 === "severe" || a.q3 === "car")){
         return "מצטער לשמוע. במקרים עם אשפוז/ניתוח או תאונת דרכים בדרך לעבודה יש לעיתים זכאויות משמעותיות — חשוב לתעד ולבדוק את זה בזמן.";
       }
-      // (ב) לפני/סביב מסמכים (שאלה 4)
       if(stepIndex === 3){
         return "אין לך מסמכים זמינים עכשיו? זה בסדר. אפשר להשיג אותם בהמשך בקלות — אל תעצור בגלל זה.";
       }
@@ -637,36 +642,25 @@
 
     function calcScore(a){
       let score = 0;
-
-      // טריות
       if(a.q1 === "7d") score += 40;
       if(a.q1 === "3m") score += 35;
       if(a.q1 === "12m") score += 20;
       if(a.q1 === "1y") score += 5;
       if(a.q1 === "3y") score -= 50;
-
-      // סוג פגיעה (רק עדינות — לא להבטיח)
       if(a.q2 === "hand") score += 10;
       if(a.q2 === "head") score += 10;
       if(a.q2 === "strain") score += 8;
       if(a.q2 === "fall") score += 6;
       if(a.q2 === "micro") score -= 10;
-
-      // VIP
       if(a.q3 === "car") score += 25;
       if(a.q3 === "severe") score += 30;
-
-      // מסמכים
       if(a.q4 === "med_yes") score += 15;
       if(a.q4 === "med_later") score += 10;
       if(a.q4 === "visited") score += 6;
       if(a.q4 === "none") score -= 25;
-
-      // ייצוג (Kill Switch)
       if(a.q5 === "yes"){
         return { score, disqualify:true, reason:"כבר מיוצג על ידי עורך דין" };
       }
-
       return { score, disqualify:false, reason:"" };
     }
 
@@ -680,7 +674,6 @@
     function buildSummary(a){
       const { score, disqualify, reason } = calcScore(a);
       const tier = tierFromScore(score);
-
       state.score = score;
       state.tier = tier;
       state.disqualify = disqualify;
@@ -698,8 +691,6 @@
         ? chips.map(t=>`<span class="pill">✓ ${t}</span>`).join(" ")
         : `<span class="pill">✓ יש נתונים לבדיקה ראשונית</span>`;
 
-      // לא מציגים Tier למשתמש (כדי לא להעליב Silver וכו')
-      // רק מסגרת: "הבדיקה התקבלה" + פעולה להמשך.
       const tierLine = disqualify
         ? `<div style="margin-top:10px; font-weight:900; color:var(--bad);">הערה: נראה שכבר יש ייצוג. במקרה כזה לפעמים אין טעם להתקדם דרך האתר.</div>`
         : `<div style="margin-top:10px;">כדי לקבל את תוצאות הבדיקה ולהבין מה נכון לעשות עכשיו — השאר פרטים בסוף (אם מתאים לך).</div>`;
@@ -721,21 +712,16 @@
         return true;
       } catch (e) {
         console.error("Webhook error:", e);
-        // גם אם הדפדפן חוסם תשובה, לפעמים זה עדיין מגיע ל-Make.
         return true;
       }
     }
 
-    // events
     els.startBtn.onclick = goQuiz;
     els.startBtn2.onclick = goQuiz;
-
     els.scrollFaqBtn.onclick = ()=>{
       document.getElementById("faq").scrollIntoView({ behavior:"smooth", block:"start" });
     };
-
     els.backBtn.onclick = ()=>{ if(state.step>0){ state.step--; render(); } };
-
     els.nextBtn.onclick = ()=>{
       if(state.step < steps.length-1){
         state.step++;
@@ -775,7 +761,6 @@
       };
 
       const ok = await postLead(payload);
-
       if(ok){
         els.submitBtn.textContent = "נשלח ✓";
         setTimeout(()=>{

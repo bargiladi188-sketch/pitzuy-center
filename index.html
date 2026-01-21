@@ -772,10 +772,10 @@
       const ok = await postLead(payload);
       if(ok){
         els.submitBtn.textContent = "נשלח ✓";
+        // התיקון: מעבר לעמוד תודה במקום רענון
         setTimeout(()=>{
-          alert("התקבל ✅ תוצאות הבדיקה יישלחו אליך. (דיסקרטי וללא התחייבות)");
-          location.reload();
-        }, 450);
+          window.location.href = "thanks.html";
+        }, 300);
       } else {
         alert("משהו לא עבר. נסה שוב בעוד דקה.");
         els.submitBtn.disabled = false;
